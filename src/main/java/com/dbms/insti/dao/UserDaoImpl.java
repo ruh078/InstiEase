@@ -1,0 +1,76 @@
+package com.dbms.insti.dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import com.dbms.insti.models.Users;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+@Repository
+public class UserDaoImpl implements UserDao{
+	@Autowired
+	JdbcTemplate template;
+	private RowMapper<Users> userRowMapper = new RowMapper<Users>() {
+        @Override
+        public Users mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+            Users user = new Users();
+            user.setUser_id(rs.getInt("user_id"));
+            user.setEmail_id(rs.getString("email_id"));
+            user.setPsw(rs.getString("psw"));
+            user.setRole(rs.getInt("role"));
+            user.setName(rs.getString("name"));
+            user.setContact(rs.getString("contact"));
+            user.setDob(rs.getDate("dob"));
+            user.setGender(rs.getString("gender"));
+            return user;
+        }
+    };
+	@Override
+	public Users findByEmail(String email_id) {
+		String query = "select * from users where email_id=?";
+        try {
+            Users user = template.queryForObject(query, userRowMapper, email_id);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+        	return null;
+        }
+	}
+
+	@Override
+	public boolean userExists(String email_id) {
+		try
+		{
+				String query = "select * from users where email_id=?";
+				Users user = template.queryForObject(query, userRowMapper, email_id);
+				return true;
+				 
+		}
+			
+		catch (EmptyResultDataAccessException e) {
+	        return false;
+	    }
+	}
+
+	@Override
+	public void save(Users user) {
+		String sql = "INSERT INTO users (email_id, psw, role, name, contact, dob, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, user.getEmail_id(), user.getPsw(), user.getRole(), user.getName(), user.getContact(), user.getDob(), user.getGender());
+		
+	}
+
+	@Override
+	public Users findByUserId(int user_id) {
+		String query = "select * from users where user_id=?";
+        try {
+            Users user = template.queryForObject(query, userRowMapper, user_id);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+        	return null;
+        }
+	}
+	
+}
