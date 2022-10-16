@@ -7,6 +7,7 @@
  <a th:href="@{/register}"><button class="btn btn-primary"> Register </button></a>
  
  </div>
+ <li class="current-list-item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 </body>
 
 </html>
