@@ -1,61 +1,125 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::body})">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
     <!-- favicon -->
-    <link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}">
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-    <!-- fontawesome -->
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <!-- bootstrap -->
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
-    <!-- owl carousel -->
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
-    <!-- magnific popup -->
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <!-- animate css -->
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <!-- mean menu css -->
-    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
-    <!-- main style -->
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <!-- responsive -->
-    <link rel="stylesheet" th:href="@{/css/responsive.css}">
-    <link rel="stylesheet" th:href="@{/css/loginpage.css}">
 </head>
 <body>
-<div class="workshop-header color">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-center">
-                <div class="breadcrumb-text">
-                    <h1>Login Page</h1>
-                </div>
+    <div id="auth">
+    <div class="row h-100">
+            <div class="col-lg-5 col-12">
+                <div id="auth-left" style="padding-top:20px;padding-left:70px;padding-right:70px;">
+                    <div class="auth-logo" style="margin:0px;">
+                        <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:9rem;" alt="Logo"></a>
+                    </div>
+                <h1 class="auth-title" style="padding-top:0px;">Log in.</h1>
+                <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+                         
+    <form class="pt-3" th:action="@{/login}" method="post">
+        <p class="alert alert-danger" th:if="${param.error}">Invalid email or password.</p>
+        <div class="form-group position-relative has-icon-left mb-4">
+        <input class="form-control form-control-xl" type="email" placeholder="Email Address" name="email_id"  id="email_id"  required autofocus><br>
+        <div class="form-control-icon">
+            <i class="bi bi-envelope"></i>
+        </div>
+        </div>
+        <div class="form-group position-relative has-icon-left mb-4">
+        <input class="form-control form-control-xl" type="password" name="psw" placeholder="Password"  id="psw" required>
+        <div class="form-control-icon">
+            <i class="bi bi-shield-lock"></i>
+        </div>
+        </div>
+        
+        <input type="submit" value="Log in" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+
+       
+       </form>
+<div class="text-center mt-5 text-lg fs-4">
+    <p class="text-gray-600">Don't have an account? <a th:href="@{/register}" class="font-bold">Sign
+            up</a>.</p>
+
+    <p><a class="font-bold" th:href="@{/reset/}">Forgot password?</a>.</p>
+</div>
+    </div>
+    </div>
+    <div class="col-lg-7 d-none d-lg-block" style="background-image: url('@{images/auth/login-bg.jpg}');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-color:rgb(102, 93, 223);">
+    </div>
+    </div>
+    
+    </div>
+    <!-- <form class="pt-3" th:action="@{/login}" method="post">
+        <p class="alert alert-danger" th:if="${param.error}">Invalid email or password.</p>
+        <div class="form-group position-relative has-icon-left mb-4">
+            <input type="email" class="form-control form-control-xl" placeholder="Email" id="email_id" name="email_id"
+                placeholder="Email" required>
+            <div class="form-control-icon">
+                <i class="bi bi-envelope"></i>
             </div>
         </div>
-    </div>
-</div>
-<br>
-<div class="form-div">
-    <form class="form-signin " th:action="@{/login}" method="post">
-
-        <h1 class="h3 mb-3 font-weight-normal text-center"> Sign in here</h1>
-        <p class="alert alert-danger" th:if="${param.error}">Invalid email or password.</p>
-        <input class="form-control" type="text" placeholder="Email Address" name="email_id"  id="email_id"  required autofocus><br>
-        <input class="form-control" type="password" name="psw" placeholder="Password"  id="psw" required>
-        <br>
-
-        <div class="align-content-center">
-        <button class="btn btn-dark text-center" type="submit">Sign in</button>
+        <div class="form-group position-relative has-icon-left mb-4">
+            <input type="password" class="form-control form-control-xl" placeholder="Password" id="psw" name="psw" required>
+            <div class="form-control-icon">
+                <i class="bi bi-shield-lock"></i>
+            </div>
         </div>
-            <p class="mt-4 font-weight-normal">Not a user yet?<a th:href="@{/register}"> click here</a></p>
-    </form>
-
-</div>
-
-
+        <input type="submit" value="Log in" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+    </form>  -->
 </body>
 </html>
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::body})">
+<body>
+    <div id="auth">
+        <div class="row h-100">
+            <div class="col-lg-5 col-12">
+                <div id="auth-left" style="padding-top:20px;padding-left:70px;padding-right:70px;">
+                    <div class="auth-logo" style="margin:0px;">
+                        <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:9rem;" alt="Logo"></a>
+                    </div>
+                    <h1 class="auth-title" style="padding-top:0px;">Log in.</h1>
+                    <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
+
+                    <form class="pt-3" th:action="@{/login}" method="post">
+                        <p class="alert alert-danger" th:if="${param.error}">Invalid email or password.</p>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="email" class="form-control form-control-xl" placeholder="Email" id="email_id"
+                                name="email_id" placeholder="Email" required>
+                            <div class="form-control-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input type="password" class="form-control form-control-xl" placeholder="Password"
+                                id="psw" name="psw"  required>
+                            <div class="form-control-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Log in"
+                            class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                    </form>
+                    <div class="text-center mt-5 text-lg fs-4">
+                        <p class="text-gray-600">Don't have an account? <a th:href="@{/register}" class="font-bold">Sign
+                                up</a>.</p>
+
+                         <p><a class="font-bold" th:href="@{/auth/reset/}">Forgot password?</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 d-none d-lg-block" style="background-image: url('@{images/auth/login-bg.jpg}');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;">
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html> -->
+
+
