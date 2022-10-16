@@ -1,12 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
 <body >
-  <h1> this is homeeee.</h1>
-  <section >
-    <h1> this is home page.</h1>
-  </section>
-  <button class="btn btn-primary"></button>
+ <div>
+ <a th:href="@{/login}"><button class="btn btn-primary"> Login </button></a>
+ <a th:href="@{/register}"><button class="btn btn-primary"> Register </button></a>
+ 
+ </div>
 </body>
 
 </html>
