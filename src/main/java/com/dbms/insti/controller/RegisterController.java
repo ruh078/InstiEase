@@ -18,14 +18,7 @@ public class RegisterController {
 	 private UserService userService;
 	 @Autowired
 	 private SecurityService securityService;
-	 @GetMapping({"/"})
-	 public String home(Model m) {
-		   if(securityService.isLoggedIn())
-			   m.addAttribute("name", userService.findByEmail(securityService.findLoggedInUsername()).getName());
-		   else
-			   m.addAttribute("name", "Guest");
-	       return "home";
-	 }
+	 
 	 @GetMapping({"/register"})
 	 public String register(Model model) {
 		   if(securityService.isLoggedIn())

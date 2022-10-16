@@ -8,6 +8,7 @@
 </head>
 
 <body>
+	<li class="current-list-item" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
     <div class="container-scroller">
         <div id="app">
             <div id="sidebar" class="active">
@@ -74,7 +75,7 @@
     
     
                             <li class="sidebar-item  ">
-                                <a href="/auth/logout" class='sidebar-link'>
+                                <a th:href="@{/logout}" class='sidebar-link'>
                                     <i class="bi bi-box-arrow-left"></i>
                                     <span>Logout</span>
                                 </a>
