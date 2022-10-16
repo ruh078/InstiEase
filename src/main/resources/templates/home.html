@@ -1,42 +1,14 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~::section)">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="google-signin-scope" content="profile email" />
-  <meta name="google-signin-client_id"
-    content="111152628367-nffl1umalf6oocsiagrf1l5q196ibntj.apps.googleusercontent.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- CSS FILES -->
-  <link rel="stylesheet" th:href="@{/assets/css/bootstrap.css }">
-  <link rel="stylesheet" th:href="@{ /assets/vendors/iconly/bold.css }">
-  <link rel="stylesheet" th:href="@{ /assets/vendors/sweetalert2/sweetalert2.css }">
-  <link rel="stylesheet" th:href="@{ /assets/vendors/sweetalert2/sweetalert2.min.css }">
-  <link rel="stylesheet" th:href="@{  /assets/vendors/perfect-scrollbar/perfect-scrollbar.css }">
-  <link rel="stylesheet" th:href="@{ /assets/vendors/bootstrap-icons/bootstrap-icons.css }">
-  <link rel="stylesheet" th:href="@{ /assets/css/app.css}">
-  <link rel="shortcut icon" th:href="@{ /assets/images/favicon.svg }" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/pages/error.css}">
-
-</head>
 
 <body >
-  <h1>Hello</h1>
+  <h1> this is homeeee.</h1>
+  <section >
+    <h1> this is home page.</h1>
+  </section>
   <button class="btn btn-primary"></button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <script th:src="@{ /assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js }"></script>
