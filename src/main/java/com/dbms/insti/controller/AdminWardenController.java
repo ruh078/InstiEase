@@ -23,8 +23,8 @@ public class AdminWardenController {
     private SecurityService securityService;
     @Autowired
     private UserService userService;
-    //@Autowired
-   // private WardenService wardenService;
+    @Autowired
+    private WardenService wardenService;
     @GetMapping("/admin/warden")
     public String adminwarden(Model model) {
     	if(securityService.isLoggedIn()) {
@@ -42,7 +42,7 @@ public class AdminWardenController {
     
     @PostMapping({"/admin/warden"})
     public String addwarden(@ModelAttribute("newwarden") Warden warden, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
-           wardenService.save();
+           wardenService.save(warden);
            return "redirect:/admin/warden";
     }
     @GetMapping("/admin/warden/delete")
