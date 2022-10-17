@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import com.dbms.insti.models.Student;
 import com.dbms.insti.models.Users;
+import com.dbms.insti.models.Warden;
+import com.dbms.insti.service.HostelService;
 import com.dbms.insti.service.SecurityService;
+import com.dbms.insti.service.StudentService;
 import com.dbms.insti.service.UserService;
 @Controller
 public class RegisterController {
@@ -18,12 +21,18 @@ public class RegisterController {
 	 private UserService userService;
 	 @Autowired
 	 private SecurityService securityService;
+	 @Autowired
+     private HostelService hostelservice;
+	 @Autowired
+     private StudentService studentservice;
 	 
 	 @GetMapping({"/register"})
 	 public String register(Model model) {
 		   if(securityService.isLoggedIn())
 			   return "redirect:/";
 	       model.addAttribute("user", new Users());
+	       model.addAttribute("hostels", hostelservice.listAllHostels());
+           model.addAttribute("newstu", new Student());
 	       return "register";
 	 }
 
@@ -35,11 +44,12 @@ public class RegisterController {
 	 }
 
 	 @PostMapping({"/register"})
-	 public String register(@ModelAttribute("user") Users user, Model model, RedirectAttributes attributes) {
-	        if (userService.userExists(user.getEmail_id())) {
-	            return "redirect:/registerError";
-	        }
-	        userService.save(user);
-	        return "redirect:/login";
-	 }
+	 public String addwarden(@ModelAttribute("newstu") Student student, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
+         System.out.println(student.getHostel_id());
+          user.setRole(3);
+          userService.save(user);
+          student.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
+          studentservice.save(student);
+         return "redirect:/login";
+  }
 }

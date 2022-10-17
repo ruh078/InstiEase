@@ -40,7 +40,7 @@ public class AdminWardenController {
     		}
     		return "redirect:/";
     	}
-    	return "redirect/login";
+    	return "redirect:/login";
     }
     
     @PostMapping({"/admin/warden"})
