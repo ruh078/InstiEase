@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Login</title>
+        <title>Add Warden</title>
 
     </head>
 
@@ -39,13 +39,13 @@
                                     <span>Activities</span>
                                 </a>
                                 <ul class="submenu" style="display: block;">
-                                    <li class="submenu-item active ">
+                                    <li class="submenu-item">
                                         <a th:href="@{/admin/hostel}">Hostel</a>
                                     </li>
                                     <li class="submenu-item">
                                         <a th:href="@{/admin/student}">Students</a>
                                     </li>
-                                    <li class="submenu-item">
+                                    <li class="submenu-item active">
                                         <a th:href="@{/admin/warden}">Warden</a>
                                     </li>
                                     <li class="submenu-item">
@@ -85,109 +85,130 @@
                                 <br>
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Hostel List</h4>
-                                        <p class="card-description">List of Registered Hostels
+                                        <h4 class="card-title">Warden List</h4>
+                                        <p class="card-description">List of All Wardens
                                         </p>
                                         <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                             <table class="table table-striped">
                                                 <thead
                                                     style="position:sticky;top:0;z-index:100;background-color: white;">
                                                     <tr>
-                                                        <th style="position:sticky;top:0;z-index:100;">HostelId</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">WardenId</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Warden Name</th>
                                                         <th style="position:sticky;top:0;"></th>
-                                                        
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                   
-                                                    <tr th:each="hostel:${hostels}" >
-                                                        <td th:text ="${hostel.hostel_id}"/>
-                                                        <td th:text="${hostel.hostel_name}" />
-                                                        <td>
-                                                        <div class="modal fade" id="del-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                            aria-hidden="true">
-                                                            <div class="modal-dialog " role="document">
-                                                                <div class="modal-content card-light-danger">
-                                                                    <div class="modal-header ">
-                                                                        <h4 class="modal-title" id="exampleModalLabel">Delete Hostel</h4>
-                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">×</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <div style="white-space:normal;line-height: 160%;">
-                                                                            <div class="row justify-content-center">
-                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
-                                                                                <br>
-                                                                            </div>
-                                                        
-                                                                            Are you absolutely sure you want to delete Hostel?
-                                                                            <br>
-                                                                            <b>Please note that there is no option to restore the Hostel or its related data once it is deleted.</b>
-                                                                            <br>
-                                                                            <br>
-                                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                th:href="@{/admin/hostel/delete}">
-                                                                                Confirm
-                                                                                Delete</a>
 
+                                                    <tr>
+                                                        <td ></td> 
+                                                        <td ></td>
+                                                        <td>
+                                                            <div class="modal fade" id="del-confirm" tabindex="-1"
+                                                                role="dialog" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog " role="document">
+                                                                    <div class="modal-content card-light-danger">
+                                                                        <div class="modal-header ">
+                                                                            <h4 class="modal-title"
+                                                                                id="exampleModalLabel">Delete Warden
+                                                                            </h4>
+                                                                            <button type="button" class="close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div
+                                                                                style="white-space:normal;line-height: 160%;">
+                                                                                <div class="row justify-content-center">
+                                                                                    <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i
+                                                                                            class="text-danger bi bi-exclamation-triangle"></i>
+                                                                                    </h1>
+                                                                                    <br>
+                                                                                </div>
+
+                                                                                Are you absolutely sure you want to
+                                                                                delete Warden?
+                                                                                <br>
+                                                                                <b>Please note that there is no option
+                                                                                    to restore the Warden or its related
+                                                                                    data once it is deleted.</b>
+                                                                                <br>
+                                                                                <br>
+                                                                                <a type="button"
+                                                                                    class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                                    th:href="@{/admin/hostel/delete}">
+                                                                                    Confirm
+                                                                                    Delete</a>
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        
-                                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#del-confirm"
-                                                            data-whatever="@getbootstrap">Delete</button>
+
+                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                                data-bs-target="#del-confirm"
+                                                                data-whatever="@getbootstrap">Delete</button>
                                                         </td>
                                                     </tr>
-                                                   
+
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                            aria-hidden="true">
+                                        <div class="modal fade" id="update_modal" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog " role="document">
                                                 <div class="modal-content card-light-danger">
                                                     <div class="modal-header ">
-                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i
+                                                                class="ti-info-alt"></i>
                                                             Add Hostel</h4>
-                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                        <button type="button" class="close" data-bs-dismiss="modal"
+                                                            aria-label="Close">
                                                             <span aria-hidden="true">×</span>
                                                         </button>
-                                        
-                                        
+
+
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form th:action="@{/admin/hostel}" method="POST" th:object="${newhostel}">
-                                        
-                                    
-                                        
-                                                            
-                                        
+                                                        <form action="@{/admin/hostel}" method="POST"
+                                                         >
+
+
+
+
+
                                                             <div class="form-group">
                                                                 <label for="name">Hostel Name</label>
-                                                                <input type="text" id="name" name="name"  th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="text" id="name" name="name"
+                                                                   
+                                                                    class="form-control form-control-lg"
+                                                                    placeholder="Hostel Name">
                                                             </div>
-                                                           
-                                                           
-                                        
+
+
+
                                                             <div class="mt-3">
                                                                 <input type="submit" value="Add"
                                                                     class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                                                             </div>
                                                         </form>
                                                     </div>
-                                        
+
                                                 </div>
                                             </div>
                                         </div>
-                                            <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto">
-                                        <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Add new Hostel</button>
+                                        <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto">
+                                            <button class="btn btn-primary btn-block font-weight-medium"
+                                                data-bs-toggle="modal" data-bs-target="#update_modal">Add new
+                                                Warden</button>
                                         </div>
-                                            
+
                                     </div>
 
                                 </div>

@@ -39,5 +39,9 @@ public class AdminHostelController {
            hostelService.save(hostel);
            return "redirect:/admin/hostel";
     }
-    
+    @GetMapping("/admin/hostel/delete")
+    public String deletehostel(Model model) {
+        
+        return "redirect:/admin/hostel";
+    }
 }
