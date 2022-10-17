@@ -1,6 +1,7 @@
 package com.dbms.insti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +23,13 @@ public class AdminWardenController {
     private SecurityService securityService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private WardenService wardenService;
+    //@Autowired
+   // private WardenService wardenService;
     @GetMapping("/admin/warden")
     public String adminwarden(Model model) {
     	if(securityService.isLoggedIn()) {
     		if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
-    			model.addAttribute("wardens", wardenService.listAllWardens());
+    			//model.addAttribute("wardens", wardenService.listAllWardens());
                 model.addAttribute("newwarden", new Warden());
                 model.addAttribute("newuser", new Users());
              
@@ -41,7 +42,7 @@ public class AdminWardenController {
     
     @PostMapping({"/admin/warden"})
     public String addwarden(@ModelAttribute("newwarden") Warden warden, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
-           wardenService.save(warden);
+           wardenService.save();
            return "redirect:/admin/warden";
     }
     @GetMapping("/admin/warden/delete")
