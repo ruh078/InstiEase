@@ -103,114 +103,16 @@
 
 
                                                     <tr>
-                                                        <td ></td> 
-                                                        <td ></td>
+                                                        <td></td> 
+                                                        <td></td>
                                                         <td>
-                                                            <div class="modal fade" id="del-confirm" tabindex="-1"
-                                                                role="dialog" aria-labelledby="exampleModalLabel"
-                                                                aria-hidden="true">
-                                                                <div class="modal-dialog " role="document">
-                                                                    <div class="modal-content card-light-danger">
-                                                                        <div class="modal-header ">
-                                                                            <h4 class="modal-title"
-                                                                                id="exampleModalLabel">Delete Hostel
-                                                                            </h4>
-                                                                            <button type="button" class="close"
-                                                                                data-bs-dismiss="modal"
-                                                                                aria-label="Close">
-                                                                                <span aria-hidden="true">×</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                            <div
-                                                                                style="white-space:normal;line-height: 160%;">
-                                                                                <div class="row justify-content-center">
-                                                                                    <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i
-                                                                                            class="text-danger bi bi-exclamation-triangle"></i>
-                                                                                    </h1>
-                                                                                    <br>
-                                                                                </div>
-
-                                                                                Are you absolutely sure you want to
-                                                                                delete Hostel?
-                                                                                <br>
-                                                                                <b>Please note that there is no option
-                                                                                    to restore the Hostel or its related
-                                                                                    data once it is deleted.</b>
-                                                                                <br>
-                                                                                <br>
-                                                                                <a type="button"
-                                                                                    class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                    th:href="@{/admin/hostel/delete}">
-                                                                                    Confirm
-                                                                                    Delete</a>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                                data-bs-target="#del-confirm"
-                                                                data-whatever="@getbootstrap">Delete</button>
                                                         </td>
                                                     </tr>
 
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="modal fade" id="update_modal" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog " role="document">
-                                                <div class="modal-content card-light-danger">
-                                                    <div class="modal-header ">
-                                                        <h4 class="modal-title" id="exampleModalLabel"><i
-                                                                class="ti-info-alt"></i>
-                                                            Add Hostel</h4>
-                                                        <button type="button" class="close" data-bs-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-
-
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form action="@{/admin/hostel}" method="POST"
-                                                         >
-
-
-
-
-
-                                                            <div class="form-group">
-                                                                <label for="name">Hostel Name</label>
-                                                                <input type="text" id="name" name="name"
-                                                                   
-                                                                    class="form-control form-control-lg"
-                                                                    placeholder="Hostel Name">
-                                                            </div>
-
-
-
-                                                            <div class="mt-3">
-                                                                <input type="submit" value="Add"
-                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto">
-                                            <button class="btn btn-primary btn-block font-weight-medium"
-                                                data-bs-toggle="modal" data-bs-target="#update_modal">Add new
-                                                Hostel</button>
-                                        </div>
-
                                     </div>
-
                                 </div>
 
                             </div>
