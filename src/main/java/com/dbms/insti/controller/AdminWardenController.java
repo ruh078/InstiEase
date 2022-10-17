@@ -25,11 +25,14 @@ public class AdminWardenController {
     private UserService userService;
     @Autowired
     private WardenService wardenService;
+    @Autowired
+    private HostelService hostelService;
     @GetMapping("/admin/warden")
     public String adminwarden(Model model) {
     	if(securityService.isLoggedIn()) {
     		if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
-    			//model.addAttribute("wardens", wardenService.listAllWardens());
+    			model.addAttribute("wardens", wardenService.listAllWardens());
+    			model.addAttribute("hostels", hostelService.listAllHostels());
                 model.addAttribute("newwarden", new Warden());
                 model.addAttribute("newuser", new Users());
              
@@ -42,7 +45,12 @@ public class AdminWardenController {
     
     @PostMapping({"/admin/warden"})
     public String addwarden(@ModelAttribute("newwarden") Warden warden, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
-           wardenService.save(warden);
+           System.out.println(warden.getHostel_id());
+            user.setRole(4);
+           	userService.save(user);
+         
+           	warden.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
+    		wardenService.save(warden);
            return "redirect:/admin/warden";
     }
     @GetMapping("/admin/warden/delete")

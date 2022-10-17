@@ -35,8 +35,8 @@ public class WardenDaoImpl implements WardenDao {
 
     @Override
     public void save(Warden warden) {
-        String sql = "insert into warden(warden_id) values(?)";
-        template.update(sql, warden.getWarden_id());
+        String sql = "insert into warden(hostel_id, user_id) values(?, ?)";
+        template.update(sql, warden.getHostel_id(), warden.getUser_id());
     }
 
 }
