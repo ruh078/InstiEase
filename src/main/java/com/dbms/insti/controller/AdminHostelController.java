@@ -27,6 +27,7 @@ public class AdminHostelController {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
                 model.addAttribute("hostels", hostelService.listAllHostels());
+                model.addAttribute("newhostel", new Hostel());
                 return "admin_hostel";
             }
             return "redirect:/";
@@ -34,7 +35,7 @@ public class AdminHostelController {
         return "redirect:/login";
     }
     @PostMapping({"/admin/hostel"})
-    public String addhostel(@ModelAttribute("hostel") Hostel hostel, Model model, RedirectAttributes attributes) {
+    public String addhostel(@ModelAttribute("newhostel") Hostel hostel, Model model, RedirectAttributes attributes) {
            hostelService.save(hostel);
            return "redirect:/admin/hostel";
     }
