@@ -31,14 +31,34 @@
                                 <span>Account</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a th:href="@{/admin/activity}" class='sidebar-link'>
+                        <li class="sidebar-item has-sub  ">
+                            <a href="#" class="sidebar-link">
                                 <i class="bi bi-stack"></i>
                                 <span>Activities</span>
                             </a>
+                            <ul class="submenu" style="display: block;">
+                                <li class="submenu-item ">
+                                    <a th:href="@{/admin/hostel}">Hostel</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="component-badge.html">Students</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="component-breadcrumb.html">Warden</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="component-breadcrumb.html">Medical Incharge</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="component-breadcrumb.html">Mess Incharge</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a href="component-breadcrumb.html">Washermen</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="sidebar-item  ">
-                            <a href="@{/logout}" class='sidebar-link'>
+                            <a th:href="@{/logout}" class='sidebar-link'>
                                 <i class="bi bi-box-arrow-left"></i>
                                 <span>Logout</span>
                             </a>
