@@ -35,7 +35,7 @@ public class AdminHostelController {
     }
     @PostMapping({"/admin/hostel"})
     public String addhostel(@ModelAttribute("hostel") Hostel hostel, Model model, RedirectAttributes attributes) {
-           HostelServiceUtil.save(hostel);
+           hostelService.save(hostel);
            return "redirect:/admin/hostel";
     }
     
