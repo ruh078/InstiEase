@@ -19,7 +19,7 @@ public class HostelServiceUtil implements HostelService {
 
     @Override
     public void save(Hostel hostel) {
-        
+        hosteldao.save(hostel);
     }
 
 }

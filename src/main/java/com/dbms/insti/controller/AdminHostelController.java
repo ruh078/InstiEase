@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Users;
 import com.dbms.insti.service.HostelService;
+import com.dbms.insti.service.HostelServiceUtil;
 import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.UserService;
 @Controller
@@ -33,8 +35,7 @@ public class AdminHostelController {
     }
     @PostMapping({"/admin/hostel"})
     public String addhostel(@ModelAttribute("hostel") Hostel hostel, Model model, RedirectAttributes attributes) {
-           
-           userService.save(hostel);
+           HostelServiceUtil.save(hostel);
            return "redirect:/admin/hostel";
     }
     
