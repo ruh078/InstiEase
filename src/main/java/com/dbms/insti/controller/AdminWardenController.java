@@ -41,7 +41,7 @@ public class AdminWardenController {
     
     @PostMapping({"/admin/warden"})
     public String addwarden(@ModelAttribute("newwarden") Warden warden, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
-           wardenService.save();
+           wardenService.save(warden);
            return "redirect:/admin/warden";
     }
     @GetMapping("/admin/warden/delete")

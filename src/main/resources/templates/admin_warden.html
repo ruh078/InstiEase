@@ -141,7 +141,7 @@
                                                                                 <br>
                                                                                 <a type="button"
                                                                                     class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                    th:href="@{/admin/hostel/delete}">
+                                                                                    th:href="@{/admin/warden/delete}">
                                                                                     Confirm
                                                                                     Delete</a>
 
@@ -175,38 +175,39 @@
                                                     </div>
 
                                                     <div class="modal-body">
-                                                        <form action="@{/admin/hostel}" method="POST" th:object="${newwarden}">
+                                                        <form action="@{/admin/warden}" method="POST" th:object="${newwarden}">
                                                             <div class="form-group">
                                                                 <label for="name">Warden Name</label>
                                                                 <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Warden Name">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Hostel Name</label>
-                                                                <input type="text" id="name" name="name" th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Hostel Name">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Email ID</label>
-                                                                <input type="text" id="name" name="name" th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="email" id="name" name="name" class="form-control form-control-lg" placeholder="Email ID">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Password</label>
-                                                                <input type="text" id="name" name="name" th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="password" id="name" name="name" class="form-control form-control-lg" placeholder="Password">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Date of Birth</label>
-                                                                <input type="text" id="name" name="name" th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="date" id="name" name="name" class="form-control form-control-lg" placeholder="dob">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Contact</label>
-                                                                <input type="text" id="name" name="name" th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="number" id="name" name="name" class="form-control form-control-lg" placeholder="Contact">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Gender</label>
-                                                                <input type="text" id="name" name="name" th:field="*{hostel_name}" class="form-control form-control-lg" placeholder="Hostel Name">
+                                                                <input type="name" id="name" name="name" class="form-control form-control-lg" placeholder="Gender">
                                                             </div>
                                                             <div class="mt-3">
                                                                 <input type="submit" value="Add" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
                                                             </div>
+
                                                         </form>
                                                     </div>
 
