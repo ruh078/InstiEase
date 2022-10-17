@@ -3,7 +3,7 @@ package com.dbms.insti.models;
 public class Washerman {
        private int washer_id;
        private String account_no ;
-       private int  upi_id ;
+       private String  upi_id ;
        private int cost_sheet_wash ;
        private int  cost_sheet_iron ;
        private int  cost_lower_wash ;
@@ -25,10 +25,10 @@ public class Washerman {
 	public void setAccount_no(String account_no) {
 		this.account_no = account_no;
 	}
-	public int getUpi_id() {
+	public String getUpi_id() {
 		return upi_id;
 	}
-	public void setUpi_id(int upi_id) {
+	public void setUpi_id(String upi_id) {
 		this.upi_id = upi_id;
 	}
 	public int getCost_sheet_wash() {
