@@ -8,4 +8,5 @@ public interface UserDao {
     public void save(Users user);
     public Users findByUserId(int user_id);
     public List<Users>ListAllUsers();
+    public List<Users>FindByRole(int role);
 }

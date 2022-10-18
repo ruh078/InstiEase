@@ -81,5 +81,16 @@ public class UserDaoImpl implements UserDao{
         List<Users>users=template.query(sql,userRowMapper);
         return users;
     }
+
+	@Override
+	public List<Users> FindByRole(int role) {
+		String query = "select * from users where role=?";
+        try {
+            List<Users> user = template.query(query, userRowMapper, role);
+            return user;
+        } catch (EmptyResultDataAccessException e) {
+        	return null;
+        }
+	}
 	
 }

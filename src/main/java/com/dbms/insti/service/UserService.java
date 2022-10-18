@@ -9,4 +9,5 @@ public interface UserService {
     public boolean userExists(String email_id);
     public Users findByUserId(int user_id);
     public List<Users> listAllUsers();
+    public List<Users>FindByRole(int role);
 }

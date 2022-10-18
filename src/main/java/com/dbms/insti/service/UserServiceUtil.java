@@ -43,5 +43,10 @@ public class UserServiceUtil implements UserService{
         
         return userdao.ListAllUsers();
     }
+
+	@Override
+	public List<Users> FindByRole(int role) {
+		return userdao.FindByRole(role);
+	}
 	
 }
