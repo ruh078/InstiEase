@@ -95,7 +95,7 @@
                                                     <tr>
                                                         <th style="position:sticky;top:0;z-index:100;">Roll Number</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Name</th>
-                                                        <th style="position:sticky;top:0;">Status</th>
+                                                        <th style="position:sticky;top:0;z-index:100">Verified</th>
                                                         <th style="position:sticky;top:0;">More</th>
                                                     </tr>
                                                 </thead>
@@ -106,7 +106,8 @@
                                                         <td th:text="${student.roll_number}"/> 
                                                         
                                                         <td th:text="${studentuser.get(student).name}"></td>
-                                                        <td></td>
+                                                        <td th:if="${student.is_verified}==0"><i class="bi bi-person-check-fill"></i></td>
+                                                        <td th:if="${student.is_verified}==1"><i class="bi bi-check2"></i></td>
                                                         <td></td>
                                                     </tr>
 
