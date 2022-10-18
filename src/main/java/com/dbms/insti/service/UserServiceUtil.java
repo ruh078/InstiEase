@@ -17,10 +17,13 @@ public class UserServiceUtil implements UserService{
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	@Override
-	public void save(Users user) {
+	public int save(Users user) {
 		user.setPsw(bCryptPasswordEncoder.encode(user.getPsw()));
-		if(!userdao.userExists(user.getEmail_id()))
+		if(!userdao.userExists(user.getEmail_id())) {
 			userdao.save(user);
+			return 1;
+		}
+		return 0;
 	}
 
 	@Override

@@ -84,8 +84,9 @@ public class AdminMessController {
     @PostMapping({"/admin/messin"})
     public String addmess(@ModelAttribute("newUser") Users user, @ModelAttribute("newMess") Mess_incharge mess, Model model, RedirectAttributes attributes) {
     	user.setRole(5);
-       	userService.save(user);
-     
+       	int x = userService.save(user);
+       	if(x==0)
+       		return "redirect:/admin/messin";
        	mess.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
        	System.out.println(mess.getHostel_id());
 		messService.save(mess);
