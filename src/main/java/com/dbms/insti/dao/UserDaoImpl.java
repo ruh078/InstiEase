@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.dbms.insti.models.Users;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao{
 	@Autowired
@@ -72,5 +73,13 @@ public class UserDaoImpl implements UserDao{
         	return null;
         }
 	}
+
+    @Override
+    public List<Users> ListAllUsers() {
+        // TODO Auto-generated method stub
+        String sql = "select * from Users";
+        List<Users>users=template.query(sql,userRowMapper);
+        return users;
+    }
 	
 }

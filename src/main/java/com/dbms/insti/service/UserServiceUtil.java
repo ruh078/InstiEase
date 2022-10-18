@@ -1,5 +1,7 @@
 package com.dbms.insti.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,5 +37,11 @@ public class UserServiceUtil implements UserService{
 	public Users findByUserId(int user_id) {
 		return userdao.findByUserId(user_id);
 	}
+
+    @Override
+    public List<Users> listAllUsers() {
+        
+        return userdao.ListAllUsers();
+    }
 	
 }

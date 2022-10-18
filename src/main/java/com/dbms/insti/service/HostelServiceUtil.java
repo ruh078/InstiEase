@@ -22,4 +22,9 @@ public class HostelServiceUtil implements HostelService {
         hosteldao.save(hostel);
     }
 
+    @Override
+    public Hostel getHostelbyId(int hostel_id) {
+        return hosteldao.getHostelbyId(hostel_id);
+    }
+
 }

@@ -93,20 +93,21 @@
                                                 <thead
                                                     style="position:sticky;top:0;z-index:100;background-color: white;">
                                                     <tr>
-                                                        <th style="position:sticky;top:0;z-index:100;">HostelId</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
-                                                        <th style="position:sticky;top:0;"></th>
-
+                                                        <th style="position:sticky;top:0;z-index:100;">Roll Number</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Name</th>
+                                                        <th style="position:sticky;top:0;">Status</th>
+                                                        <th style="position:sticky;top:0;">More</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
 
-                                                    <tr>
-                                                        <td></td> 
+                                                    <tr th:each="student:${students}">
+                                                        <td th:text="${student.roll_number}"/> 
+                                                        
+                                                        <td th:text="${studentuser.get(student).name}"></td>
                                                         <td></td>
-                                                        <td>
-                                                        </td>
+                                                        <td></td>
                                                     </tr>
 
                                                 </tbody>
