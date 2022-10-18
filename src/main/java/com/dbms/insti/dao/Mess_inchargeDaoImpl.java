@@ -28,7 +28,7 @@ public class Mess_inchargeDaoImpl implements  Mess_inchargeDao {
     
 	@Override
 	public List<Mess_incharge> listAllMesses() {
-		 	String sql = "select * from warden";
+		 	String sql = "select * from mess_incharge";
 	        List<Mess_incharge> messes = template.query(sql, messRowMapper);
 	        return messes;
 	}

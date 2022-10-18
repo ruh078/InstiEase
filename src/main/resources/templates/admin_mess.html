@@ -94,16 +94,23 @@
                                                 <thead
                                                     style="position:sticky;top:0;z-index:100;background-color: white;">
                                                     <tr>
-                                                        <th style="position:sticky;top:0;z-index:100;">WardenId</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Warden Name</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">MessId</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Mess incharge Name</th>
                                                         <th style="position:sticky;top:0;">Hostel Name</th>
                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
-                                                   
-                                                   
+
+                                                    <tr th:each="mess:${messes}">
+                                                        <td th:text="${mess.mess_id}"/> 
+                                                        
+                                                        <td th:text="${messuser.get(mess).name}"></td>
+                                                        <td th:text="${messhostel.get(mess).hostel_name}"></td>
+                                                        <td></td>
+                                                    </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
@@ -170,7 +177,7 @@
                                             </div>
                                         </div>
                                             <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto">
-                                        <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Add new Hostel</button>
+                                        <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Add new Mess incharge</button>
                                         </div>
                                             
                                     </div>
