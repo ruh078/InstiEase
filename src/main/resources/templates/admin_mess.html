@@ -94,27 +94,36 @@
                                                 <thead
                                                     style="position:sticky;top:0;z-index:100;background-color: white;">
                                                     <tr>
-                                                        <th style="position:sticky;top:0;z-index:100;">MessId</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">HostelId</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Mess incharge Name</th>
-                                                        <th style="position:sticky;top:0;">Hostel Name</th>
-                                                        
+                                                        <th style="position:sticky;top:0;z-index:100;">Add/Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
 
-                                                    <tr th:each="mess:${messes}">
-                                                        <td th:text="${mess.mess_id}"/> 
-                                                        
-                                                        <td th:text="${messuser.get(mess).name}"></td>
-                                                        <td th:text="${messhostel.get(mess).hostel_name}"></td>
-                                                        <td></td>
+                                                    <tr th:each="hostel:${hostels}">
+                                                        <td th:text="${hostel.hostel_id}"/> 
+                                                        <td th:text="${hostel.hostel_name}"/>
+                                                       <span th:if="${hostelmess.get(hostel)==NULL}">
+                                                        	<td>No Mess incharge</td>
+                                                        	<td><button class="btn btn-primary btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}|">Add</button></td>
+                                        		      </span>
+                                                        <span th:if="${hostelmess.get(hostel)!=NULL}" th:with="key= ${hostelmess.get(hostel)}">
+                                                        	<td th:text="${messuser.get(hostelmess.get(hostel)).name}"/>
+                                                            <td><button class="btn btn-warning btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}|">Edit</button></td>
+
+                                                        </span>
+                                                       
                                                     </tr>
+                                                
 
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        <div th:each="hostel:${hostels}">
+                                        <div class="modal fade" th:id="|update_modal_${hostel.hostel_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                             aria-hidden="true">
                                             <div class="modal-dialog " role="document">
                                                 <div class="modal-content card-light-danger">
@@ -155,17 +164,18 @@
                                                                 <input type="number" id="name" name="name" class="form-control form-control-lg" placeholder="Contact" th:field="*{contact}" required>
                                                             </div>
                                                             <div class="form-group">
+                                                            	<select class="form-control-xl dropdown" name="hostel" placeholder="Hostel" id="hostel" th:field="${newMess.hostel_id}" required>
+                               										 <option th:value="${hostel.hostel_id}" th:text="${hostel.hostel_name}"></option>
+                      
+                         										</select>
+                                                            </div>
+                                                            <div class="form-group">
                                                             	<select class="form-control-xl dropdown" name="gender" placeholder="Gender" id="gender" th:field="*{gender}" required>
                                										 <option value="Male">Male</option>
                                 									 <option value="Female">Female</option>
                          										</select>
                           									</div>
-                          									<div class="form-group">
-                                                            	<select class="form-control-xl dropdown" name="hostel" placeholder="Hostel" id="hostel" th:field="${newMess.hostel_id}" required>
-                               										 <option th:each="hostel : ${hostels}" th:value="${hostel.hostel_id}" th:text="${hostel.hostel_name}"></option>
-                                			
-                         										</select>
-                          									</div>
+                          									
                                                             <div class="mt-3">
                                                                 <input type="submit" value="Add"
                                                                     class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"/>
@@ -176,8 +186,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                            <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto">
-                                        <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Add new Mess incharge</button>
                                         </div>
                                             
                                     </div>

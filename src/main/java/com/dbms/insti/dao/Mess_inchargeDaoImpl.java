@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -36,7 +37,23 @@ public class Mess_inchargeDaoImpl implements  Mess_inchargeDao {
 	@Override
 	public void save(Mess_incharge mess) {
 		String sql = "insert into mess_incharge(hostel_id, user_id) values(?, ?)";
+		System.out.println(mess.getHostel_id());
         template.update(sql, mess.getHostel_id(), mess.getUser_id());
+	}
+
+	@Override
+	public Mess_incharge findbyhostelid(int hostel_id) {
+		String sql = "select * from mess_incharge where hostel_id=?";
+		try {
+			Mess_incharge mess = template.queryForObject(sql, messRowMapper, hostel_id);
+			
+			return mess;
+		}
+		catch (EmptyResultDataAccessException e) {
+			//System.out.println("error");
+        	return null;
+        }
+   
 	}
 	
 }
