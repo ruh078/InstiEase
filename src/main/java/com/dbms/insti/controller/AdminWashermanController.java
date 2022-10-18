@@ -14,6 +14,7 @@ import com.dbms.insti.models.Washerman;
 import com.dbms.insti.service.HostelService;
 import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.UserService;
+import com.dbms.insti.service.WashermanService;
 
 
 @Controller
@@ -24,8 +25,8 @@ public class AdminWashermanController {
 	    private UserService userService;
 	    @Autowired
 	    private HostelService hostelService;
-	    //@Autowired
-	   // private WasherService washerService;
+	    @Autowired
+	    private WashermanService washerService;
 	    @GetMapping("/admin/wash")
 	    public String adminwarden(Model model) {
 	    	if(securityService.isLoggedIn()) {
@@ -43,12 +44,18 @@ public class AdminWashermanController {
 	    }
 	    
 	    @PostMapping({"/admin/wash"})
-	    public String addwarden(@ModelAttribute("newwarden") Warden warden, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
-	           
+	    public String addwasher(@ModelAttribute("newwasher") Washerman washer, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
+	    	user.setRole(6);
+	       	int x = userService.save(user);
+	       	if(x==0)
+	       		return "redirect:/admin/messin";
+	       	washer.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
+	       	System.out.println(washer.getHostel_id());
+			washerService.save(washer);
 	           return "redirect:/admin/wash";
 	    }
 	    @GetMapping("/admin/wash/delete")
-	    public String deletewarden(Model model) {
+	    public String deletewasher(Model model) {
 	        
 	        return "redirect:/admin/wash";
 	    }
