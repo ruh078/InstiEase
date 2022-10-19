@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Add Warden</title>
+        <title>Add Washerman</title>
 
     </head>
 
@@ -42,10 +42,11 @@
                                     <li class="submenu-item">
                                         <a th:href="@{/admin/hostel}">Hostel</a>
                                     </li>
+                                    
                                     <li class="submenu-item">
                                         <a th:href="@{/admin/student}">Students</a>
                                     </li>
-                                    <li class="submenu-item active">
+                                    <li class="submenu-item">
                                         <a th:href="@{/admin/warden}">Warden</a>
                                     </li>
                                     <li class="submenu-item">
@@ -96,17 +97,17 @@
                                                         <th style="position:sticky;top:0;z-index:100;">WashermanId</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Washerman Name</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
-                                                        <th style="position:sticky;top:0;"></th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Delete</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
-
-                                                    <tr>
-                                                        <td ></td> 
-                                                        <td ></td>
-                                                        <td></td>
+                                                    <tr th:each="washerman:${washers}">
+                                                        <td th:text="${washerman.washer_id}"/> 
+                                                        
+                                                        <td th:text="${washermanuser.get(washerman).name}"></td>
+                                                        <td th:text="${washermanhostel.get(washerman).hostel_name}"></td>
+                                                        
                                                         <td>
                                                             <div class="modal fade" id="del-confirm" tabindex="-1"
                                                                 role="dialog" aria-labelledby="exampleModalLabel"
@@ -115,7 +116,7 @@
                                                                     <div class="modal-content card-light-danger">
                                                                         <div class="modal-header ">
                                                                             <h4 class="modal-title"
-                                                                                id="exampleModalLabel">Delete Warden
+                                                                                id="exampleModalLabel">Delete Washerman
                                                                             </h4>
                                                                             <button type="button" class="close"
                                                                                 data-bs-dismiss="modal"
@@ -143,7 +144,7 @@
                                                                                 <br>
                                                                                 <a type="button"
                                                                                     class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                    th:href="@{/admin/warden/delete}">
+                                                                                    th:href="@{/admin/wash/delete}">
                                                                                     Confirm
                                                                                     Delete</a>
 
