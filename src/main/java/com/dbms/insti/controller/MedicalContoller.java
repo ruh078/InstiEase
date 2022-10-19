@@ -39,6 +39,7 @@ public class MedicalContoller {
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   model.addAttribute("medicines", medicineService.listAllMedicine());
+        	   model.addAttribute("less_stock_medicines", medicineService.listMedicine_lessStock());
         	   model.addAttribute("newmedicine", new Medicine());
                return "medicines";
            }

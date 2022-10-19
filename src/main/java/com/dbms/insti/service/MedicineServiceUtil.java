@@ -26,4 +26,15 @@ public class MedicineServiceUtil implements MedicineService{
 		return medicinedao.getMedicinebyId(medicine_id);
 	}
 
+	@Override
+	public void updateStock(int medicine_id, int new_stock) {
+		medicinedao.updateStock(medicine_id, new_stock);
+		
+	}
+
+	@Override
+	public List<Medicine> listMedicine_lessStock() {
+		return medicinedao.listMedicine_lessStock();
+	}
+
 }

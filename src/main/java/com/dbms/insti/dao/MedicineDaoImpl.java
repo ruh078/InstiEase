@@ -51,4 +51,17 @@ public class MedicineDaoImpl implements MedicineDao{
        
 	}
 
+	@Override
+	public void updateStock(int medicine_id, int new_stock) {
+		String sql = "update medicine set quantity_in_stock=? where medicine_id=?";
+		template.update(sql, new_stock, medicine_id);
+		
+	}
+
+	@Override
+	public List<Medicine> listMedicine_lessStock() {
+		String sql = "select * from medicine where quantity_in_stock<10";
+        List<Medicine> medicines = template.query(sql, medicineRowMapper);
+        return medicines;	
+	}
 }
