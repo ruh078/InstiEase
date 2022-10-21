@@ -37,7 +37,7 @@ public class WashermanDaoImpl implements WashermanDao {
 
     @Override
     public List<Washerman> listAllWasherman() {
-        String sql = "select * from warden";
+        String sql = "select * from washerman";
         List<Washerman> washerman = template.query(sql, washermanRowMapper);
         return washerman;
     }

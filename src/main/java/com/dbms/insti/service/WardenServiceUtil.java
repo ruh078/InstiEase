@@ -22,4 +22,8 @@ public class WardenServiceUtil implements WardenService {
         wardendao.save(warden);
     }
 
+    @Override
+    public Warden findbyHostelId(int hostel_id) {
+        return wardendao.findbyHostelId(hostel_id);
+    }
 }
