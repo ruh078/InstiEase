@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dbms.insti.models.Medicine;
+import com.dbms.insti.service.AppointmentService;
 import com.dbms.insti.service.MedicineService;
 import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.UserService;
@@ -21,6 +22,8 @@ public class MedicalContoller {
     private UserService userService;
     @Autowired
     private MedicineService medicineService; 
+    @Autowired 
+    private AppointmentService appointmentService;
    @GetMapping("/medical")
    public String medicalpage(Model model){
        if(securityService.isLoggedIn()) {
@@ -51,8 +54,23 @@ public class MedicalContoller {
    }
    
    @PostMapping({"/medical/medicine"})
-   public String addhostel(@ModelAttribute("newmedicine") Medicine medicine, Model model, RedirectAttributes attributes) {
+   public String addmedicine(@ModelAttribute("newmedicine") Medicine medicine, Model model, RedirectAttributes attributes) {
           medicineService.save(medicine);
           return "redirect:/medical/medicine";
+   }
+   
+   @GetMapping("/medical/appointments")
+   public String appointmentpage(Model model){
+       if(securityService.isLoggedIn()) {
+           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
+        	   model.addAttribute("currentappointments", appointmentService.listCurrentAppointments());
+        	   model.addAttribute("previousappointments", appointmentService.listPreviousAppointments());
+               return "appointments_incharge";
+           }
+           return "redirect:/";
+       }
+       
+       return "redirect:/login";
+       
    }
 }

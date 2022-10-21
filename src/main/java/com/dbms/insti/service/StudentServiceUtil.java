@@ -22,4 +22,14 @@ public class StudentServiceUtil implements StudentService{
     public void save(Student student) {
         studentdao.save(student);
     }
+
+	@Override
+	public Student getStudentbyId(int student_roll_no) {
+		return studentdao.getStudentbyId(student_roll_no);
+	}
+
+	@Override
+	public List<Student> listAllStudentsofHostel(int hostel_id) {
+		return studentdao.listAllStudentsofHostel(hostel_id);
+	}
 }

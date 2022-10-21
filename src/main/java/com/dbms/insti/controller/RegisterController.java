@@ -47,9 +47,13 @@ public class RegisterController {
 	 public String addwarden(@ModelAttribute("newstu") Student student, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
          System.out.println(student.getHostel_id());
           user.setRole(3);
-          userService.save(user);
-          student.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
-          studentservice.save(student);
+          if(studentservice.getStudentbyId(student.getRoll_number())==null) {
+        	  int x = userService.save(user);
+        	  if(x==0)
+        		  return "redirect:/register";
+        	  student.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
+        	  studentservice.save(student);
+          }
          return "redirect:/login";
   }
 }
