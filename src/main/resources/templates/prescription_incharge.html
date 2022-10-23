@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+
+    </head>
+
+    <div class="container-scroller">
+        <div id="app">
+                        <div id="sidebar" class="active">
+                <div class="sidebar-wrapper active">
+                    <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
+                        <div class="d-flex justify-content-between">
+                            <div class="logo">
+                                <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;" alt="Logo"
+                                        srcset=""></a>
+                            </div>
+                            <div class="toggler">
+                                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <ul class="menu" style="margin:0px;">
+
+                            <li class="sidebar-item ">
+                                <a th:href="@{/medical}" class='sidebar-link'>
+                                    <i class="bi bi-person-fill"></i>
+                                    <span>Account</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item has-sub active ">
+                                <a href="#" class="sidebar-link">
+                                    <i class="bi bi-stack"></i>
+                                    <span>Activities</span>
+                                </a>
+                                <ul class="submenu" style="display: block;">
+                                <li class="submenu-item">
+                                    <a th:href="@{/medical/appointments}">Appointments</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/medical/medicine}">Medicines</a>
+                                </li>
+                               
+                                </ul>
+                            </li>
+                            <li class="sidebar-item  ">
+                                <a th:href="@{/logout}" class='sidebar-link'>
+                                    <i class="bi bi-box-arrow-left"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+                </div>
+            </div>
+            <div id="main">
+                <header class="mb-3">
+                    <a href="#" class="burger-btn d-block d-xl-none">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+                </header>
+
+                <div class="main-panel">
+                    <div class="content-wrapper">
+
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Student Details</h4>
+                                        
+                                       <div class="table-responsive" style="max-height: 400px; overflow-y: auto; margin-top:20px">
+                                       	<table class="table table-borderless" style="font-size: 15px;">
+                                       	<tr>
+                                       		<td style="font-weight:bolder" width="10%">Student Name</td>
+                                       		<td width="30%" th:text="${student_details.name}"/>
+                                       		<td style="font-weight:bolder" width="10%">Gender</td>
+                                       		<td width="30%" th:text="${student_details.gender}"/>
+                                       	</tr>
+                                       	<tr>
+                                       		<td style="font-weight:bolder" width="10%">Student Roll number</td>
+                                       		<td width="30%" th:text="${appointment.student_roll_no}"/>
+                                       		<td style="font-weight:bolder" width="10%">Contact Number</td>
+                                       		<td width="30%" th:text="${student_details.contact}"/>
+                                       	</tr>
+                                       	<tr>
+                                       		<td style="font-weight:bolder" width="10%">Date of Birth</td>
+                                       		<td width="30%" th:text="${student_details.dob}"/>
+                                       		<td style="font-weight:bolder" width="10%"><a th:href="@{/medical/appointments/list/{roll_no} (roll_no=${appointment.student_roll_no})}">See all appointments of the student</a></td>
+                                       	</tr>
+                                       	
+                                       	</table>
+                                       </div>
+
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Prescription Details</h4>
+                                         <div class="table-responsive" style="max-height: 400px; overflow-y: auto; margin-top:20px">
+                                        
+                                       		<table class="table table-basic" style="font-size: 18px;" >
+                                       			<tr><th>Description</th><th></th></tr>                                       			<tr>
+                                       			<td width="50%" id="desc" th:text="${appointment.problem}"/>
+                                       			<td style="padding:20px" id="btn">
+                                       				<script>
+															function change(){
+    															let id1 = "desc";
+    															let id2 = "change";
+    															let id3="btn"
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+             															document.getElementById(id3).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id3).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+														<button th:if=${iseditable==1} class="btn btn-sm btn-primary" th:onclick=change()>Edit</button>
+                                       			</td>
+                                       				<td>
+                                       				
+														<span id="change" style="display: none;">
+                                       						<form th:action="@{/medical/appointments/editdesc/{app_id} (app_id=${appointment.appointment_id})}" method="POST">
+                                       			 				<textarea type="text" th:name="desc" th:text="${appointment.problem}" rows="3" cols="50" max-width: 100%;/>
+                                       							<br>
+                                       							<input type="submit" value="Done" class="btn btn-sm btn-primary">
+                                       				
+                                       						</form>
+                                       					</span>                                       				
+                                       		
+                                       			</td>
+                                       			
+                                       			
+                                       			
+                                       			</tr>
+                                       		</table>
+                                        </div>
+                                         
+                                         <div class="table-responsive" style="max-height: 400px; overflow-y: auto; margin-top:20px">
+                                         	
+                                        	<table class="table table-striped" style="font-size: 18px;" >
+                                        	
+                                        	<thead
+                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                    <tr><th>Medicines Prescribed</th></tr>
+                                                    <tr>
+                                                        <th style="position:sticky;top:0;z-index:100;">Medicine Name</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Morning Quantity</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Afternoon Quantity</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Night Quantity</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Number of Days to take</th>
+                                                        <th style="position:sticky;top:0;"></th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tr th:each="prescription:${prescriptions}">
+                                                	
+                                                	<td th:text="${medicineservice.getMedicinebyId(prescription.med_id).medicine_name}"/>
+                                                	<td th:text="${prescription.morning}">
+                                                	<td th:text="${prescription.afternoon}">
+                                                	<td th:text="${prescription.night}">
+                                                	<td th:text="${prescription.number_of_days}">
+                                                	<td th:if=${iseditable==1}><button class="btn btn-warning btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${prescription.med_id}|">Edit</button></td>   
+                                                	<td th:if=${iseditable==1}><button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${prescription.med_id}|" data-whatever="@getbootstrap">Delete</button></td>
+                                                                               	
+                                                </tr>
+                                                </tr>
+                                                <tbody>
+                                                
+                                                </tbody>
+                                        	</table>
+                                        	
+                                        </div>
+                                         <div th:if=${iseditable==1} style="text-align:center; padding:20px;" class="col-lg-3 mx-auto">
+                                        <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Prescribe New Medicine</button>
+                                        </div>
+
+                                           <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                            Prescribe New Medicine</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                        
+                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/medical/appointments/{app_id}(app_id=${appointment.appointment_id})}" method="POST" th:object="${newprescription}">
+                                        					<div class="form-group">
+                                        						<label for="name">Medicine Name</label>
+                                                            	<select class="form-control-xl dropdown" name="name" placeholder="Medicine" id="name" th:field="${newprescription.med_id}" required>
+                               										 <option th:each="medicine : ${medicines}" th:value="${medicine.medicine_id}" th:text="${medicine.medicine_name}"></option>		
+                         										</select>
+                          									</div>
+                                    						<div class="form-group">
+                                                                <label for="name">Morning Quantity</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{morning}" class="form-control form-control-lg" placeholder="Morning Quantity" required>
+                                                            </div>
+                                        					<div class="form-group">
+                                                                <label for="name">Afternoon Quantity</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{afternoon}" class="form-control form-control-lg" placeholder="Afternoon Quantity" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Night Quantity</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{night}" class="form-control form-control-lg" placeholder="Night Quantity" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Number of Days</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{number_of_days}" class="form-control form-control-lg" placeholder="Number of Days" required>
+                                                            </div>
+                                                            
+                                        					
+                                                           
+                                                           
+                                        
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Add"
+                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        
+                                            </div>
+                                        </div>
+                                        <div th:each="prescription:${prescriptions}">
+                                        <div class="modal fade" th:id="|del-confirm_${prescription.med_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Delete</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        
+                                                                            Are you absolutely sure you want to delete the Prescribed Medicine?
+                                                                            <br>
+                                                                            <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            <form th:action="@{/medical/appointments/delete/{app_id}/{m_id}(app_id=${appointment.appointment_id}, m_id=${prescription.med_id})}" method="POST">
+                                                                             <input type="submit" value="Confirm Delete" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"/>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                         <div class="modal fade" th:id="|update_modal_${prescription.med_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                            Edit Prescription</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                        
+                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/medical/appointments/edit/{app_id}/{m_id}(app_id=${appointment.appointment_id}, m_id=${prescription.med_id})}" method="POST">
+                                        					<div class="form-group">
+                                        						<h4 th:text="${medicineservice.getMedicinebyId(prescription.med_id).medicine_name}">
+                          									</div>
+                                    						<div class="form-group">
+                                                                <label for="name">Morning Quantity</label>
+                                                                <input type="number" id="name" th:name="morning" th:value="*{prescription.morning}" class="form-control form-control-lg" placeholder="Morning Quantity" required>
+                                                            </div>
+                                        					<div class="form-group">
+                                                                <label for="name">Afternoon Quantity</label>
+                                                                <input type="number" id="name" th:name="afternoon" th:value="*{prescription.afternoon}" class="form-control form-control-lg" placeholder="Afternoon Quantity" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Night Quantity</label>
+                                                                <input type="number" id="name" th:name="night" th:value="*{prescription.night}" class="form-control form-control-lg" placeholder="Night Quantity" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Number of Days</label>
+                                                                <input type="number" id="name" th:name="number_of_days" th:value="*{prescription.number_of_days}" class="form-control form-control-lg" placeholder="Number of Days" required>
+                                                            </div>
+                                                            
+                                        					
+                                                           
+                                                           
+                                        
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Edit"
+                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        
+                                            </div>
+                                            
+                                        </div>	
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

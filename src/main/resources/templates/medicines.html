@@ -5,6 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
+		
 
     </head>
 
@@ -118,14 +119,33 @@
                                                        
                                                         
                                                         <td>
+                                                        <span th:id="|ss_${medicine.medicine_id}|">
                                                         <span th:text="${medicine.quantity_in_stock}" th:if="${medicine.quantity_in_stock<10}" style="font-size: 25px; ;color:red; font-weight:bolder"></span>
                                                         <span th:text="${medicine.quantity_in_stock}" th:if="${medicine.quantity_in_stock>=10}"></span>
-                                                        </td>
-                                                        
-                                                        <td>
+                                                        <script>
+															function change1(id){
+    															let id1 = "ss_"+id;
+    															let id2 = "changes_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change1(' + ${medicine.medicine_id} + ');'"></i>
 
-                                                        
-                                                        <button class="btn btn-sm btn-danger" >Edit</button>
+                                                        </span>
+                                                        <span th:id="|changes_${medicine.medicine_id}|" style="display:none">
+          													<form th:action="@{/medical/medicine/edit/{med_id} (med_id=${medicine.medicine_id})}" method="POST">
+          														<input type="number" th:name="stock" th:value="${medicine.quantity_in_stock}" style="width:50px;"/>
+          														<button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
                                                         </td>
                                                     	
                                                     </tr>
@@ -152,7 +172,7 @@
                                                         
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                 <tbody>
 
                                                    
                                                     <tr th:each="medicine:${less_stock_medicines}" >
@@ -163,15 +183,36 @@
                                                        
                                                         
                                                         <td>
+                                                        <span th:id="|s_${medicine.medicine_id}|">
                                                         <span th:text="${medicine.quantity_in_stock}" th:if="${medicine.quantity_in_stock<10}" style="font-size: 25px; ;color:red; font-weight:bolder"></span>
                                                         <span th:text="${medicine.quantity_in_stock}" th:if="${medicine.quantity_in_stock>=10}"></span>
+                                                        <script>
+															function change(id){
+    															let id1 = "s_"+id;
+    															let id2 = "change_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change(' + ${medicine.medicine_id} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change_${medicine.medicine_id}|" style="display:none">
+          													<form th:action="@{/medical/medicine/edit/{med_id} (med_id=${medicine.medicine_id})}" method="POST">
+          														<input type="number" th:name="stock" th:value="${medicine.quantity_in_stock}"  style="width:50px;"/>
+          														<button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
                                                         </td>
                                                         
-                                                        <td>
-
-                                                        
-                                                        <button class="btn btn-sm btn-danger" >Edit</button>
-                                                        </td>
+                                            
                                                     	
                                                     </tr>
                                                    
@@ -236,7 +277,7 @@
             </div>
         </div>
     </div>
-
+	
 </body>
 
 </html>

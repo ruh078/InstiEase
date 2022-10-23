@@ -10,4 +10,5 @@ public interface MedicineDao {
 	    public void save(Medicine medicine);
 	    public Medicine getMedicinebyId(int medicine_id);
 	    public void updateStock(int medicine_id, int new_stock);
+	    public List<Medicine> listMedicinenotprescribed(int appointment_id);
 }

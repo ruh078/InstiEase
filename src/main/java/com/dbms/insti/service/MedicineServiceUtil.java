@@ -37,4 +37,9 @@ public class MedicineServiceUtil implements MedicineService{
 		return medicinedao.listMedicine_lessStock();
 	}
 
+	@Override
+	public List<Medicine> listMedicinenotprescribed(int appointment_id) {
+		return medicinedao.listMedicinenotprescribed(appointment_id);
+	}
+
 }

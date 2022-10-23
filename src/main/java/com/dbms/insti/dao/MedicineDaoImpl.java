@@ -64,4 +64,11 @@ public class MedicineDaoImpl implements MedicineDao{
         List<Medicine> medicines = template.query(sql, medicineRowMapper);
         return medicines;	
 	}
+
+	@Override
+	public List<Medicine> listMedicinenotprescribed(int appointment_id) {
+		String sql = "select * from medicine where medicine_id not in (select med_id from prescription where appointment_id=?)";
+		List<Medicine> medicines = template.query(sql, medicineRowMapper, appointment_id);
+        return medicines;	
+	}
 }

@@ -101,25 +101,34 @@
                                                     <tr>
                                                     	
                                                         <th style="position:sticky;top:0;z-index:100;">Appointment Id</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Medicine Name</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Stock</th>
-                                                        <th style="position:sticky;top:0;"></th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Appointment Date and Slot</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Student Details</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Description</th>
+                                                         
+
                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
                                                    
-                                                    <tr th:each="appointment:${currentappointment}" >
+                                                    <tr th:each="appointment:${currentappointments}" >
                                                     
                                                         <td th:text ="${appointment.appointment_id}"/>
-                                                       
-                                                       
+                                                        <td>
+                                                        	<span th:text="${appointment.appointment_date}"/>
+                                                        	<br>
+                                                        	<span th:if="${appointment.slot==1}">Morning</span>
+                                                        	<span th:if="${appointment.slot==2}">Evening</span>
 
-                                                        
-                                                        <button class="btn btn-sm btn-danger" >Edit</button>
                                                         </td>
-                                                    	
+
+                                                        <td>
+                                                        Roll number: <span th:text="${appointment.student_roll_no}"/><br>
+                                                        Name: <span th:text="${studentuser.get(appointment.student_roll_no).name}"/>
+                                                        </td>
+                                                    	<td th:text="${appointment.problem}"/>
+                                                    	<td><a th:href="@{/medical/appointments/{id} (id=${appointment.appointment_id})}" class="btn btn-primary">Prescription</a></td>
                                                     </tr>
                                                    
                                                 </tbody>
@@ -135,26 +144,35 @@
                                                     style="position:sticky;top:0;z-index:100;background-color: white;">
                                                     <tr>
                                                     	
-                                                        <th style="position:sticky;top:0;z-index:100;">Medicine Id</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Medicine Name</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Stock</th>
-                                                        <th style="position:sticky;top:0;"></th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Appointment Id</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Appointment Date and Slot</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Student Details</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Description</th>
+                                                                                                              
+
                                                         
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
                                                    
-                                                  <tr th:each="appointment:${previousappointment}" >
+                                                  <tr th:each="appointment:${previousappointments}" >
                                                     
                                                         <td th:text ="${appointment.appointment_id}"/>
-                                                       
-                                                       
+                                                       <td>
+                                                        	<span th:text="${appointment.appointment_date}"/>
+                                                        	<br>
+                                                        	<span th:if="${appointment.slot==1}">Morning</span>
+                                                        	<span th:if="${appointment.slot==2}">Evening</span>
 
-                                                        
-                                                        <button class="btn btn-sm btn-danger" >Edit</button>
                                                         </td>
-                                                    	
+                                                        <td>
+                                                        Roll number: <span th:text="${appointment.student_roll_no}"/><br>
+                                                        Name: <span th:text="${studentuser.get(appointment.student_roll_no).name}"/>
+                                                        </td>
+                                                    	<td th:text="${appointment.problem}"/>
+                                                    	<td><a th:href="@{/medical/appointments/{id} (id=${appointment.appointment_id})}" class="btn btn-primary">Prescription</a></td>
+
                                                     </tr>
                                                    
                                                 </tbody>

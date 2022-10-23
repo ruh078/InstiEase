@@ -2,6 +2,9 @@ package com.dbms.insti.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,23 +36,43 @@ public class AppointmentDaoImpl implements AppointmentDao{
     };
 	@Override
 	public List<Appointment> listCurrentAppointments() {
-		Date date = new Date();
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date today = new Date();
+		Date todayWithZeroTime=new Date();
+		try {
+			todayWithZeroTime = formatter.parse(formatter.format(today));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String sql = "select * from appointment where appointment_date>=?";
-        List<Appointment> appointments = template.query(sql, appointmentRowMapper, date);
+        List<Appointment> appointments = template.query(sql, appointmentRowMapper, todayWithZeroTime);
         return appointments;
 	}
 
 	@Override
 	public List<Appointment> listPreviousAppointments() {
-		Date date = new Date();
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date today = new Date();
+		Date todayWithZeroTime=new Date();
+		try {
+			todayWithZeroTime = formatter.parse(formatter.format(today));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 		String sql = "select * from appointment where appointment_date<?";
-        List<Appointment> appointments = template.query(sql, appointmentRowMapper, date);
+        List<Appointment> appointments = template.query(sql, appointmentRowMapper, todayWithZeroTime);
         return appointments;
 	}
 
 	@Override
 	public List<Appointment> listAppointmentsStudent(int student_roll_no) {
-		String sql = "select * from appointment where student_roll_no=?";
+		String sql = "select * from appointment where student_roll_no=? order by appointment_date desc";
         List<Appointment> appointments = template.query(sql, appointmentRowMapper, student_roll_no);
         return appointments;
 	}
