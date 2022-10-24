@@ -100,4 +100,52 @@ public class AppointmentDaoImpl implements AppointmentDao{
 		template.update(sql, desc, appointment_id);
 	}
 
+	@Override
+	public List<Appointment> listCurrentAppointmentsStudent(int roll_number) {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date today = new Date();
+		Date todayWithZeroTime=new Date();
+		try {
+			todayWithZeroTime = formatter.parse(formatter.format(today));
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		String sql = "select * from appointment where student_roll_no=? and appointment_date>=? order by appointment_date";
+        List<Appointment> appointments = template.query(sql, appointmentRowMapper, roll_number, todayWithZeroTime);
+        return appointments;
+	}
+
+	@Override
+	public List<Appointment> listPreviousAppointmentsStudent(int roll_number) {
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
+		Date today = new Date();
+		Date todayWithZeroTime=new Date();
+		try {
+			todayWithZeroTime = formatter.parse(formatter.format(today));
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		String sql = "select * from appointment where student_roll_no=? and appointment_date<? order by appointment_date desc";
+        List<Appointment> appointments = template.query(sql, appointmentRowMapper, roll_number, todayWithZeroTime);
+        return appointments;
+	}
+
+	@Override
+	public void edit(Appointment appointment) {
+		String sql = "update appointment set appointment_date=?, slot=?, problem=? where appointment_id=?";
+		template.update(sql, appointment.getAppointment_date(), appointment.getSlot(), appointment.getProblem(), appointment.getAppointment_id());
+		
+	}
+
+	@Override
+	public void delete(int appointment_id) {
+		String sql = "delete from appointment where appointment_id=?";
+		template.update(sql, appointment_id);
+		
+	}
+
 }

@@ -27,4 +27,9 @@ public class MessServiceUtil implements MessService{
 		return mess_inchargedao.findbyhostelid(hostel_id);
 	}
 
+	@Override
+	public Mess_incharge findbyuserid(int user_id) {
+		return mess_inchargedao.findbyuserid(user_id);
+	}
+
 }

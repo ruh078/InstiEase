@@ -30,13 +30,13 @@ public class HomeController {
                return "redirect:/student";
            }
            else if(x==4) {
-               return "redirect:/washerman";
-           }
-           else if(x==5) {
                return "redirect:/warden";
            }
-           else if(x==6) {
+           else if(x==5) {
                return "redirect:/mess";
+           }
+           else if(x==6) {
+               return "redirect:/washerman";
            }
            
        }

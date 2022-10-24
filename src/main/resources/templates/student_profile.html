@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   
+</head>
+
+   <div class="container-scroller">
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;"
+                                    alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu" style="margin:0px;">
+
+                        <li class="sidebar-item active">
+                            <a th:href="@{/student}" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item has-sub  ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-stack"></i>
+                                <span>Activities</span>
+                            </a>
+                            <ul class="submenu" style="display: block;">
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/medical}">Medical Facility</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/mess}">Mess Facility</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/washerman}">Washerman Facility</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/complain}">Complaints</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a th:href="@{/logout}" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+           
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <section id="groups">
+                        <div class="row match-height">
+                            <div class="col-12 mt-3 mb-1">
+                                <h4 class="section-title text-uppercase"></h4>
+                            </div>
+                        </div>
+                        <div class="row match-height">
+                            <div class="col-12">
+                                <div class="card-group">
+                                    <div class="card">
+                                       
+                                 </div>
+                                     
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+             
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+       
+
+    
+</html>

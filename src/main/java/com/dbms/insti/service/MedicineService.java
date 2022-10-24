@@ -11,6 +11,7 @@ public interface MedicineService {
  	public List<Medicine> listMedicine_lessStock();
  	public List<Medicine> listMedicinenotprescribed(int appointment_id);
     public void save(Medicine medicine);
+    public int delete(int medicine_id);
     public Medicine getMedicinebyId(int medicine_id);
     public void updateStock(int medicine_id, int new_stock);
 }

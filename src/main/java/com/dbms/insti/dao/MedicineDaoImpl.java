@@ -71,4 +71,10 @@ public class MedicineDaoImpl implements MedicineDao{
 		List<Medicine> medicines = template.query(sql, medicineRowMapper, appointment_id);
         return medicines;	
 	}
+
+	@Override
+	public void delete(int medicine_id) {
+		String sql = "delete from medicine where medicine_id=?";
+		template.update(sql, medicine_id);
+	}
 }

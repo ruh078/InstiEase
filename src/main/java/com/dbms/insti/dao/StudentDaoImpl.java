@@ -68,6 +68,17 @@ public class StudentDaoImpl implements StudentDao{
         List<Student> students = template.query(sql, studentRowMapper, hostel_id);
         return students;
 	}
+
+	@Override
+	public Student getStudentbyUserId(int user_id) {
+		String query = "select * from student where user_id=?";
+		try {
+            Student student = template.queryForObject(query, studentRowMapper, user_id);
+            return student;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+	}
     
 
 }

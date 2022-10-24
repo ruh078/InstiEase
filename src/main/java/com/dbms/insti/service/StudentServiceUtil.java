@@ -32,4 +32,9 @@ public class StudentServiceUtil implements StudentService{
 	public List<Student> listAllStudentsofHostel(int hostel_id) {
 		return studentdao.listAllStudentsofHostel(hostel_id);
 	}
+
+	@Override
+	public Student getStudentbyUserId(int user_id) {
+		return studentdao.getStudentbyUserId(user_id);
+	}
 }

@@ -80,26 +80,18 @@ public class MedicalController {
    
    @PostMapping({"/medical/medicine/edit/{medicine_id}"})
    public String changestock(@PathVariable int medicine_id, @ModelAttribute("stock") int stock,  RedirectAttributes attributes) {
-	   /* Medicine updatemed=null;
-	   	 if(k==1) {
-        	 for(Medicine m: medicines) {
-        		 if(m.getMedicine_id()==medicine_id) {
-        			 updatemed=m;
-        			 break;
-        		 }
-        	 }
-          }
-          else {
-        	  for(Medicine m: lmedicines) {
-         		 if(m.getMedicine_id()==medicine_id) {
-         			 updatemed=m;
-         			 break;
-         		 }
-         	 }
-          }*/
+	   
 	   	  medicineService.updateStock(medicine_id, stock);
           return "redirect:/medical/medicine";
    }
+   
+   @PostMapping({"/medical/medicine/delete/{medicine_id}"})
+   public String deletemedicine(@PathVariable int medicine_id, RedirectAttributes attributes) {
+	   
+	   	  medicineService.delete(medicine_id);
+          return "redirect:/medical/medicine";
+   }
+
    
    @GetMapping("/medical/appointments")
    public String appointmentpage(Model model){

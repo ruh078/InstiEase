@@ -74,4 +74,12 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 		return f;
 	}
 
+
+	@Override
+	public List<Prescription> getPrescriptionsOfMedicine(int medicine_id) {
+		String sql = "select * from prescription where med_id=?";
+		List<Prescription>prescription = template.query(sql, prescriptionRowMapper, medicine_id);
+		return prescription;
+	}
+
 }

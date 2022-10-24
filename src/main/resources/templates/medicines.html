@@ -147,7 +147,10 @@
         												</span>
         												
                                                         </td>
-                                                    	
+                                                    	<td>
+                                                    	<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${medicine.medicine_id}|" data-whatever="@getbootstrap">Delete</button>
+
+                                                    	</td>
                                                     </tr>
                                                    
                                                 </tbody>
@@ -224,6 +227,39 @@
                     </div>
                   </div>
                 </div>
+                						   <div th:each="medicine:${medicines}">
+                                          
+                                           <div class="modal fade" th:id="|del-confirm_${medicine.medicine_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Medicine Id</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        
+                                                                            Are you absolutely sure you want to delete this medicine
+                                                                            <br>
+                                                                            <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            <form th:action="@{/medical/medicine/delete/{med_id} (med_id=${medicine.medicine_id})}" method="POST">
+                                                                             <input type="submit" value="Confirm Delete" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"/>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div></div>
                                         <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                             aria-hidden="true">
                                             <div class="modal-dialog " role="document">
