@@ -79,6 +79,13 @@ public class StudentDaoImpl implements StudentDao{
             return null;
         }
 	}
+
+	@Override
+	public void editrefund(int roll_number, int refund) {
+		String sql = "update student set mess_refund=? where roll_number=?";
+		template.update(sql, refund, roll_number);
+
+	}
     
 
 }

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dbms.insti.models.Appointment;
+import com.dbms.insti.models.Cancel_mess;
+import com.dbms.insti.models.Dates;
 import com.dbms.insti.models.Day_menu;
 import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Medicine;
@@ -29,6 +32,7 @@ import com.dbms.insti.models.Prescription;
 import com.dbms.insti.models.Student;
 import com.dbms.insti.models.Users;
 import com.dbms.insti.service.AppointmentService;
+import com.dbms.insti.service.CancelMessService;
 import com.dbms.insti.service.DayMenuService;
 import com.dbms.insti.service.MedicineService;
 import com.dbms.insti.service.MessService;
@@ -54,6 +58,8 @@ public class StudentController {
     private DayMenuService daymenuService;
     @Autowired
     private MessService messService;
+    @Autowired
+    private CancelMessService cancelmessService;
     
 	@GetMapping("/student")
 	   public String studentpage(Model model){
@@ -170,9 +176,35 @@ public class StudentController {
 	        	   model.addAttribute("student_details", user);
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
 	        	   List<String>Days =  Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
-	        	   
+	        	   LocalDate date = LocalDate.now();
+		       	   date = date.plusDays(1);
+	        	   LocalDate sd = LocalDate.of(2020,7,31); 
+	        	   sd = sd.withYear(date.getYear());
+	        	   LocalDate ed = LocalDate.of(2020,11,30); 
+	        	   ed = ed.withYear(date.getYear());
+		       	   LocalDate enddate = date;
+		       	   int f=0;
+	       		   if(date.isAfter(sd) && date.isBefore(ed)) {
+	       			   f=1;
+	       			   enddate = ed;
+	       		   }
+	       		   sd = LocalDate.of(2020,01,01); 
+	        	   sd = sd.withYear(date.getYear());
+	        	   ed = LocalDate.of(2020,4,30); 
+	        	   ed = ed.withYear(date.getYear());
+	        	   if(date.isAfter(sd) && date.isBefore(ed)) {
+	        		   f=1;
+	       			   enddate = ed;
+	       		   }
+	        	  
+	        	   model.addAttribute("cancel_requests", cancelmessService.CancellationofStudent(student.getRoll_number()));
+	        	   model.addAttribute("newrequest", new Cancel_mess());
 	        	   model.addAttribute("days", Days);
 	        	   model.addAttribute("menu", daymenuService.Menu(messService.findbyhostelid(student.getHostel_id()).getMess_id()));
+	        	   model.addAttribute("date", date);
+	        	   model.addAttribute("enddate", enddate);
+	        	   model.addAttribute("cancel_end_date", new Dates());
+	        	   model.addAttribute("can_cancel", f);
 	        	   return "student_mess";
 	           }
 	           return "redirect:/";
@@ -181,4 +213,34 @@ public class StudentController {
 	       return "redirect:/login";
 	       
 	 }
+	
+	@PostMapping("/student/mess")
+	public String addcancel( @ModelAttribute("cancel_end_date")Dates endingdate, @ModelAttribute("newrequest") Cancel_mess cancel_mess){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	        	   cancel_mess.setStudent_roll_no(student.getRoll_number());
+	        	   LocalDate edate = endingdate.getDate().toLocalDate();
+
+	        	   edate = edate.plusDays(1);
+	        	   LocalDate startdate = cancel_mess.getCancel_date().toLocalDate();
+	        	  
+	        	   for (LocalDate date = startdate; date.isBefore(edate); date = date.plusDays(1))
+	        	   {
+	        		   Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	        		   java.sql.Date sqlDate = new java.sql.Date(d.getTime());
+	        	       cancel_mess.setCancel_date(sqlDate);
+	        	       System.out.println(date);
+	        	       cancelmessService.save(cancel_mess);
+	        	   }
+	        	   return "redirect:/student/mess";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
 }

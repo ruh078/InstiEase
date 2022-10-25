@@ -2,7 +2,7 @@ package com.dbms.insti.models;
 import java.sql.Date;
 public class Cancel_mess {
 	private int request_id;
-	private Date date;
+	private Date cancel_date;
 	private int is_breakfast;
 	private int is_lunch;
 	private int is_dinner;
@@ -13,11 +13,11 @@ public class Cancel_mess {
 	public void setRequest_id(int request_id) {
 		this.request_id = request_id;
 	}
-	public Date getDate() {
-		return date;
+	public Date getCancel_date() {
+		return cancel_date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setCancel_date(Date cancel_date) {
+		this.cancel_date = cancel_date;
 	}
 	public int getIs_breakfast() {
 		return is_breakfast;
