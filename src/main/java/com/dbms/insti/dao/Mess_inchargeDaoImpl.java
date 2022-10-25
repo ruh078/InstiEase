@@ -55,5 +55,19 @@ public class Mess_inchargeDaoImpl implements  Mess_inchargeDao {
         }
    
 	}
+
+	@Override
+	public Mess_incharge findbyuserid(int user_id) {
+		String sql = "select * from mess_incharge where user_id=?";
+		try {
+			Mess_incharge mess = template.queryForObject(sql, messRowMapper, user_id);
+			
+			return mess;
+		}
+		catch (EmptyResultDataAccessException e) {
+			//System.out.println("error");
+        	return null;
+        }
+	}
 	
 }

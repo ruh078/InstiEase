@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,12 +21,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dbms.insti.models.Appointment;
+import com.dbms.insti.models.Day_menu;
+import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Medicine;
+import com.dbms.insti.models.Mess_incharge;
 import com.dbms.insti.models.Prescription;
 import com.dbms.insti.models.Student;
 import com.dbms.insti.models.Users;
 import com.dbms.insti.service.AppointmentService;
+import com.dbms.insti.service.DayMenuService;
 import com.dbms.insti.service.MedicineService;
+import com.dbms.insti.service.MessService;
 import com.dbms.insti.service.PrescriptionService;
 import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.StudentService;
@@ -43,6 +50,10 @@ public class StudentController {
     private MedicineService medicineService; 
     @Autowired
     private PrescriptionService prescriptionservice;
+    @Autowired
+    private DayMenuService daymenuService;
+    @Autowired
+    private MessService messService;
     
 	@GetMapping("/student")
 	   public String studentpage(Model model){
@@ -143,6 +154,26 @@ public class StudentController {
 	        	   model.addAttribute("prescriptions", prescription);
 	        	   model.addAttribute("medicineservice", medicineService);
 	        	   return "student_prescription";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@GetMapping("/student/mess")
+	public String messpage(Model model){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+	        	   model.addAttribute("student_details", user);
+	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	        	   List<String>Days =  Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+	        	   
+	        	   model.addAttribute("days", Days);
+	        	   model.addAttribute("menu", daymenuService.Menu(messService.findbyhostelid(student.getHostel_id()).getMess_id()));
+	        	   return "student_mess";
 	           }
 	           return "redirect:/";
 	       }
