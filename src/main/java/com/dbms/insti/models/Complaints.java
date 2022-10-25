@@ -1,5 +1,7 @@
 package com.dbms.insti.models;
 
+import java.sql.Date;
+
 public class Complaints {
 	private int complaint_id;
 	private int student_roll_no;
@@ -7,10 +9,17 @@ public class Complaints {
 	private int type;
 	private int isPrivate;
 	private String status;
+	private Date complain_date;
 	public int getComplaint_id() {
 		return complaint_id;
 	}
-	public void setComplaint_id(int complaint_id) {
+	public Date getComplain_date() {
+        return complain_date;
+    }
+    public void setComplain_date(Date complain_date) {
+        this.complain_date = complain_date;
+    }
+    public void setComplaint_id(int complaint_id) {
 		this.complaint_id = complaint_id;
 	}
 	public int getStudent_roll_no() {

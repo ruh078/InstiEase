@@ -41,7 +41,7 @@ public class WashermanDaoImpl implements WashermanDao {
         List<Washerman> washerman = template.query(sql, washermanRowMapper);
         return washerman;
     }
-
+    
     @Override
     public void save(Washerman washerman) {
         String sql = "insert into washerman(account_no,upi_id,cost_sheet_wash,cost_sheet_iron,cost_lower_wash,cost_lower_iron,cost_upper_wash,cost_upper_iron,total_money_earned,hostel_id, user_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

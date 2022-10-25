@@ -52,5 +52,16 @@ public class WardenDaoImpl implements WardenDao {
             return null;
         }
     }
+    @Override
+    public Warden findbyUserId(int user_id) {
+        String query = "select * from warden where user_id=?";
+        try {
+            Warden warden = template.queryForObject(query,wardenRowMapper, user_id);
+            return warden;
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 
 }
