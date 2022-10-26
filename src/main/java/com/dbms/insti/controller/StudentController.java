@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.dbms.insti.dao.MessChargesDao;
 import com.dbms.insti.models.Appointment;
 import com.dbms.insti.models.Cancel_mess;
 import com.dbms.insti.models.Dates;
@@ -60,6 +61,8 @@ public class StudentController {
     private MessService messService;
     @Autowired
     private CancelMessService cancelmessService;
+    @Autowired
+    private MessChargesDao messchargesdao;
     
 	@GetMapping("/student")
 	   public String studentpage(Model model){
@@ -205,6 +208,14 @@ public class StudentController {
 	        	   model.addAttribute("enddate", enddate);
 	        	   model.addAttribute("cancel_end_date", new Dates());
 	        	   model.addAttribute("can_cancel", f);
+	        	   model.addAttribute("service", cancelmessService);
+	        	   model.addAttribute("bcost", messchargesdao.getcharge("breakfast").getCost());
+	        	   model.addAttribute("lcost", messchargesdao.getcharge("lunch").getCost());
+	        	   model.addAttribute("dcost", messchargesdao.getcharge("dinner").getCost());
+	        	   model.addAttribute("bcount", cancelmessService.count(1, student.getRoll_number()));
+	        	   model.addAttribute("lcount", cancelmessService.count(2, student.getRoll_number()));
+	        	   model.addAttribute("dcount", cancelmessService.count(3, student.getRoll_number()));
+	        	   model.addAttribute("refund", student.getMess_refund());
 	        	   return "student_mess";
 	           }
 	           return "redirect:/";
@@ -234,6 +245,37 @@ public class StudentController {
 	        	       System.out.println(date);
 	        	       cancelmessService.save(cancel_mess);
 	        	   }
+	        	   return "redirect:/student/mess";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@PostMapping("/student/mess/edit/{id}")
+	public String editcancel( @PathVariable int id, @ModelAttribute("newrequest") Cancel_mess cancel_mess){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   cancel_mess.setCancel_date(cancelmessService.getById(id).getCancel_date());
+	        	   cancel_mess.setStudent_roll_no(cancelmessService.getById(id).getStudent_roll_no());
+	        	   cancel_mess.setRequest_id(id);
+	        	   cancelmessService.edit(cancel_mess);
+	        	   return "redirect:/student/mess";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@PostMapping("/student/mess/delete/{id}")
+	public String delete( @PathVariable int id){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   cancelmessService.delete(id);
 	        	   return "redirect:/student/mess";
 	           }
 	           return "redirect:/";
