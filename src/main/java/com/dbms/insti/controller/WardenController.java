@@ -69,4 +69,24 @@ public class WardenController {
            
            return "redirect:/login";
     }
+    @GetMapping("/warden/all")
+    public String allstudentspage(Model model){
+           if(securityService.isLoggedIn()) {
+               if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
+                   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+                   
+                   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+                   
+                   Warden warden = wardenService.findbyUserId(user.getUser_id());
+                   model.addAttribute("service", studentservice);
+                   model.addAttribute("students", studentservice.listAllStudentsofHostel(warden.getHostel_id()));
+                   model.addAttribute("userservice", userService);
+                  
+                   return "warden_allstudents";
+               }
+               return "redirect:/";
+           }
+           
+           return "redirect:/login";
+    }
 }
