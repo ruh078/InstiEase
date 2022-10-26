@@ -71,7 +71,7 @@ public class ComplaintsDaoImpl implements ComplaintsDao {
     @Override
     public List<Complaints> listUnapprovedComplaints(int hostel_id) {
         String sql = "select * from complaints where student_roll_no in (select roll_number from student where hostel_id=?) and status=? ";
-        List<Complaints> complaints = template.query(sql, complaintRowMapper,hostel_id,"Unapproved");
+        List<Complaints> complaints = template.query(sql, complaintRowMapper,hostel_id,"Yet to approve");
         return complaints;
     }
 

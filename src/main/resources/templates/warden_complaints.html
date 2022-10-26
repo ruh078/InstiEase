@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   
+</head>
+
+   <div class="container-scroller">
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;"
+                                    alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu" style="margin:0px;">
+
+                        <li class="sidebar-item active">
+                            <a th:href="@{/warden}" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item has-sub  ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-stack"></i>
+                                <span>Activities</span>
+                            </a>
+                            <ul class="submenu" style="display: block;">
+                                <li class="submenu-item">
+                                    <a th:href="@{/warden/all}">All Students</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/warden/complaints}">Complaints</a>
+                                </li>
+                                
+                               
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a th:href="@{/logout}" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+           
+            <div class="main-panel">
+                       <div class="content-wrapper">
+
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Complaints List</h4>
+                                        <p class="card-description">List of Complaints
+                                        </p>
+										
+                                        
+                                        
+                                        <div class="card">
+                                            <div class="card-header">
+                                            </div>
+                                            <div class="card-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                            href="#all_complain" role="tab" aria-controls="home"
+                                                            aria-selected="true">All Complaints</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#public_complaints" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-1">Public Complaints</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#resolved_complaints" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-1">Resolved Complaints</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#approvedandnotresolved_complaints" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-1">Approved and not resolved Complaints</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#yettoapprove_complaints" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-1">Yet to approve Complaints</a>
+                                                    </li>
+
+                                                </ul>
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade active show" id="all_complain" role="tabpanel"
+                                                        aria-labelledby="home-tab">
+                                                        <p class="my-2">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complaint Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Student</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Description</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain to</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain Type</th>  
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>      
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                    <tr th:each="complaint:${all_complaints}">
+
+                                                                        <td th:text="${complaint.complaint_id}" />
+                                                                        <td th:text="${complaint.complain_date}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(complaint.student_roll_no).user_id).name}" />
+                                                                        	<br>
+                                                                        	Roll No.->
+                                                                        	<span th:text="${complaint.student_roll_no}";/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
+                                                                        </td>
+                                                                         <td th:text="${complaint.description}" />
+                                                                        <td th:if="${complaint.type==1}">Laundary</td>
+                                                                        <td th:if="${complaint.type==2}">Mess</td>
+                                                                        <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        <td th:if="${complaint.isPrivate==0}">Public</td>
+                                                                        <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                        <td th:text="${complaint.status}" />
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        </p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="public_complaints" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complaint Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Student</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Description</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain to</th>    
+                                                                        
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>       
+                                                                        
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                    <tr th:each="complaint:${public_complaints}">
+
+                                                                        <td th:text="${complaint.complaint_id}" />
+                                                                        <td th:text="${complaint.complain_date}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(complaint.student_roll_no).user_id).name}" />
+                                                                        	<br>
+                                                                        	Roll No.->
+                                                                        	<span th:text="${complaint.student_roll_no}";/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
+                                                                        </td>
+                                                                        <td th:text="${complaint.description}" />
+                                                                        <td th:if="${complaint.type==1}">Laundary</td>
+                                                                        <td th:if="${complaint.type==2}">Mess</td>
+                                                                        <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        
+                                                                        <td th:text="${complaint.status}" />
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+                                                   <div class="tab-pane fade" id="resolved_complaints" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complaint Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Student</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Description</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain to</th>    
+                                                                        
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain Type</th>       
+                                                                        
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                    <tr th:each="complaint:${resolved_complaints}">
+
+                                                                        <td th:text="${complaint.complaint_id}" />
+                                                                        <td th:text="${complaint.complain_date}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(complaint.student_roll_no).user_id).name}" />
+                                                                        	<br>
+                                                                        	Roll No.->
+                                                                        	<span th:text="${complaint.student_roll_no}";/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
+                                                                        </td>
+                                                                        <td th:text="${complaint.description}" />
+                                                                        <td th:if="${complaint.type==1}">Laundary</td>
+                                                                        <td th:if="${complaint.type==2}">Mess</td>
+                                                                        <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        <td th:if="${complaint.isPrivate==0}">Public</td>
+                                                                        <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+													<div class="tab-pane fade" id="approvedandnotresolved_complaints" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                       <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complaint Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Student</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Description</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain to</th>    
+                                                                        
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain Type</th>    
+                                                                        
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                     <tr th:each="complaint:${approvedandnotresolved_complaints}">
+
+                                                                        <td th:text="${complaint.complaint_id}" />
+                                                                        <td th:text="${complaint.complain_date}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(complaint.student_roll_no).user_id).name}" />
+                                                                        	<br>
+                                                                        	Roll No.->
+                                                                        	<span th:text="${complaint.student_roll_no}";/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
+                                                                        </td>
+                                                                        <td th:text="${complaint.description}" />
+                                                                        <td th:if="${complaint.type==1}">Laundary</td>
+                                                                        <td th:if="${complaint.type==2}">Mess</td>
+                                                                        <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        <td th:if="${complaint.isPrivate==0}">Public</td>
+                                                                        <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+													<div class="tab-pane fade" id="yettoapprove_complaints" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complaint Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Student</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Description</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain to</th>    
+                                                                        
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain Type</th>  
+                                                                        
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                    <tr th:each="complaint:${yettoapprove_complaints}">
+
+                                                                        <td th:text="${complaint.complaint_id}" />
+                                                                        <td th:text="${complaint.complain_date}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(complaint.student_roll_no).user_id).name}" />
+                                                                        	<br>
+                                                                        	Roll No.->
+                                                                        	<span th:text="${complaint.student_roll_no}";/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
+                                                                        </td>
+                                                                        <td th:text="${complaint.description}" />
+                                                                        <td th:if="${complaint.type==1}">Laundary</td>
+                                                                        <td th:if="${complaint.type==2}">Mess</td>
+                                                                        <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        <td th:if="${complaint.isPrivate==0}">Public</td>
+                                                                        <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+            </div>
+        </div>
+        </div>
+        </div>
+       
+
+    
+</html>
