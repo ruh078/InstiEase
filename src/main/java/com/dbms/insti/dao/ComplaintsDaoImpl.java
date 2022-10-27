@@ -87,4 +87,11 @@ public class ComplaintsDaoImpl implements ComplaintsDao {
         List<Complaints> complaints = template.query(sql, complaintRowMapper,hostel_id);
         return complaints;
     }
+
+	@Override
+	public List<Complaints> listComplaintsofType(int hostel_id, int type) {
+		String sql = "select * from complaints where student_roll_no in (select roll_number from student where hostel_id=?) and type=? order by complain_date desc";
+        List<Complaints> complaints = template.query(sql, complaintRowMapper,hostel_id, type);
+        return complaints;
+	}
 }

@@ -12,5 +12,6 @@ public interface ComplaintsDao {
 	public List<Complaints> listPublicComplaints(int hostel_id);
 	public List<Complaints> listPrivateComplaints(int hostel_id);
 	public  List<Complaints> listComplaintsofStudent(int roll_number);
+	public List<Complaints> listComplaintsofType(int hostel_id, int type);
 	public void save(Complaints complaints);
 }

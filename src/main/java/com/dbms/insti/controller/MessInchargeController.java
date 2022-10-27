@@ -17,6 +17,7 @@ import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Mess_incharge;
 import com.dbms.insti.models.Users;
 import com.dbms.insti.service.CancelMessService;
+import com.dbms.insti.service.ComplaintService;
 import com.dbms.insti.service.DayMenuService;
 import com.dbms.insti.service.HostelService;
 import com.dbms.insti.service.MessService;
@@ -40,6 +41,8 @@ public class MessInchargeController {
 		private CancelMessService cancelmessService;
 		@Autowired
 	    private StudentService studentservice;
+		@Autowired
+	    private ComplaintService complaintservice;
 		@GetMapping("/mess")
 	   public String messpage(Model model){
 			
@@ -158,6 +161,26 @@ public class MessInchargeController {
 		        	   model.addAttribute("service", userService);
 		        	   model.addAttribute("cancelservice", cancelmessService);
 		               return "refund_incharge";
+		           }
+		           return "redirect:/";
+		       }
+		       
+		       return "redirect:/login";
+		       
+		}
+		
+		@GetMapping("/mess/complains")
+		public String complaintspage(Model model){
+				
+		       if(securityService.isLoggedIn()) {
+		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
+		        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+		        	   Mess_incharge mess = messService.findbyuserid(user.getUser_id());
+		        	   model.addAttribute("complaints", complaintservice.listComplaintsofType(mess.getHostel_id(), 2));
+		        	   model.addAttribute("userservice", userService);
+		        	   model.addAttribute("service", studentservice);
+		        	   model.addAttribute("hostel", hostelService.getHostelbyId(mess.getHostel_id()));
+		               return "mess_complaints";
 		           }
 		           return "redirect:/";
 		       }
