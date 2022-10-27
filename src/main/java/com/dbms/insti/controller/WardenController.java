@@ -80,7 +80,7 @@ public class WardenController {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
                  complaint.setComplaint_id(com_id);
-                 complaintservice.edit(complaint);
+                 complaintservice.changestatus(complaint);
                 
                 
                

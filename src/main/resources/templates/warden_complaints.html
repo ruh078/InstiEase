@@ -101,13 +101,13 @@
                                                     </li>
                                                     <li class="nav-item" role="presentation">
                                                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                                            href="#approvedandnotresolved_complaints" role="tab" aria-controls="profile"
-                                                            aria-selected="false" tabindex="-1">Approved and not resolved Complaints</a>
+                                                            href="#approvedandunresolved_complaints" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-1">Approved and Unresolved Complaints</a>
                                                     </li>
                                                     <li class="nav-item" role="presentation">
                                                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
                                                             href="#yettoapprove_complaints" role="tab" aria-controls="profile"
-                                                            aria-selected="false" tabindex="-1">Yet to approve Complaints</a>
+                                                            aria-selected="false" tabindex="-1">Yet to Approve Complaints</a>
                                                     </li>
 
                                                 </ul>
@@ -188,7 +188,7 @@
                                                         <span th:id="|change1_${complaint.complaint_id}|" style="display:none">
           													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
           														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
-                               										 <option value="Yet to approve">Yet to approve</option>
+                               										 <option value="Yet to Approve">Yet to Approve</option>
                                 									 <option value="Approved and Unresolved">Approved and Unresolved</option>
                                 									  <option value="Resolved">Resolved</option>
                                 									 
@@ -281,7 +281,7 @@
                                                         <span th:id="|change2_${complaint.complaint_id}|" style="display:none">
           													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
           														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
-                               										 <option value="Yet to approve">Yet to approve</option>
+                               										 <option value="Yet to Approve">Yet to Approve</option>
                                 									 <option value="Approved and Unresolved">Approved and Unresolved</option>
                                 									  <option value="Resolved">Resolved</option>
                                 									 
@@ -376,7 +376,7 @@
                                                         <span th:id="|change3_${complaint.complaint_id}|" style="display:none">
           													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
           														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
-                               										 <option value="Yet to approve">Yet to approve</option>
+                               										 <option value="Yet to Approve">Yet to Approve</option>
                                 									 <option value="Approved and Unresolved">Approved and Unresolved</option>
                                 									  <option value="Resolved">Resolved</option>
                                 									 
@@ -394,7 +394,7 @@
                                                            
                                                         </div>
                                                     </div>
-													<div class="tab-pane fade" id="approvedandnotresolved_complaints" role="tabpanel"
+													<div class="tab-pane fade" id="approvedandunresolved_complaints" role="tabpanel"
                                                         aria-labelledby="profile-tab">
                                                         <div class="table-responsive"
                                                             style="max-height: 400px; overflow-y: auto;">
@@ -470,7 +470,7 @@
                                                         <span th:id="|change4_${complaint.complaint_id}|" style="display:none">
           													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
           														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
-                               										 <option value="Yet to approve">Yet to approve</option>
+                               										 <option value="Yet to Approve">Yet to Approve</option>
                                 									 <option value="Approved and Unresolved">Approved and Unresolved</option>
                                 									  <option value="Resolved">Resolved</option>
                                 									 
@@ -565,7 +565,7 @@
                                                         <span th:id="|change5_${complaint.complaint_id}|" style="display:none">
           													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
           														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
-                               										 <option value="Yet to approve">Yet to approve</option>
+                               										 <option value="Yet to Approve">Yet to Approve</option>
                                 									 <option value="Approved and Unresolved">Approved and Unresolved</option>
                                 									  <option value="Resolved">Resolved</option>
                                 									 

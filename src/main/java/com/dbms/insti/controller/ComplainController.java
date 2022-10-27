@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dbms.insti.models.Appointment;
@@ -69,5 +70,37 @@ public class ComplainController {
            return "redirect:/login";
            
      }
-
+    
+    @PostMapping("/student/complain/edit/{com_id}")
+    public String editcomplaint(@PathVariable int com_id, @ModelAttribute("newcomplaint") Complaints complaint){
+           if(securityService.isLoggedIn()) {
+               if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+                   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+                   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+                   
+                   complaint.setComplaint_id(com_id);
+                   complaintservice.edit(complaint);
+                   return "redirect:/student/complain";
+               }
+               return "redirect:/";
+           }
+           
+           return "redirect:/login";
+           
+     }
+    @PostMapping("/student/complain/delete/{com_id}")
+    public String deletecomplaint(@PathVariable int com_id){
+           if(securityService.isLoggedIn()) {
+               if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+                   
+                   
+                   complaintservice.delete(com_id);
+                   return "redirect:/student/complain";
+               }
+               return "redirect:/";
+           }
+           
+           return "redirect:/login";
+           
+     }
 }

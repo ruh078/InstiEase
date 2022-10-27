@@ -64,8 +64,28 @@ public class ComplaintServiceImpl implements ComplaintService{
 	}
 
     @Override
-    public void edit(Complaints complaints) {
-        complaintsdao.edit(complaints);
+    public void changestatus(Complaints complaints) {
+        complaintsdao.changestatus(complaints);
+        
+    }
+
+    @Override
+    public int edit(Complaints complaints) {
+        if(complaintsdao.getcomplaintbyid(complaints.getComplaint_id()).getStatus().equals("Yet to Approve")) {
+            complaintsdao.edit(complaints);
+            return 1;
+        }
+       return 0; 
+    }
+
+    @Override
+    public int delete(int complaint_id) {
+        // TODO Auto-generated method stub
+        if(complaintsdao.getcomplaintbyid(complaint_id).getStatus().equals("Yet to Approve")) {
+            complaintsdao.delete(complaint_id);
+            return 1;
+        }
+        return 0;
         
     }
     

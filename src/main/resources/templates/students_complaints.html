@@ -22,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="sidebar-menu">
                     <ul class="menu" style="margin:0px;">
 
@@ -84,7 +85,96 @@
 										 <div style="text-align:left; padding:20px;" class="col-lg-3">
                                         <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">File a complaint</button>
                                         </div>
+                                         <div th:each="complaint:${all_complaints}">
+                                          
+                                           <div class="modal fade" th:id="|del-confirm_${complaint.complaint_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Cancel Complaint</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        
+                                                                            Are you absolutely sure you want to cancel this Complaint?
+                                                                            <br>
+                                                                            <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            <form th:action="@{/student/complain/delete/{com_id}(com_id=${complaint.complaint_id})}" method="POST">
+                                                                             <input type="submit" value="Confirm Delete" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"/>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                          
+                                                            	<div class="modal fade" th:id="|update_modal_${complaint.complaint_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                            Edit Complaint</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
                                         
+                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/student/complain/edit/{com_id}(com_id=${complaint.complaint_id})}" method="POST" th:object="${newcomplaint}">
+                                                        	<h4>Complaint Id: <span th:text="${complaint.complaint_id}"></span></h4>
+                                        					 <div class="form-group">
+                                                                <label for="name">Complaint Description</label>
+                                                                <input type="text" id="name" th:name="description" th:value="${complaint.description}" class="form-control form-control-lg" placeholder="Description" required>
+                                                            </div>
+                                                           <div class="form-group">
+                                                                <label for="name">Complaint type</label>
+                                                                <select class="form-control-xl dropdown" placeholder="Type" id="name" th:name="isPrivate" th:value="${complaint.isPrivate}" required>
+                               										 <option value="0" th:selected=${0==complaint.isPrivate}>Public</option>
+                               										 <option value="1" th:selected=${1==complaint.isPrivate}>Private</option>		
+                         										</select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Complaint to</label>
+                                                                <select class="form-control-xl dropdown" placeholder="Complaint to" id="name" th:name="type" th:value="${complaint.type}" required>
+                               										 <option value="1" th:selected=${1==complaint.type}>Laundary</option>
+                               										 <option value="2" th:selected=${2==complaint.type}>Mess</option>
+                               										  <option value="3" th:selected=${3==complaint.type}>Warden</option>
+                               										 <option value="4" th:selected=${4==complaint.type}>Healthcare</option>
+                               										  <option value="5" th:selected=${5==complaint.type}>Other</option>
+                               											
+                         										</select>
+                                                            </div>
+                                                           
+                                        					
+                                                           
+                                                           
+                                        
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Edit"
+                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        
+                                            </div>
+                                            
+                                        </div>	
+                                                            
+                                                            </div>
                                         <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                             aria-hidden="true">
                                             <div class="modal-dialog " role="document">
@@ -163,7 +253,7 @@
                                                                     <tr>
 
                                                                         <th style="position:sticky;top:0;z-index:100;">
-                                                                            Complaint Id</th>
+                                                                            Complaint_Id</th>
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Date</th>
                                                                         <th style="position:sticky;top:0;z-index:100;">
@@ -173,7 +263,9 @@
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Complain Type</th>  
                                                                         <th style="position:sticky;top:0;z-index:100;">
-                                                                            Status</th>      
+                                                                            Status</th> 
+                                                                         <th></th>
+                                                                                 
 
 
 
@@ -196,7 +288,9 @@
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
                                                                         <td th:text="${complaint.status}" />
-
+                                                                         <td th:if="${complaint.status}=='Yet to Approve'" width="15%"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${complaint.complaint_id}|">Edit</button> 
+                                                						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${complaint.complaint_id}|" data-whatever="@getbootstrap">Delete</button></td>
+                                                                         <td th:if="${complaint.status}!='Yet to Approve'" width="15%"></td>
                                                                     </tr>
 
                                                                 </tbody>

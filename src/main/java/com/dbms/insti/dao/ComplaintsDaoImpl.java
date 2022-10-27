@@ -103,9 +103,32 @@ public class ComplaintsDaoImpl implements ComplaintsDao {
 	}
 
     @Override
-    public void edit(Complaints complaints) {
+    public void changestatus(Complaints complaints) {
         String sql = "update complaints set status=?  where complaint_id=?";
         template.update(sql,complaints.getStatus(),complaints.getComplaint_id());
+        
+    }
+
+    @Override
+    public void edit(Complaints complaints) {
+        String sql = "update complaints set description=?,isPrivate=?,type=? where complaint_id=?";
+        template.update(sql,complaints.getDescription(),complaints.getIsPrivate(),complaints.getType(),complaints.getComplaint_id());
+        
+    }
+
+    @Override
+    public void delete(int complaint_id) {
+        // TODO Auto-generated method stub
+        String sql = "delete from complaints where complaint_id=?";
+        template.update(sql,complaint_id);
+        
+    }
+
+    @Override
+    public Complaints getcomplaintbyid(int complaint_id) {
+        String sql ="select * from complaints where complaint_id=?";
+        Complaints complaints = template.queryForObject(sql,complaintRowMapper, complaint_id);
+        return complaints;
         
     }
 }
