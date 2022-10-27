@@ -114,12 +114,16 @@
                                                                             Washer Id</th>
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Washerman Name</th>
-                                                                        
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Contact Number</th>
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Cost of Wash</th>
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Cost of Iron</th>
-
+																		<th style="position:sticky;top:0;z-index:100;">
+                                                                            Account Number</th>
+																		<th style="position:sticky;top:0;z-index:100;">
+                                                                            UPI id</th>
 
 
                                                                     </tr>
@@ -127,27 +131,35 @@
                                                                 <tbody>
 
 
-                                                                    <tr th:each="appointment:${currentappointments}">
+                                                                    <tr th:each="washerman:${allwasherman}">
 
-                                                                        <td th:text="${appointment.appointment_id}" />
+                                                                        <td th:text="${washerman.washer_id}" />
+                                                                        <td th:text="${userservice.findByUserId(washerman.user_id).name}" />
+                                                                        <td th:text="${userservice.findByUserId(washerman.user_id).contact}" />
+                                                                        
                                                                         <td>
-                                                                            <span
-                                                                                th:text="${appointment.appointment_date}" />
+                                                                            Sheet: Rs<span th:text="${washerman.cost_sheet_wash}" />
                                                                             <br>
-                                                                            <span
-                                                                                th:if="${appointment.slot==1}">Morning</span>
-                                                                            <span
-                                                                                th:if="${appointment.slot==2}">Evening</span>
+                                                                            Upper: Rs<span th:text="${washerman.cost_upper_wash}" />
+                                                                            <br>
+                                                                            Lower: Rs<span th:text="${washerman.cost_lower_wash}" />
 
                                                                         </td>
+                                                                        
+                                                                        <td>
+                                                                            Sheet: Rs<span th:text="${washerman.cost_sheet_iron}" />
+                                                                            <br>
+                                                                            Upper: Rs<span th:text="${washerman.cost_upper_iron}" />
+                                                                            <br>
+                                                                            Lower: Rs<span th:text="${washerman.cost_lower_iron}" />
+
+                                                                        </td>
+                                                                        <td th:text="${washerman.account_no}" />
+                                                                        <td th:text="${washerman.upi_id}" />
+                                                                       
 
                                                                        
-                                                                        <td th:text="${appointment.problem}" />
-                                                                        <td><a th:href="@{/student/medical/prescription/{id} (id=${appointment.appointment_id})}"
-                                                                                class="btn btn-primary">Prescription</a>
-                                                                        </td>
-                                                                        <td><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${appointment.appointment_id}|">Edit</button> 
-                                                						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${appointment.appointment_id}|" data-whatever="@getbootstrap">Delete</button></td>
+                                                                        
                                                                     </tr>
 
                                                                 </tbody>

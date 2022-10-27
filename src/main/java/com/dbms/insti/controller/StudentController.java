@@ -295,6 +295,8 @@ public class StudentController {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
 	       		   model.addAttribute("allwasherman", washermanservice.listAllWashermanofHostel(student.getHostel_id()));
+	       		   model.addAttribute("userservice", userService);
+	       		  
 	               return "student_washerman";
 	           }
 	           return "redirect:/";
