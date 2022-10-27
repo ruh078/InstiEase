@@ -25,6 +25,12 @@ public class UserServiceUtil implements UserService{
 		}
 		return 0;
 	}
+	
+	@Override
+	public void edit(Users user) {
+	    userdao.edit(user);
+	    return;
+	}
 
 	@Override
 	public Users findByEmail(String email_id) {

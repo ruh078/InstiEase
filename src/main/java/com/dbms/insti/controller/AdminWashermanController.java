@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -76,6 +77,18 @@ public class AdminWashermanController {
         @GetMapping("/admin/wash/delete")
         public String deletewasher(Model model) {
             
+            return "redirect:/admin/wash";
+        }
+        
+        @PostMapping({"/admin/wash/edit/{id}"})
+        public String editwasher(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, @ModelAttribute("newwasher") Washerman washer,  Model model) {
+            user.setUser_id(washerService.findByWasherId(id).getUser_id());
+            washer.setWasher_id(washerService.findByWasherId(id).getWasher_id());
+            //user.setRole(6);
+            //user.setEmail_id(userService.findByUserId((washerService.findByWasherId(id)).getUser_id()).getEmail_id());
+            //user.setPsw(userService.findByUserId((washerService.findByWasherId(id)).getUser_id()).getPsw());
+            userService.edit(user);
+            washerService.edit(washer);
             return "redirect:/admin/wash";
         }
 }

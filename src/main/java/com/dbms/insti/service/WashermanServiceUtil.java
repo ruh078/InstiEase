@@ -21,5 +21,15 @@ public class WashermanServiceUtil implements WashermanService {
     public void save(Washerman washerman) {
         washermandao.save(washerman);
     }
+    
+    @Override
+    public void edit(Washerman washerman) {
+       washermandao.edit(washerman);
+    }
+    
+    @Override
+    public Washerman findByWasherId(int washer_id) {
+        return washermandao.findByWasherId(washer_id);
+    }
 
 }

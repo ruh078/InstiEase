@@ -5,10 +5,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.dbms.insti.models.Warden;
 import com.dbms.insti.models.Washerman;
 @Repository
 public class WashermanDaoImpl implements WashermanDao {
@@ -47,5 +49,22 @@ public class WashermanDaoImpl implements WashermanDao {
         String sql = "insert into washerman(account_no,upi_id,cost_sheet_wash,cost_sheet_iron,cost_lower_wash,cost_lower_iron,cost_upper_wash,cost_upper_iron,total_money_earned,hostel_id, user_id) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         template.update(sql,washerman.getAccount_no(),washerman.getUpi_id(),washerman.getCost_sheet_wash(),washerman.getCost_sheet_iron(),washerman.getCost_lower_wash(),washerman.getCost_lower_iron(),washerman.getCost_upper_wash(),washerman.getCost_upper_iron(),washerman.getTotal_money_earned(),washerman.getHostel_id(),washerman.getUser_id());
     }
-
+    
+    @Override
+    public void edit(Washerman washerman) {
+        String sql = "UPDATE washerman SET account_no=?,upi_id=?,cost_sheet_wash=?,cost_sheet_iron=?,cost_lower_wash=?,cost_lower_iron=?,cost_upper_wash=?,cost_upper_iron=? WHERE washer_id=?";
+        template.update(sql,washerman.getAccount_no(),washerman.getUpi_id(),washerman.getCost_sheet_wash(),washerman.getCost_sheet_iron(),washerman.getCost_lower_wash(),washerman.getCost_lower_iron(),washerman.getCost_upper_wash(),washerman.getCost_upper_iron(),washerman.getWasher_id());
+    }
+    
+    @Override
+    public Washerman findByWasherId(int washer_id) {
+        String query = "Select * from washerman where washer_id=?";
+        try {
+            Washerman washerman = template.queryForObject(query,washermanRowMapper, washer_id);
+            return washerman;
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

@@ -15,7 +15,7 @@
                     <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;" alt="Logo"
+                                <a th:href="@{/}"><img th:src="@{/images/color_logo.png}" style="height:8rem;" alt="Logo"
                                         srcset=""></a>
                             </div>
                             <div class="toggler">
@@ -55,7 +55,7 @@
                                     <li class="submenu-item">
                                         <a th:href="@{/admin/messin}">Mess Incharge</a>
                                     </li>
-                                    <li class="submenu-item">
+                                    <li class="submenu-item active">
                                         <a th:href="@{/admin/wash}">Washermen</a>
                                     </li>
                                 </ul>
@@ -97,19 +97,97 @@
                                                         <th style="position:sticky;top:0;z-index:100;">WashermanId</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Washerman Name</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Delete</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Edit/Delete</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="washerman:${washers}">
-                                                        <td th:text="${washerman.washer_id}"/> 
-                                                        
+                                                        <td th:text="${washerman.washer_id}"/>                                                         
                                                         <td th:text="${washermanuser.get(washerman).name}"></td>
                                                         <td th:text="${washermanhostel.get(washerman).hostel_name}"></td>
                                                         
                                                         <td>
-                                                            <div class="modal fade" id="del-confirm" tabindex="-1"
+                                                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" th:data-bs-target="|#update_modal_${washerman.washer_id}|">Edit</button>
+                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#del-confirm" data-whatever="@getbootstrap">Delete</button>
+                                                            <div class="modal fade" th:id="|update_modal_${washerman.washer_id}|" tabindex="-1"
+                                                                role="dialog" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog" role="document">
+                                                                    <div class="modal-content card-light-danger">
+                                                                        <div class="modal-header ">
+                                                                            <h4 class="modal-title"
+                                                                                id="exampleModalLabel">Edit Washerman
+                                                                            </h4>
+                                                                            <button type="button" class="close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <form th:action="@{/admin/wash/edit/{washer_id}(washer_id=${washerman.washer_id})}" method="POST" th:object=${newwasher}>
+                                                                            	<div class="form-group">
+                                                                					<label for="name">Washerman Name</label>
+                                                                					<input type="text" id="name" th:name="name" class="form-control form-control-lg" placeholder="Warden Name" th:value="${washermanuser.get(washerman).name}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Date of birth</label>
+                                                                					<input type="text" id="name" th:name="dob" class="form-control form-control-lg" placeholder="DOB" th:value="${washermanuser.get(washerman).dob}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Contact</label>
+                                                                					<input type="text" id="name" th:name="contact" class="form-control form-control-lg" placeholder="Contact" th:value="${washermanuser.get(washerman).contact}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Account Number</label>
+                                                                					<input type="text" id="name" th:name="account_no" class="form-control form-control-lg" placeholder="Account Number" th:value="${washerman.account_no}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">UPI ID</label>
+                                                                					<input type="text" id="name" th:name="upi_id" class="form-control form-control-lg" placeholder="UPI ID" th:value="${washerman.upi_id}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Cost Sheet Wash</label>
+                                                                					<input type="text" id="name" th:name="cost_sheet_wash" class="form-control form-control-lg" placeholder="Cost Sheet Wash" th:value="${washerman.cost_sheet_wash}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Cost Sheet Iron</label>
+                                                                					<input type="text" id="name" th:name="cost_sheet_iron" class="form-control form-control-lg" placeholder="Cost Sheet Iron" th:value="${washerman.cost_sheet_iron}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Cost Lower Wash</label>
+                                                                					<input type="text" id="name" th:name="cost_lower_wash" class="form-control form-control-lg" placeholder="Cost Lower Wash" th:value="${washerman.cost_lower_wash}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Cost Lower Iron</label>
+                                                                					<input type="text" id="name" th:name="cost_lower_iron" class="form-control form-control-lg" placeholder="Cost Lower Iron" th:value="${washerman.cost_lower_iron}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Cost Upper Wash</label>
+                                                                					<input type="text" id="name" th:name="cost_upper_wash" class="form-control form-control-lg" placeholder="Cost Upper Wash" th:value="${washerman.cost_upper_wash}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                                					<label for="name">Cost Upper Iron</label>
+                                                                					<input type="text" id="name" th:name="cost_upper_iron" class="form-control form-control-lg" placeholder="Cost Upper Iron" th:value="${washerman.cost_upper_iron}" required>
+                                                            					</div>
+                                                            					<div class="form-group">
+                                                        					    	<select class="form-control-xl dropdown" th:name="gender" placeholder="Gender" id="gender" th:value="${washermanuser.get(washerman).gender}" required>
+                               															 <option value="Male" th:selected="${washermanuser.get(washerman).gender}=='Male'">Male</option>
+                                														 <option value="Female" th:selected="${washermanuser.get(washerman).gender}=='Female'">Female</option>
+                         															</select>
+                          														</div>
+                                                            					<div class="mt-3">
+                                                                					<input type="submit" value="Edit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"/>
+                                                            					</div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                                
+                                                            <div class="modal fade" th:id="del-confirm" tabindex="-1"
                                                                 role="dialog" aria-labelledby="exampleModalLabel"
                                                                 aria-hidden="true">
                                                                 <div class="modal-dialog " role="document">
@@ -135,10 +213,10 @@
                                                                                 </div>
 
                                                                                 Are you absolutely sure you want to
-                                                                                delete Warden?
+                                                                                delete washerman?
                                                                                 <br>
                                                                                 <b>Please note that there is no option
-                                                                                    to restore the Warden or its related
+                                                                                    to restore the washerman or its related
                                                                                     data once it is deleted.</b>
                                                                                 <br>
                                                                                 <br>
@@ -153,10 +231,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
-                                                            <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                                data-bs-target="#del-confirm"
-                                                                data-whatever="@getbootstrap">Delete</button>
                                                         </td>
                                                     </tr>
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,21 +36,6 @@ public class AdminMessController {
     public String adminmess(Model model) {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
-            	/*Map<Object, Object>messuser = new HashMap<Object, Object>();
-                Map<Object, Object>messhostel = new HashMap<Object, Object>();
-                List<Mess_incharge>messes = messService.listAllMesses();
-                for(Mess_incharge mess: messes) {
-                    messuser.put(mess, userService.findByUserId(mess.getUser_id()));
-                }
-                for(Mess_incharge mess: messes) {
-                    messhostel.put(mess, hostelService.getHostelbyId(mess.getHostel_id()));
-                }
-                model.addAttribute("hostels", hostelService.listAllHostels());
-                model.addAttribute("newUser", new Users());
-                model.addAttribute("newMess", new Mess_incharge());
-                model.addAttribute("messuser", messuser);
-                model.addAttribute("messhostel", messhostel);
-                model.addAttribute("messes", messes);*/
             	List<Mess_incharge>messes = messService.listAllMesses();
             	List<Hostel>hostels = hostelService.listAllHostels();
                 Map<Object, Integer>hostelmess = new HashMap<Object, Integer>();
@@ -92,4 +78,14 @@ public class AdminMessController {
 		messService.save(mess);
         return "redirect:/admin/messin";
     }
+    
+    @PostMapping({"/admin/messin/edit/{id}"})
+    public String editmess(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
+        user.setUser_id(messService.findbyhostelid(id).getUser_id());
+        user.setRole(4);
+        user.setEmail_id(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getEmail_id());
+        user.setPsw(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getPsw());
+        userService.edit(user);
+        return "redirect:/admin/messin";
+    }  
 }

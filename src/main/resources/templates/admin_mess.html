@@ -15,7 +15,7 @@
                     <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
                         <div class="d-flex justify-content-between">
                             <div class="logo">
-                                <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;" alt="Logo"
+                                <a th:href="@{/}"><img th:src="@{/images/color_logo.png}" style="height:8rem;" alt="Logo"
                                         srcset=""></a>
                             </div>
                             <div class="toggler">
@@ -39,7 +39,7 @@
                                     <span>Activities</span>
                                 </a>
                                 <ul class="submenu" style="display: block;">
-                                    <li class="submenu-item active ">
+                                    <li class="submenu-item">
                                         <a th:href="@{/admin/hostel}">Hostel</a>
                                     </li>
                                     <li class="submenu-item">
@@ -51,7 +51,7 @@
                                     <li class="submenu-item">
                                         <a th:href="@{/admin/medin}">Medical Incharge</a>
                                     </li>
-                                    <li class="submenu-item">
+                                    <li class="submenu-item active">
                                         <a th:href="@{/admin/messin}">Mess Incharge</a>
                                     </li>
                                     <li class="submenu-item">
@@ -101,8 +101,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
-
                                                     <tr th:each="hostel:${hostels}">
                                                         <td th:text="${hostel.hostel_id}"/> 
                                                         <td th:text="${hostel.hostel_name}"/>
@@ -112,13 +110,9 @@
                                         		      </span>
                                                         <span th:if="${hostelmess.get(hostel)!=NULL}" th:with="key= ${hostelmess.get(hostel)}">
                                                         	<td th:text="${messuser.get(hostelmess.get(hostel)).name}"/>
-                                                            <td><button class="btn btn-warning btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}|">Edit</button></td>
-
-                                                        </span>
-                                                       
-                                                    </tr>
-                                                
-
+                                                            <td><button class="btn btn-warning btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}2|">Edit</button></td>
+                                                        </span>                                                       
+                                                    </tr>                                               
                                                 </tbody>
                                             </table>
                                         </div>
@@ -132,17 +126,10 @@
                                                             Add Mess_incharge</h4>
                                                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">×</span>
-                                                        </button>
-                                        
-                                        
+                                                        </button>                                                                               
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form th:action="@{/admin/messin}" method="POST" th:object="${newUser}">
-                                        
-                                    
-                                        
-                                                            
-                                        
+                                                        <form th:action="@{/admin/messin}" method="POST" th:object="${newUser}">                                                                                                  
                                                             <div class="form-group">
                                                                 <label for="name">Mess_incharge Name</label>
                                                                 <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Mess Incharge Name" th:field="*{name}" required>
@@ -164,12 +151,6 @@
                                                                 <input type="number" id="name" name="name" class="form-control form-control-lg" placeholder="Contact" th:field="*{contact}" required>
                                                             </div>
                                                             <div class="form-group">
-                                                            	<select class="form-control-xl dropdown" name="hostel" placeholder="Hostel" id="hostel" th:field="${newMess.hostel_id}" required>
-                               										 <option th:value="${hostel.hostel_id}" th:text="${hostel.hostel_name}"></option>
-                      
-                         										</select>
-                                                            </div>
-                                                            <div class="form-group">
                                                             	<select class="form-control-xl dropdown" name="gender" placeholder="Gender" id="gender" th:field="*{gender}" required>
                                										 <option value="Male">Male</option>
                                 									 <option value="Female">Female</option>
@@ -185,6 +166,47 @@
                                         
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div th:if="${hostelmess.get(hostel)!=NULL}">
+                                        <div class="modal fade" th:id="|update_modal_${hostel.hostel_id}2|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>Edit Mess_incharge</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>                                                                               
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/admin/messin/edit/{hostel_id}(hostel_id=${hostel.hostel_id})}" method="POST" th:object="${newUser}">                                                                                                  
+                                                            <div class="form-group">
+                                                                <label for="name">Mess_incharge Name</label>
+                                                                <input type="text" id="name" th:name="name" class="form-control form-control-lg" placeholder="Mess Incharge Name" th:value="${messuser.get(hostelmess.get(hostel)).name}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Date of Birth</label>
+                                                                <input type="date" id="name" th:name="dob" class="form-control form-control-lg" placeholder="dob" th:value="${messuser.get(hostelmess.get(hostel)).dob}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Contact</label>
+                                                                <input type="number" id="name" th:name="contact" class="form-control form-control-lg" placeholder="Contact" th:value="${messuser.get(hostelmess.get(hostel)).contact}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                            	<select class="form-control-xl dropdown" th:name="gender" placeholder="Gender" id="gender" th:value="${messuser.get(hostelmess.get(hostel)).gender}" required>
+                               										 <option value="Male">Male</option>
+                                									 <option value="Female">Female</option>
+                         										</select>
+                          									</div>                          									
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Edit"
+                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"/>
+                                                            </div>
+                                                        </form>
+                                                    </div>                                       
+                                                </div>
+                                            </div>
+                                        </div>
                                         </div>
                                         </div>
                                             

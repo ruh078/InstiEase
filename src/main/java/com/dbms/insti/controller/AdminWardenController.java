@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -84,10 +85,13 @@ public class AdminWardenController {
         return "redirect:/admin/warden";
     }
     
-    @GetMapping("/admin/warden/edit")
-    public String editwarden(@ModelAttribute("newwarden") Warden warden, Model model, RedirectAttributes attributes) {
-        Users u = userService.findByUserId(warden.getUser_id());
-        model.addAttribute("newuser",u);
+    @PostMapping("/admin/warden/edit/{id}")
+    public String editwarden(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, Model model) {
+        user.setUser_id(wardenService.findbyHostelId(id).getUser_id());
+        user.setRole(4);
+        user.setEmail_id(userService.findByUserId((wardenService.findbyHostelId(id)).getUser_id()).getEmail_id());
+        user.setPsw(userService.findByUserId((wardenService.findbyHostelId(id)).getUser_id()).getPsw());
+        userService.edit(user);
         return "redirect:/admin/warden";
     }
 }

@@ -62,6 +62,12 @@ public class UserDaoImpl implements UserDao{
         template.update(sql, user.getEmail_id(), user.getPsw(), user.getRole(), user.getName(), user.getContact(), user.getDob(), user.getGender());
 		
 	}
+	
+	@Override
+	public void edit(Users user) {
+	    String sql = "UPDATE users SET name=?, contact=?, dob=?, gender=? where user_id=?";
+	    template.update(sql, user.getName(), user.getContact(), user.getDob(), user.getGender(), user.getUser_id());
+	}
 
 	@Override
 	public Users findByUserId(int user_id) {
