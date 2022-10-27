@@ -106,6 +106,35 @@
                                                         <td th:text="${student.roll_number}"/> 
                                                         
                                                         <td th:text="${studentuser.get(student).name}"></td>
+                                                         <td>
+                                                        <span th:id="|s_${student.roll_number}|">
+                                                        <span th:text="${student.is_verified}" style="font-size: 25px; ;color:red; font-weight:bolder"></span>
+                                               
+                                                        <script>
+															function change(id){
+    															let id1 = "s_"+id;
+    															let id2 = "change_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change(' + ${student.roll_number} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change_${student.roll_number}|" style="display:none">
+          													<form th:action="@{/medical/medicine/edit/{med_id} (med_id=${student.roll_number})}" method="POST">
+          														<input type="number" th:name="verify" th:value="${student.is_verified}"  style="width:50px;"/>
+          														<button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
+                                                        </td>
                                                         <td th:if="${student.is_verified}==0"><i class="bi bi-person-check-fill"></i></td>
                                                         <td th:if="${student.is_verified}==1"><i class="bi bi-check2"></i></td>
                                                         <td></td>
