@@ -57,6 +57,11 @@ public class ComplaintServiceImpl implements ComplaintService{
 	public List<Complaints> listComplaintsofType(int hostel_id, int type) {
 		return complaintsdao.listComplaintsofType(hostel_id, type);
 	}
+
+	@Override
+	public List<Complaints> listComplaintsofTypeforall(int type) {
+		return complaintsdao.listComplaintsofTypeforall(type);
+	}
     
 
 }

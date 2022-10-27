@@ -26,7 +26,7 @@
                     <ul class="menu" style="margin:0px;">
 
                         <li class="sidebar-item active">
-                            <a th:href="@{/mess}" class='sidebar-link'>
+                            <a th:href="@{/medical}" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
                                 <span>Account</span>
                             </a>
@@ -38,16 +38,13 @@
                             </a>
                             <ul class="submenu" style="display: block;">
                                 <li class="submenu-item">
-                                    <a th:href="@{/mess/menu}">Menu</a>
+                                    <a th:href="@{/medical/appointments}">Appointments</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a th:href="@{/mess/cancel}">Cancel Requests</a>
+                                    <a th:href="@{/medical/medicine}">Medicines</a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a th:href="@{/mess/refund}">Refund Amount</a>
-                                </li>
-                               <li class="submenu-item">
-                                    <a th:href="@{/mess/complains}">Complaints</a>
+                                    <a th:href="@{/medical/complaints}">Complaints</a>
                                 </li>
                                
                             </ul>
@@ -78,7 +75,6 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Complaints</h4>
-                                        <p class="card-description">Complaints of <span th:text="${hostel.hostel_name}"></span> Hostel
                                         </p>
                                         <div class="table-responsive" style="max-height: 1000px; overflow-y: auto;">
                                             <table class="table table-striped">
@@ -127,6 +123,7 @@
                                                                         <td th:if="${complaint.type==1}">Laundary</td>
                                                                         <td th:if="${complaint.type==2}">Mess</td>
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        <td th:if="${complaint.type==4}">Medical</td>
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
                                                                         <td th:text="${complaint.status}"/>
@@ -144,6 +141,7 @@
 
                             </div>
                         </div>
+
              
                 </div>
             </div>

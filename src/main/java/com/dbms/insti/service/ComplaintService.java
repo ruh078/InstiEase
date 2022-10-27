@@ -13,5 +13,6 @@ public interface ComplaintService {
     public List<Complaints> listPrivateComplaints(int hostel_id);
     public List<Complaints> listComplaintsofStudent(int roll_number);
 	public List<Complaints> listComplaintsofType(int hostel_id, int type);
+	public List<Complaints> listComplaintsofTypeforall(int type);
     public void save(Complaints complaints);
 }

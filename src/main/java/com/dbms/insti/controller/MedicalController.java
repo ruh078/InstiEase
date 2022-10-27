@@ -19,9 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dbms.insti.models.Appointment;
 import com.dbms.insti.models.Medicine;
+import com.dbms.insti.models.Mess_incharge;
 import com.dbms.insti.models.Prescription;
 import com.dbms.insti.models.Student;
+import com.dbms.insti.models.Users;
 import com.dbms.insti.service.AppointmentService;
+import com.dbms.insti.service.ComplaintService;
 import com.dbms.insti.service.MedicineService;
 import com.dbms.insti.service.PrescriptionService;
 import com.dbms.insti.service.SecurityService;
@@ -42,6 +45,9 @@ public class MedicalController {
     private StudentService studentservice;
     @Autowired
     private PrescriptionService prescriptionservice;
+    @Autowired
+    private ComplaintService complaintservice;
+    
    @GetMapping("/medical")
    public String medicalpage(Model model){
        if(securityService.isLoggedIn()) {
@@ -225,6 +231,24 @@ public class MedicalController {
         	   prescriptionservice.delete(appointment_id, med_id);
         	   String url= "redirect:/medical/appointments/" + appointment_id;
                return url;
+           }
+           return "redirect:/";
+       }
+       
+       return "redirect:/login";
+       
+   }
+   
+   @GetMapping("/medical/complaints")
+   public String complaintspage(Model model){
+       if(securityService.isLoggedIn()) {
+           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
+        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+        	   model.addAttribute("complaints", complaintservice.listComplaintsofTypeforall(4));
+        	   model.addAttribute("userservice", userService);
+        	   model.addAttribute("service", studentservice);
+        	   
+               return "medical_complaints";
            }
            return "redirect:/";
        }
