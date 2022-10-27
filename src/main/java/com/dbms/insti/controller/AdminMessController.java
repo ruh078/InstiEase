@@ -82,7 +82,7 @@ public class AdminMessController {
     @PostMapping({"/admin/messin/edit/{id}"})
     public String editmess(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
         user.setUser_id(messService.findbyhostelid(id).getUser_id());
-        user.setRole(4);
+        user.setRole(5);
         user.setEmail_id(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getEmail_id());
         user.setPsw(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getPsw());
         userService.edit(user);
