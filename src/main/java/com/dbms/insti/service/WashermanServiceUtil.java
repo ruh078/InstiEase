@@ -31,5 +31,10 @@ public class WashermanServiceUtil implements WashermanService {
     public Washerman findByWasherId(int washer_id) {
         return washermandao.findByWasherId(washer_id);
     }
+    
+    @Override
+	public List<Washerman> listAllWashermanofHostel(int hostel_id) {
+		return washermandao.listAllWashermanofHostel(hostel_id);
+	}
 
 }

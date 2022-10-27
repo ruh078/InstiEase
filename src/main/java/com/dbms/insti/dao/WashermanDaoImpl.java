@@ -67,4 +67,13 @@ public class WashermanDaoImpl implements WashermanDao {
             return null;
         }
     }
+    
+    @Override
+	public List<Washerman> listAllWashermanofHostel(int hostel_id) {
+		String sql = "select * from washerman where hostel_id=?";
+        List<Washerman> washerman = template.query(sql, washermanRowMapper, hostel_id);
+        return washerman;
+	}
+
+    
 }

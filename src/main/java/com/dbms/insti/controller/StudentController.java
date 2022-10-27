@@ -41,6 +41,7 @@ import com.dbms.insti.service.PrescriptionService;
 import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.StudentService;
 import com.dbms.insti.service.UserService;
+import com.dbms.insti.service.WashermanService;
 @Controller
 public class StudentController {
 	@Autowired
@@ -63,6 +64,8 @@ public class StudentController {
     private CancelMessService cancelmessService;
     @Autowired
     private MessChargesDao messchargesdao;
+    @Autowired 
+    private WashermanService washermanservice;
     
 	@GetMapping("/student")
 	   public String studentpage(Model model){
@@ -284,5 +287,22 @@ public class StudentController {
 	       return "redirect:/login";
 	       
 	 }
+	
+	@GetMapping("/student/washerman")
+	public String laundarypage(Model model){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	       		   model.addAttribute("allwasherman", washermanservice.listAllWashermanofHostel(student.getHostel_id()));
+	               return "student_washerman";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
 	
 }

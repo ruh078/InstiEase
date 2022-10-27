@@ -2,7 +2,6 @@ package com.dbms.insti.models;
 import java.sql.Date;
 public class Laundary_orders {
 	private int order_id;
-	private int ispaid;
 	private int cost;
 	private Date order_date;
 	private int number_uppers;
@@ -13,12 +12,7 @@ public class Laundary_orders {
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
-	public int getIspaid() {
-		return ispaid;
-	}
-	public void setIspaid(int ispaid) {
-		this.ispaid = ispaid;
-	}
+	
 	public int getCost() {
 		return cost;
 	}
