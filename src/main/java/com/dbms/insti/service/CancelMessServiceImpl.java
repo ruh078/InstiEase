@@ -125,5 +125,10 @@ public class CancelMessServiceImpl implements CancelMessService{
 		return cancelmessdao.CancellationofHostelTime(time, hostel_id);
 	}
 
+	@Override
+	public int count_total(int meal_type, Date date) {
+		return cancelmessdao.count_total(meal_type, date);
+	}
+
 	
 }

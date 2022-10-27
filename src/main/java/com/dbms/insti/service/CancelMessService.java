@@ -18,5 +18,6 @@ public interface CancelMessService {
 	public Cancel_mess getById(int request_id);
 	public int comparedate(Date d1);
 	public int count(int meal_type, int roll_number);
+	public int count_total(int meal_type, Date date);
 
 }

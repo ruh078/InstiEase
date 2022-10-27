@@ -137,6 +137,23 @@ public class CancelMessDaoImpl implements CancelMessDao {
 		return l;
 	}
 
+	@Override
+	public int count_total(int meal_type, Date date) {
+		String sql="";
+		try {
+		if(meal_type==1)
+			 sql = "select sum(is_breakfast) as sum from cancel_mess where cancel_date=?";
+		else if(meal_type==2)
+			 sql = "select sum(is_lunch) as sum from cancel_mess where cancel_date=?";
+		else if(meal_type==3)
+			 sql = "select sum(is_dinner) as sum from cancel_mess where cancel_date=?";
+		return template.queryForObject(sql, Integer.class, date);
+		}
+		catch(Exception e) {
+			return 0;
+		}
+	}
+
 	
 
 }

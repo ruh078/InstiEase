@@ -206,6 +206,46 @@
 
                             </div>
                         </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Food Quantity</h4>
+                                        <p>Total Students in Hostel: <span th:text="${number_students}"/></p>
+                                        <div class="table-responsive" style="max-height: 1000px; overflow-y: auto;">
+                                            <table class="table table-striped">
+                                                <thead
+                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                    <tr>
+                                                        <th style="position:sticky;top:0;z-index:100;">Date</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Breakfast</th>
+                                                        <th style="position:sticky;top:0;z-index:100">Lunch</th>
+                                                        <th style="position:sticky;top:0;">Dinner</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+													<tr th:each="date: ${dates}">
+														<td th:text="${date}"></td>
+														<td th:text="${count_date.get(date).get(0)}"></td>
+														<td th:text="${count_date.get(date).get(1)}"></td>
+														<td th:text="${count_date.get(date).get(2)}"></td>
+
+													</tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        
+                                        
+                                       
+                                        
+                                        
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
 
              
                 </div>

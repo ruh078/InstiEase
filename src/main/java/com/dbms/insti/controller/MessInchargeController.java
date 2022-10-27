@@ -1,8 +1,13 @@
 package com.dbms.insti.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,6 +78,25 @@ public class MessInchargeController {
 		        		   }
 		        		   
 		        	   }
+		        	   int no_students = studentservice.listAllStudentsofHostel(mess.getHostel_id()).size();
+		        	   LocalDate startdate = LocalDate.now();
+		        	   LocalDate enddate = startdate.plusDays(7);
+		        	   Map<LocalDate, List<Integer>>m = new HashMap<LocalDate, List<Integer>>();
+		        	   List<LocalDate> dates = new ArrayList<>();;
+		        	   for (LocalDate date = startdate; date.isBefore(enddate); date = date.plusDays(1))
+		        	   {
+		        		   Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		        		   java.sql.Date sqlDate = new java.sql.Date(d.getTime());
+		        		   List<Integer>l = new ArrayList<>();
+		        		   l.add(no_students - cancelmessService.count_total(1, sqlDate));
+		        		   l.add(no_students - cancelmessService.count_total(2, sqlDate));
+		        		   l.add(no_students - cancelmessService.count_total(3, sqlDate));
+		        		   dates.add(date);
+		        		   m.put(date, l);
+		        	   }
+		        	   model.addAttribute("dates", dates);
+		        	   model.addAttribute("count_date", m);
+		        	   model.addAttribute("number_students", no_students);
 		        	   model.addAttribute("days", Days);
 		        	   model.addAttribute("hostel", hostel);
 		        	   model.addAttribute("user", user);
