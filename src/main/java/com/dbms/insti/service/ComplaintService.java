@@ -14,5 +14,6 @@ public interface ComplaintService {
     public List<Complaints> listComplaintsofStudent(int roll_number);
 	public List<Complaints> listComplaintsofType(int hostel_id, int type);
 	public List<Complaints> listComplaintsofTypeforall(int type);
+	public void edit(Complaints complaints);
     public void save(Complaints complaints);
 }

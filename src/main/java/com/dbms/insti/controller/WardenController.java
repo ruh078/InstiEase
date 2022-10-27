@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.dbms.insti.models.Complaints;
 import com.dbms.insti.models.Student;
 import com.dbms.insti.models.Users;
 import com.dbms.insti.models.Warden;
@@ -62,6 +66,7 @@ public class WardenController {
                    model.addAttribute("resolved_complaints", complaintservice.listResolvedComplaints(warden.getHostel_id()));
                    model.addAttribute("approvedandnotresolved_complaints", complaintservice.listApprovedandUnresolvedComplaints(warden.getHostel_id()));
                    model.addAttribute("yettoapprove_complaints", complaintservice.listUnapprovedComplaints(warden.getHostel_id()));
+                   model.addAttribute("newcomplaint", new Complaints());
                    return "warden_complaints";
                }
                return "redirect:/";
@@ -69,6 +74,23 @@ public class WardenController {
            
            return "redirect:/login";
     }
+    
+    @PostMapping("/warden/complaint/edit/{com_id}")
+    public String submitstatuspage(@ModelAttribute("newcomplaint") Complaints complaint, @PathVariable int com_id){
+        if(securityService.isLoggedIn()) {
+            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
+                 complaint.setComplaint_id(com_id);
+                 complaintservice.edit(complaint);
+                
+                
+               
+                return "redirect:/warden/complaints";
+            }
+            return "redirect:/";
+        }
+        
+        return "redirect:/login";
+ }
     @GetMapping("/warden/all")
     public String allstudentspage(Model model){
            if(securityService.isLoggedIn()) {

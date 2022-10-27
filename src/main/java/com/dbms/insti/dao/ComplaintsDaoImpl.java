@@ -101,4 +101,11 @@ public class ComplaintsDaoImpl implements ComplaintsDao {
         List<Complaints> complaints = template.query(sql, complaintRowMapper, type);
         return complaints;
 	}
+
+    @Override
+    public void edit(Complaints complaints) {
+        String sql = "update complaints set status=?  where complaint_id=?";
+        template.update(sql,complaints.getStatus(),complaints.getComplaint_id());
+        
+    }
 }

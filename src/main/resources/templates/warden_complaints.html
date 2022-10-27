@@ -164,7 +164,40 @@
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
-                                                                        <td th:text="${complaint.status}" />
+                                                                        <td>
+                                                        <span th:id="|s1_${complaint.complaint_id}|">
+                                                       
+                                                        <span th:text="${complaint.status}"></span>
+                                                        <script>
+															function change1(id){
+    															let id1 = "s1_"+id;
+    															let id2 = "change1_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change1(' + ${complaint.complaint_id} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change1_${complaint.complaint_id}|" style="display:none">
+          													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
+          														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
+                               										 <option value="Yet to approve">Yet to approve</option>
+                                									 <option value="Approved and Unresolved">Approved and Unresolved</option>
+                                									  <option value="Resolved">Resolved</option>
+                                									 
+                         										</select>
+                         										 <button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
+                                                        </td>
 
                                                                     </tr>
 
@@ -224,7 +257,40 @@
                                                                         <td th:if="${complaint.type==2}">Mess</td>
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
                                                                         
-                                                                        <td th:text="${complaint.status}" />
+                                                                        <td>
+                                                        <span th:id="|s2_${complaint.complaint_id}|">
+                                                       
+                                                        <span th:text="${complaint.status}"></span>
+                                                        <script>
+															function change2(id){
+    															let id1 = "s2_"+id;
+    															let id2 = "change2_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change2(' + ${complaint.complaint_id} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change2_${complaint.complaint_id}|" style="display:none">
+          													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
+          														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
+                               										 <option value="Yet to approve">Yet to approve</option>
+                                									 <option value="Approved and Unresolved">Approved and Unresolved</option>
+                                									  <option value="Resolved">Resolved</option>
+                                									 
+                         										</select>
+                         										 <button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
+                                                        </td>
                                                                     </tr>
 
                                                                 </tbody>
@@ -254,8 +320,9 @@
                                                                             Complain to</th>    
                                                                         
                                                                         <th style="position:sticky;top:0;z-index:100;">
-                                                                            Complain Type</th>       
-                                                                        
+                                                                            Complain Type</th>  
+                                                                           <th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th> 
 
 
 
@@ -284,6 +351,41 @@
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                        
+                                                                        <td>
+                                                        <span th:id="|s3_${complaint.complaint_id}|">
+                                                       
+                                                        <span th:text="${complaint.status}"></span>
+                                                        <script>
+															function change3(id){
+    															let id1 = "s3_"+id;
+    															let id2 = "change3_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change3(' + ${complaint.complaint_id} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change3_${complaint.complaint_id}|" style="display:none">
+          													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
+          														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
+                               										 <option value="Yet to approve">Yet to approve</option>
+                                									 <option value="Approved and Unresolved">Approved and Unresolved</option>
+                                									  <option value="Resolved">Resolved</option>
+                                									 
+                         										</select>
+                         										 <button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
+                                                        </td>
                                                                     </tr>
 
                                                                 </tbody>
@@ -313,8 +415,9 @@
                                                                             Complain to</th>    
                                                                         
                                                                         <th style="position:sticky;top:0;z-index:100;">
-                                                                            Complain Type</th>    
-                                                                        
+                                                                            Complain Type</th> 
+                                                                            <th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th> 
 
 
 
@@ -343,6 +446,40 @@
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                         <td>
+                                                        <span th:id="|s4_${complaint.complaint_id}|">
+                                                       
+                                                        <span th:text="${complaint.status}"></span>
+                                                        <script>
+															function change4(id){
+    															let id1 = "s4_"+id;
+    															let id2 = "change4_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change4(' + ${complaint.complaint_id} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change4_${complaint.complaint_id}|" style="display:none">
+          													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
+          														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
+                               										 <option value="Yet to approve">Yet to approve</option>
+                                									 <option value="Approved and Unresolved">Approved and Unresolved</option>
+                                									  <option value="Resolved">Resolved</option>
+                                									 
+                         										</select>
+                         										 <button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
+                                                        </td>
                                                                     </tr>
 
                                                                 </tbody>
@@ -372,8 +509,10 @@
                                                                             Complain to</th>    
                                                                         
                                                                         <th style="position:sticky;top:0;z-index:100;">
-                                                                            Complain Type</th>  
-                                                                        
+                                                                            Complain Type</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>     
+                                                                         
 
 
 
@@ -402,6 +541,40 @@
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                        <td>
+                                                        <span th:id="|s5_${complaint.complaint_id}|">
+                                                       
+                                                        <span th:text="${complaint.status}"></span>
+                                                        <script>
+															function change5(id){
+    															let id1 = "s5_"+id;
+    															let id2 = "change5_"+id;
+    															if(document.getElementById(id2).style.display){
+             															document.getElementById(id2).style.removeProperty('display');
+             															document.getElementById(id1).style.display= 'none';
+    															}
+    															else{
+             															document.getElementById(id1).style.removeProperty('display');
+             															document.getElementById(id2).style.display= 'none';
+    															}
+															}
+														</script>
+                                                        <i class="bi bi-pen-fill" th:onclick="'javascript:change5(' + ${complaint.complaint_id} + ');'"></i>
+														 
+                                                        </span>
+                                                        <span th:id="|change5_${complaint.complaint_id}|" style="display:none">
+          													<form th:action="@{/warden/complaint/edit/{com_id} (com_id=${complaint.complaint_id})}" method="POST" th:object=${newcomplaint}>
+          														<select class="form-control-xl dropdown" th:name="status" placeholder="Status" id="status" th:value="${complaint.status}" required>
+                               										 <option value="Yet to approve">Yet to approve</option>
+                                									 <option value="Approved and Unresolved">Approved and Unresolved</option>
+                                									  <option value="Resolved">Resolved</option>
+                                									 
+                         										</select>
+                         										 <button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													</form>
+        												</span>
+        												
+                                                        </td>
                                                                     </tr>
 
                                                                 </tbody>
