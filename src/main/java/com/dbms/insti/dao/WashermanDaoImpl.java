@@ -75,5 +75,7 @@ public class WashermanDaoImpl implements WashermanDao {
         return washerman;
 	}
 
+	
+
     
 }

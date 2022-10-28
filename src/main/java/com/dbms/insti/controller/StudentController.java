@@ -27,6 +27,7 @@ import com.dbms.insti.models.Cancel_mess;
 import com.dbms.insti.models.Dates;
 import com.dbms.insti.models.Day_menu;
 import com.dbms.insti.models.Hostel;
+import com.dbms.insti.models.Laundary_orders;
 import com.dbms.insti.models.Medicine;
 import com.dbms.insti.models.Mess_incharge;
 import com.dbms.insti.models.Prescription;
@@ -35,6 +36,7 @@ import com.dbms.insti.models.Users;
 import com.dbms.insti.service.AppointmentService;
 import com.dbms.insti.service.CancelMessService;
 import com.dbms.insti.service.DayMenuService;
+import com.dbms.insti.service.LaundaryService;
 import com.dbms.insti.service.MedicineService;
 import com.dbms.insti.service.MessService;
 import com.dbms.insti.service.PrescriptionService;
@@ -66,6 +68,8 @@ public class StudentController {
     private MessChargesDao messchargesdao;
     @Autowired 
     private WashermanService washermanservice;
+    @Autowired
+    private LaundaryService laundaryservice;
     
 	@GetMapping("/student")
 	   public String studentpage(Model model){
@@ -298,6 +302,50 @@ public class StudentController {
 	       		   model.addAttribute("userservice", userService);
 	       		  
 	               return "student_washerman";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@GetMapping("/student/washerman/{id}")
+	public String laundarypage(@PathVariable int id, Model model){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	       		   model.addAttribute("userservice", userService);
+	       		   model.addAttribute("washer", washermanservice.findByWasherId(id));
+	       		   model.addAttribute("allorders", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 0));
+	       		   model.addAttribute("orders_unwashed", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 1));
+	       		   model.addAttribute("orders_unpaid", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 2));
+	       		   model.addAttribute("orders_paid", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 3));
+	       		   model.addAttribute("neworder", new Laundary_orders());
+	               return "student_washerman_order";
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@PostMapping("/student/washerman/{id}")
+	public String giveorder(@PathVariable int id, @ModelAttribute("neworder") Laundary_orders neworder){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	       		   neworder.setStudent_roll_no(student.getRoll_number());
+	       		   Date utilDate = new Date();
+	       		   java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	       		   neworder.setOrder_date(sqlDate);
+	       		   neworder.setWasher_id(id);
+	       		   laundaryservice.save(neworder);
+	       		   String url = "redirect:/student/washerman/" + id;
+	               return url;
 	           }
 	           return "redirect:/";
 	       }

@@ -10,4 +10,5 @@ public interface WashermanDao {
     public void edit(Washerman washerman);
     public Washerman findByWasherId(int washer_id);
     public List<Washerman>listAllWashermanofHostel(int hostel_id);
+    
 }

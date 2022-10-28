@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   
+</head>
+
+   <div class="container-scroller">
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;"
+                                    alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu" style="margin:0px;">
+
+                        <li class="sidebar-item active">
+                            <a th:href="@{/student}" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item has-sub  ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-stack"></i>
+                                <span>Activities</span>
+                            </a>
+                            <ul class="submenu" style="display: block;">
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/medical}">Medical Facility</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/mess}">Mess Facility</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/washerman}">Washerman Facility</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/student/complain}">Complaints</a>
+                                </li>
+                               
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a th:href="@{/logout}" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+           
+            <div class="main-panel">
+                <div class="content-wrapper">
+                                            <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Laundary Details</h4>
+                                        <p style="font-size:20px" class="card-description">Orders given to <span th:text="${userservice.findByUserId(washer.user_id).name}"/> Washer
+                                        </p>
+                                        <div style="text-align:left; padding:15px;" class="col-lg-3">
+                                        <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Give an Order</button>
+                                        </div>
+									<!--	<div th:each="appointment:${currentappointments}">
+                                          
+                                           <div class="modal fade" th:id="|del-confirm_${appointment.appointment_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Cancel Appointment</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        
+                                                                            Are you absolutely sure you want to cancel this Appointment?
+                                                                            <br>
+                                                                            <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            <form th:action="@{/student/medical/delete/{app_id}(app_id=${appointment.appointment_id})}" method="POST">
+                                                                             <input type="submit" value="Confirm Delete" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"/>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                          
+                                                            	<div class="modal fade" th:id="|update_modal_${appointment.appointment_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                            Edit Appointment</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                        
+                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/student/medical/edit/{app_id}(app_id=${appointment.appointment_id})}" method="POST" th:object="${newappointment}">
+                                                        	<h4>Appointment Id: <span th:text="${appointment.appointment_id}"></span></h4>
+                                        					 <div class="form-group">
+                                                                <label for="name">Appointment Date</label>
+                                                                <input type="date" id="name" th:min="${date}" th:max="${enddate}" th:name="appointment_date" th:value="${appointment.appointment_date}" th:field="*{appointment_date}" class="form-control form-control-lg" placeholder="Appointment Date" required>
+                                                            </div>
+                                                           <div class="form-group">
+                                                                <label for="name">Appointment Slot</label>
+                                                                <select class="form-control-xl dropdown" placeholder="Medicine" id="name" th:name="slot" th:value="${appointment.slot}" required>
+                               										 <option value="1" th:selected=${1==appointment.slot}>Morning</option>
+                               										 <option value="2" th:selected=${2==appointment.slot}>Evening</option>		
+                         										</select>
+                                                            </div>
+                                                           <div class="form-group">
+                                                                <label for="name">Problem</label>
+                                                                <input type="text" id="name" th:name="problem" th:value="${appointment.problem}" class="form-control form-control-lg" placeholder="Problem" required>
+                                                            </div>
+                                        					
+                                                           
+                                                           
+                                        
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Edit"
+                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                        
+                                            </div>
+                                            
+                                        </div>	
+                                                            
+                                                            </div>-->
+                                        <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                            Give an Order</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                        
+                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/student/washerman/{id}(id=${washer.washer_id})}" method="POST" th:object="${neworder}">
+                                        
+                                    						<div class="form-group">
+                                                                <label for="name">Number of Uppers</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{number_uppers}" class="form-control form-control-lg" placeholder="Number of Uppers" required>
+                                                            </div>
+                                        					<div class="form-group">
+                                                                <label for="name">Number of Lowers</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{number_lowers}" class="form-control form-control-lg" placeholder="Number of Lowers" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Number of Sheets</label>
+                                                                <input type="number" id="name" name="name"  th:field="*{number_sheets}" class="form-control form-control-lg" placeholder="Number of Sheets" required>
+                                                            </div>
+                                        
+                                                           <div class="form-check">
+                            									<div class="checkbox">
+                              									<input type="checkbox" id="wash" class="form-check-input" value="1" th:name="to_wash"/>
+                              									<label for="wash">Wash</label>
+                            									</div>
+                          									</div>
+                          									<div class="form-check">
+                            									<div class="checkbox">
+                              									<input type="checkbox" id="iron" class="form-check-input" value="1" th:name="to_iron"/>
+                              									<label for="iron">Iron</label>
+                            									</div>
+                          									</div>
+                          									
+                          									
+                          									
+                          									<input type="hidden" th:name="is_wash" value="0">
+                                                            <input type="hidden" th:name="is_iron" value="0">
+                                                          
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Add"
+                                                                    class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                         
+                                       
+                                        <div class="card">
+                                            <div class="card-header">
+                                            </div>
+                                            <div class="card-body">
+                                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                            href="#allorders" role="tab" aria-controls="home"
+                                                            aria-selected="true">All orders</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#unwashed" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-1">Unwashed orders</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#unpaid" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-2">Washed and Unpaid orders</a>
+                                                    </li>
+                                                    <li class="nav-item" role="presentation">
+                                                        <a class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                            href="#paid" role="tab" aria-controls="profile"
+                                                            aria-selected="false" tabindex="-3">Washed and Paid orders</a>
+                                                    </li>
+
+                                                </ul>
+                                                <div class="tab-content" id="myTabContent">
+                                                    <div class="tab-pane fade active show" id="allorders" role="tabpanel"
+                                                        aria-labelledby="home-tab">
+                                                        <p class="my-2">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Quantity of Clothes</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Wash/Iron</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Cost</th>
+																		<th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>
+																		
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+																	<tr th:each="order:${allorders}">
+																		<td th:text="${order.order_id}"/>
+																		<td th:text="${order.order_date}"/>
+																		<td>
+																			Uppers: <span th:text="${order.number_uppers}"/><br>
+																			Lowers: <span th:text="${order.number_lowers}"/><br>
+																			Sheet:  <span th:text="${order.number_sheets}"/>
+																		</td>
+																		<td>
+																			<span th:if="${order.to_wash==1}">Wash</span>
+																			<span th:if="${order.to_iron==1}"><br>Iron</span>
+																		</td>
+																		<td th:text="${order.cost}"/>
+																		<td th:text="${order.status_of_orders}"/>
+																	</tr>
+
+                                                                    
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                        </p>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="unwashed" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Quantity of Clothes</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Wash/Iron</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Cost</th>
+																		<th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>
+																		
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+																	<tr th:each="order:${orders_unwashed}">
+																		<td th:text="${order.order_id}"/>
+																		<td th:text="${order.order_date}"/>
+																		<td>
+																			Uppers: <span th:text="${order.number_uppers}"/><br>
+																			Lowers: <span th:text="${order.number_lowers}"/><br>
+																			Sheet:  <span th:text="${order.number_sheets}"/>
+																		</td>
+																		<td>
+																			<span th:if="${order.to_wash==1}">Wash</span>
+																			<span th:if="${order.to_iron==1}"><br>Iron</span>
+																		</td>
+																		<td th:text="${order.cost}"/>
+																		<td th:text="${order.status_of_orders}"/>
+																	</tr>
+
+                                                                    
+
+                                                                </tbody>
+                                                                
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+													<div class="tab-pane fade" id="unpaid" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Quantity of Clothes</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Wash/Iron</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Cost</th>
+																		<th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>
+																		
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+																	<tr th:each="order:${orders_unpaid}">
+																		<td th:text="${order.order_id}"/>
+																		<td th:text="${order.order_date}"/>
+																		<td>
+																			Uppers: <span th:text="${order.number_uppers}"/><br>
+																			Lowers: <span th:text="${order.number_lowers}"/><br>
+																			Sheet:  <span th:text="${order.number_sheets}"/>
+																		</td>
+																		<td>
+																			<span th:if="${order.to_wash==1}">Wash</span>
+																			<span th:if="${order.to_iron==1}"><br>Iron</span>
+																		</td>
+																		<td th:text="${order.cost}"/>
+																		<td th:text="${order.status_of_orders}"/>
+																	</tr>
+
+                                                                    
+
+                                                                </tbody>
+                                                                
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-pane fade" id="paid" role="tabpanel"
+                                                        aria-labelledby="profile-tab">
+                                                        <div class="table-responsive"
+                                                            style="max-height: 400px; overflow-y: auto;">
+                                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Order Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Quantity of Clothes</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Wash/Iron</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Cost</th>
+																		<th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>
+																		
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+																	<tr th:each="order:${orders_paid}">
+																		<td th:text="${order.order_id}"/>
+																		<td th:text="${order.order_date}"/>
+																		<td>
+																			Uppers: <span th:text="${order.number_uppers}"/><br>
+																			Lowers: <span th:text="${order.number_lowers}"/><br>
+																			Sheet:  <span th:text="${order.number_sheets}"/>
+																		</td>
+																		<td>
+																			<span th:if="${order.to_wash==1}">Wash</span>
+																			<span th:if="${order.to_iron==1}"><br>Iron</span>
+																		</td>
+																		<td th:text="${order.cost}"/>
+																		<td th:text="${order.status_of_orders}"/>
+																	</tr>
+
+                                                                    
+
+                                                                </tbody>
+                                                                
+                                                            </table>
+                                                            
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                
+
+                            </div>
+                        </div>
+             
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+       
+
+    
+</html>
