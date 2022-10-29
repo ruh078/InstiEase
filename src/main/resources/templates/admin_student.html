@@ -79,7 +79,27 @@
 
                 <div class="main-panel">
                     <div class="content-wrapper">
-
+                        <form action="/panel/user/search/email" method="POST">
+                           
+                            <div class="row">
+                                <div class="col-11">
+                                    <div class="form-group">
+                                        <input class="form-control form-control-sm" list="users" name="email" id="browser"
+                                            placeholder="Search Students using roll number">
+                                        <datalist id="users">
+                                                <div th:each="student:${students}">
+                                                    <option th:value="${student.roll_number}"></option>
+                                                </div>         
+                                        </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <button type="submit" class="btn btn-primary btn-sm rounded-pill "> <i class="bi bi-search"></i>
+                        
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                         <div class="row">
                             <div class="col-lg-12 grid-margin stretch-card">
                                 <br>
@@ -108,8 +128,11 @@
                                                         <td th:text="${studentuser.get(student).name}"></td>
                                                          <td>
                                                         <span th:id="|s_${student.roll_number}|">
-                                                        <span th:text="${student.is_verified}" style="font-size: 25px; ;color:red; font-weight:bolder"></span>
-                                               
+                                                        <!-- <span th:text="${student.is_verified}" style="font-size: 25px; ;color:red; font-weight:bolder"></span> -->
+                                                        <span >
+                                                            <span th:if="${student.is_verified}==0"><i class="bi bi-person-x-fill"></i></span>
+                                                            <span th:if="${student.is_verified}==1"><i class="bi bi-person-check-fill"></i></span>
+                                                        </span>
                                                         <script>
 															function change(id){
     															let id1 = "s_"+id;
@@ -128,16 +151,64 @@
 														 
                                                         </span>
                                                         <span th:id="|change_${student.roll_number}|" style="display:none">
-          													<form th:action="@{/medical/medicine/edit/{med_id} (med_id=${student.roll_number})}" method="POST">
-          														<input type="number" th:name="verify" th:value="${student.is_verified}"  style="width:50px;"/>
-          														<button type="submit" id="submit" style="padding: 0;border: none;background: none;"><i class="bi bi-check2-circle" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          													<form th:action="@{/admin/student/edit/{sid} (sid=${student.roll_number})}" method="POST">
+          														<!-- <input type="number" th:name="verify" th:value="${student.is_verified}"  style="width:50px;"/> -->
+                                                                                                
+                                                                    <input type="checkbox" class="form-check-input" th:if="${student.is_verified}==0" name="studverify" th:name="verify" th:value="${student.is_verified}"  checked>
+                                                                        <i class="input-helper"></i>
+                                                                
+                                                                   
+                                                                    <input type="checkbox" class="form-check-input" th:if="${student.is_verified}==1"name="studverify" th:name="verify" th:value="${student.is_verified}" >
+                                                                    <i class="input-helper"></i>
+                                                                  
+                                                               
+          														<button type="submit" id="submit" style="padding:0px;border: none;background: none;"><i class="bi bi-check2" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
           													</form>
         												</span>
         												
                                                         </td>
-                                                        <td th:if="${student.is_verified}==0"><i class="bi bi-person-check-fill"></i></td>
-                                                        <td th:if="${student.is_verified}==1"><i class="bi bi-check2"></i></td>
-                                                        <td></td>
+                                                        
+                                                        <td>
+                                                            <div class="modal fade" id="del-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog " role="document">
+                                                                    <div class="modal-content card-light-danger">
+                                                                        <div class="modal-header ">
+                                                                            <h4 class="modal-title" id="exampleModalLabel" th:text="${studentuser.get(student).name}"></h4>
+                                                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div style="white-space:normal;line-height: 160%;">
+                                                                              
+                                                                               
+                                                                                    
+                                                                                    <p><strong>Roll Number : </strong><span th:text="${student.roll_number}"></span></p>
+                                                                                    <p><strong>Name : </strong> <span th:text="${studentuser.get(student).name}"></span></p>
+                                                                                    <p><strong>Date of Birth : </strong><span th:text="${studentuser.get(student).dob}"></span></p>
+                                                                                    <p><strong>Email ID : </strong> <span th:text="${studentuser.get(student).email_id}"></span></p>
+                                                                                    <p><strong>Contact : </strong><span th:text="${studentuser.get(student).contact}"></span></p>
+                                                                                    <p><strong>Gender : </strong><span th:text="${studentuser.get(student).gender}"></span></p>
+                                                                                    <p><strong>Mess Refund : </strong> <span th:text="${student.mess_refund}"></span></p>
+                                                                                    <p><strong>Bank Account Number : </strong><span th:text="${student.bank_account_no}"></span></p>
+                                                                                    <p><strong>Due Wash Charges : </strong><span th:text="${student.due_wash_charges}"></span></p>
+                                                                                    <p><strong>Eligible for Laundary : </strong><span th:if="${student.is_eligible_laundary}==0">No</span>
+                                                                                    <span th:if="${student.is_eligible_laundary}==1">Yes</span>
+                                                                                    </p>
+                                                                                  <p><strong>Room Number : </strong><span th:text="${student.room_number}"></span></p>
+                                                                                <p><strong>Hostel : </strong><span th:text="${studenthostel.get(student).hostel_name}"></span></p>
+                                                                                   
+                                                                                   
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <button data-bs-toggle="modal" data-bs-target="#del-confirm"
+                                                                data-whatever="@getbootstrap" style="border:none;"><i class="bi bi-box-arrow-right"></i></button>
+                                                           
                                                     </tr>
 
                                                 </tbody>
