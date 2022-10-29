@@ -8,7 +8,9 @@ public interface WashermanDao {
     public List<Washerman> listAllWasherman();
     public void save(Washerman washerman);
     public void edit(Washerman washerman);
+    public void editearning(int washer_id, int earn);
     public Washerman findByWasherId(int washer_id);
+    public Washerman findByUserId(int user_id);
     public List<Washerman>listAllWashermanofHostel(int hostel_id);
     
 }

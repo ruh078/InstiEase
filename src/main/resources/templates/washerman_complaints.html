@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   
+</head>
+
+   <div class="container-scroller">
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;"
+                                    alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu" style="margin:0px;">
+
+                        <li class="sidebar-item active">
+                            <a th:href="@{/washerman}" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item has-sub  ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-stack"></i>
+                                <span>Activities</span>
+                            </a>
+                            <ul class="submenu" style="display: block;">
+                                <li class="submenu-item">
+                                    <a th:href="@{/washerman/order}">Orders</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/washerman/due}">Due Charges</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/washerman/complaint}">Complaints</a>
+                                </li>
+                                
+                               
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a th:href="@{/logout}" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+           
+            <div class="main-panel">
+                <div class="content-wrapper">
+                     <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Complaints</h4>
+                                        <p class="card-description">Complaints of <span th:text="${hostel.hostel_name}"></span>
+                                        </p>
+                                        <div class="table-responsive" style="max-height: 1000px; overflow-y: auto;">
+                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                       <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complaint Id</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Date</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Student</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Description</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain to</th>    
+                                                                        
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Complain Type</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Status</th>
+
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                     <tr th:each="complaint:${complaints}">
+
+                                                                        <td th:text="${complaint.complaint_id}" />
+                                                                        <td th:text="${complaint.complain_date}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(complaint.student_roll_no).user_id).name}" />
+                                                                        	<br>
+                                                                        	Roll No.->
+                                                                        	<span th:text="${complaint.student_roll_no}";/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
+                                                                        </td>
+                                                                        <td th:text="${complaint.description}" />
+                                                                        <td th:if="${complaint.type==1}">Laundary</td>
+                                                                        <td th:if="${complaint.type==2}">Mess</td>
+                                                                        <td th:if="${complaint.type==3}">Hostel</td>
+                                                                        <td th:if="${complaint.isPrivate==0}">Public</td>
+                                                                        <td th:if="${complaint.isPrivate==1}">Private</td>
+                                                                        <td th:text="${complaint.status}"/>
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                        </div>
+                                        
+                                      
+                                     
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+             
+             
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+       
+
+    
+</html>

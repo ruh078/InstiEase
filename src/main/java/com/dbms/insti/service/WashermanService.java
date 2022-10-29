@@ -9,5 +9,6 @@ public interface WashermanService {
     public void save(Washerman washerman);
     public void edit(Washerman washerman);
     public Washerman findByWasherId(int washer_id);
+    public Washerman findByUserId(int user_id);
     public List<Washerman>listAllWashermanofHostel(int hostel_id);
 }

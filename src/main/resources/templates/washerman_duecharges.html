@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+   
+</head>
+
+   <div class="container-scroller">
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
+                    <div class="d-flex justify-content-between">
+                        <div class="logo">
+                            <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;"
+                                    alt="Logo" srcset=""></a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-menu">
+                    <ul class="menu" style="margin:0px;">
+
+                        <li class="sidebar-item active">
+                            <a th:href="@{/washerman}" class='sidebar-link'>
+                                <i class="bi bi-person-fill"></i>
+                                <span>Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item has-sub  ">
+                            <a href="#" class="sidebar-link">
+                                <i class="bi bi-stack"></i>
+                                <span>Activities</span>
+                            </a>
+                            <ul class="submenu" style="display: block;">
+                                <li class="submenu-item">
+                                    <a th:href="@{/washerman/order}">Orders</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/washerman/due}">Due Charges</a>
+                                </li>
+                                <li class="submenu-item">
+                                    <a th:href="@{/washerman/complaint}">Complaints</a>
+                                </li>
+                                
+                               
+                            </ul>
+                        </li>
+                        <li class="sidebar-item  ">
+                            <a th:href="@{/logout}" class='sidebar-link'>
+                                <i class="bi bi-box-arrow-left"></i>
+                                <span>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+           
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                            <div class="col-lg-12 grid-margin stretch-card">
+                                <br>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Due Charges</h4>
+                                        <p style="padding-top:10px; font-size:18px" class="card-description">Total Due charges: Rs <span th:text="${totaldue}"/>
+                                        </p>
+                                        <div class="table-responsive" style="max-height: 1000px; overflow-y: auto;">
+                                            <table class="table table-striped">
+                                                                <thead
+                                                                    style="position:sticky;top:0;z-index:100;background-color: white;">
+                                                                    <tr>
+
+                                                                       <th style="position:sticky;top:0;z-index:100;">
+                                                                            Roll number</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Name</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Hostel/Room No.</th>    
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Contact</th>
+                                                                        <th style="position:sticky;top:0;z-index:100;">
+                                                                            Total Due Charges</th>    
+                                                                        
+
+
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+
+                                                                     <tr th:each="due:${alldues}">
+
+                                                                        <td th:text="${due.get(0)}" />
+                                                                        <td th:text="${userservice.findByUserId(service.getStudentbyId(due.get(0)).user_id).name}" />
+                                                                        
+                                                                        <td>
+                                                                        	<span th:text="${hostelservice.getHostelbyId(service.getStudentbyId(due.get(0)).hostel_id).hostel_name}"/>
+                                                                            <br>
+                                                                        	Room No.->
+                                                                        	<span th:text="${service.getStudentbyId(due.get(0)).room_number}";/>
+                                                                        </td>
+                                                                        <td th:text="${userservice.findByUserId(service.getStudentbyId(due.get(0)).user_id).contact}" />
+                                                                   		<td th:text="${due.get(1)}" />
+
+                                                                    </tr>
+
+                                                                </tbody>
+                                                            </table>
+                                        </div>
+                                        
+                                      
+                                     
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+             
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+       
+
+    
+</html>

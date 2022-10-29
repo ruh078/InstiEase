@@ -75,6 +75,24 @@ public class WashermanDaoImpl implements WashermanDao {
         return washerman;
 	}
 
+	@Override
+	public Washerman findByUserId(int user_id) {
+		String query = "Select * from washerman where user_id=?";
+        try {
+            Washerman washerman = template.queryForObject(query,washermanRowMapper, user_id);
+            return washerman;
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+	}
+
+	@Override
+	public void editearning(int washer_id, int earn) {
+        String sql = "UPDATE washerman SET total_money_earned=? WHERE washer_id=?";
+        template.update(sql, earn, washer_id);
+	}
+
 	
 
     

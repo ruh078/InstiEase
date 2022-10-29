@@ -300,7 +300,12 @@ public class StudentController {
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
 	       		   model.addAttribute("allwasherman", washermanservice.listAllWashermanofHostel(student.getHostel_id()));
 	       		   model.addAttribute("userservice", userService);
-	       		  
+	       		   model.addAttribute("allorders", laundaryservice.listAllOrdersofStudent(student.getRoll_number(), 0));
+	       		   model.addAttribute("orders_unwashed", laundaryservice.listAllOrdersofStudent(student.getRoll_number(), 1));
+	       		   model.addAttribute("orders_unpaid", laundaryservice.listAllOrdersofStudent(student.getRoll_number(), 2));
+	       		   model.addAttribute("orders_paid", laundaryservice.listAllOrdersofStudent(student.getRoll_number(), 3));
+	       		   model.addAttribute("washerservice", washermanservice);
+	       		   model.addAttribute("due_charges", student.getDue_wash_charges());
 	               return "student_washerman";
 	           }
 	           return "redirect:/";
@@ -323,6 +328,7 @@ public class StudentController {
 	       		   model.addAttribute("orders_unpaid", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 2));
 	       		   model.addAttribute("orders_paid", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 3));
 	       		   model.addAttribute("neworder", new Laundary_orders());
+	       		   model.addAttribute("due_charges", laundaryservice.duecharges(student.getRoll_number(), id));
 	               return "student_washerman_order";
 	           }
 	           return "redirect:/";
@@ -345,6 +351,41 @@ public class StudentController {
 	       		   neworder.setWasher_id(id);
 	       		   laundaryservice.save(neworder);
 	       		   String url = "redirect:/student/washerman/" + id;
+	               return url;
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@PostMapping("/student/washerman/{wid}/delete/{id}")
+	public String deleteorder(@PathVariable int wid, @PathVariable int id){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   laundaryservice.delete(id);
+	       		   String url = "redirect:/student/washerman/" + wid;
+	               return url;
+	           }
+	           return "redirect:/";
+	       }
+	       
+	       return "redirect:/login";
+	       
+	 }
+	
+	@PostMapping("/student/washerman/{wid}/edit/{id}")
+	public String editorder(@PathVariable int wid, @PathVariable int id, @ModelAttribute("neworder") Laundary_orders order){
+	       if(securityService.isLoggedIn()) {
+	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	        	   order.setWasher_id(wid);
+	        	   order.setOrder_id(id);
+	        	   order.setStudent_roll_no(student.getRoll_number());
+	        	   laundaryservice.edit(order);
+	       		   String url = "redirect:/student/washerman/" + wid;
 	               return url;
 	           }
 	           return "redirect:/";
