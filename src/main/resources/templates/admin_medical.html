@@ -89,7 +89,61 @@
 										<div>
 											<p th:if=${med_incharge==NULL}>No Medical Incharge present</p>
 											<span th:if=${med_incharge!=NULL}>
-												<p th:text="${med_incharge.name}"/></span>											
+												<table class="table table-hover table-lg">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Name</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class="mb-0" th:text="${med_incharge.name}">Name</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Email ID</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${med_incharge.email_id}">Email ID</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Gender</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${med_incharge.gender}">Gender</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Contact</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${med_incharge.contact}">Contact</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Date of Birth</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${med_incharge.dob}">DOB</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>												
+											</span>											
 										</div>                                                                             
                                         <div class="modal fade" th:id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                             aria-hidden="true">
@@ -140,17 +194,92 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        <div th:if="${med_incharge!=NULL}">
+                                        <div class="modal fade" th:id="|update_modal_${med_incharge.user_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog " role="document">
+                                                <div class="modal-content card-light-danger">
+                                                    <div class="modal-header ">
+                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
+                                                            Edit Medical Incharge</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                        
+                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form th:action="@{/admin/medin/edit/{id}(id=${med_incharge.user_id})}" method="POST" th:object="${newUser}">                                                                                                 
+                                                            <div class="form-group">
+                                                                <label for="name">Name</label>
+                                                                <input type="text" id="name" class="form-control form-control-lg" placeholder="Medical Incharge Name" th:name="name" th:value=${med_incharge.name} required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Date of Birth</label>
+                                                                <input type="date" id="name" class="form-control form-control-lg" placeholder="dob" th:name="dob" th:value=${med_incharge.dob} required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Contact</label>
+                                                                <input type="number" id="name" class="form-control form-control-lg" placeholder="contact" th:name="contact" th:value="${med_incharge.contact}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                            	<select class="form-control-xl dropdown" placeholder="Gender" id="gender" th:name="gender" th:value="${med_incharge.gender}" required>
+                               										 <option value="Male">Male</option>
+                                									 <option value="Female">Female</option>
+                         										</select>
+                          									</div>                          									
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Edit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"/>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        
+                                        <div class="modal fade" id="del-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        	<div class="modal-dialog " role="document">
+                                            	<div class="modal-content card-light-danger">
+                                                	<div class="modal-header ">
+                                                    	<h4 class="modal-title" id="exampleModalLabel">Delete Medical Incharge</h4>
+                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                           	<span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    	<div style="white-space:normal;line-height: 160%;">
+                                                        	<div class="row justify-content-center">
+                                                            	<h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                <br>
+                                                            </div>
+                                                        	Are you absolutely sure you want to delete medical incharge?
+                                                            <br>
+                                                            <b>Please note that there is no option to restore the medical incharge or its related data once it is deleted.</b>
+                                                            <br>
+                                                            <br>
+                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn" th:href="@{/admin/medin/delete}">Confirm Delete</a>
+														</div>
+                                                     </div>
+                                               </div>
+                                            </div>
+                                         </div>                                        
+                                        
                                          <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto" th:if=${med_incharge==NULL}>
                                         	<button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Add Medical Incharge</button>
                                         </div>
-                                        <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto" th:if=${med_incharge!=NULL}>
-                                        	<form th:action="@{/admin/medin/delete}" method="POST">
-                                                    <div class="mt-3">
-                                                            <input type="submit" value="Delete"
-                                                            class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"/>
-                                                    </div>                                        	
-                                             </form>
-                                        </div>
+                                       
+                                       	<div style="text-align:center; padding:20px;" class="container" th:if=${med_incharge!=NULL}>
+    										<div class="row justify-content-center">
+      											<div class="col-3">
+        												<button class="btn btn-block btn-warning btn font-weight-medium auth-form-btn" data-bs-toggle="modal" th:data-bs-target="|#update_modal_${med_incharge.user_id}|">Edit</button>
+        										</div>
+      											<div class="col-3">
+        												<button class="btn btn-block btn-danger btn font-weight-medium auth-form-btn" data-bs-toggle="modal" data-bs-target="#del-confirm" data-whatever="@getbootstrap">Delete</button>
+        										</div>
+    										</div>
+										</div>                                       
                                     </div>
 
                                 </div>

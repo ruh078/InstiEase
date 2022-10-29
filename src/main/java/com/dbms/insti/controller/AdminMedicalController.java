@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,4 +50,15 @@ public class AdminMedicalController {
         
         return "redirect:/admin/medin";
     }
+    
+    @PostMapping({"/admin/medin/edit/{id}"})
+    public String editmedical(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
+        user.setUser_id(id);
+        user.setRole(2);
+        user.setEmail_id(userService.findByUserId(id).getEmail_id());
+        user.setPsw(userService.findByUserId(id).getPsw());
+        userService.edit(user);
+        return "redirect:/admin/medin";
+    }
+    
 }
