@@ -142,14 +142,15 @@
                                                                     <i class="input-helper"></i>
                                                                   
                                                                
-          														<button type="submit" id="submit" style="padding:0px;border: none;background: none;"><i class="bi bi-check2" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button>
+          														<!-- <button type="submit" id="submit" style="padding:0px;border: none;background: none;"><i class="bi bi-check2" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button> -->
+                                                                <button class="btn btn-warning btn-sm" type="submit" id="submit">set</button>
           													</form>
         												</span>
         												
                                                         </td>
                                                         
                                                         <td>
-                                                            <div class="modal fade" id="del-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            <div class="modal fade" th:id="|del-confirm-${student.roll_number}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                                 aria-hidden="true">
                                                                 <div class="modal-dialog " role="document">
                                                                     <div class="modal-content card-light-danger">
@@ -186,7 +187,8 @@
                                                                 </div>
                                                             </div>
                                                             
-                                                            <button data-bs-toggle="modal" data-bs-target="#del-confirm"
+                                                            <button data-bs-toggle="modal" th:data-bs-target="|#del-confirm-${student.roll_number}|"
+                                                             
                                                                 data-whatever="@getbootstrap" style="border:none;"><i class="bi bi-box-arrow-right"></i></button>
                                                            
                                                     </tr>
