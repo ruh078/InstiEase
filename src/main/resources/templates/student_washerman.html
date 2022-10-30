@@ -281,8 +281,6 @@
 																		</td>
 																		<td th:text="${order.cost}"/>
 																		<td th:text="${order.status_of_orders}"/>
-																		<td><span th:if="${order.status_of_orders}=='Unwashed'"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${order.order_id}|">Edit</button> 
-                                                						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${order.order_id}|" data-whatever="@getbootstrap">Delete</button></span></td>
 																	</tr>
 
                                                                     
