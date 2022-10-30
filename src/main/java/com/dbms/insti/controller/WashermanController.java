@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Laundary_orders;
 import com.dbms.insti.models.Users;
 import com.dbms.insti.models.Washerman;
@@ -43,8 +44,13 @@ public class WashermanController {
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
-                 //  Warden washerman = washerman.findbyUserId(user.getUser_id());
-                  
+                   Washerman washerman = washermanService.findByUserId(user.getUser_id());
+                   Hostel hostel = hostelservice.getHostelbyId(washerman.getHostel_id());
+                   model.addAttribute("washerman",washerman);
+                   model.addAttribute("user",user);
+                   model.addAttribute("newwasherman",new Washerman());
+                   model.addAttribute("newuser",new Users());
+                   model.addAttribute("hostel",hostel);
                    return "washerman_profile";
                }
                return "redirect:/";
@@ -141,5 +147,17 @@ public class WashermanController {
            
            return "redirect:/login";
     }
+	
+	@PostMapping("/washerman/edit/{id}")
+	public String editwasherman(@PathVariable("id") int id, @ModelAttribute ("newuser") Users user, @ModelAttribute ("newwasherman") Washerman washerman, Model model) {
+		user.setUser_id(id);
+    	user.setRole(6);
+        user.setEmail_id(userService.findByUserId(id).getEmail_id());
+        user.setPsw(userService.findByUserId(id).getPsw());
+        washerman.setWasher_id(washermanService.findByUserId((userService.findByUserId(id)).getUser_id()).getWasher_id());
+    	userService.edit(user);
+    	washermanService.edit(washerman);
+		return "redirect:/washerman";
+	}
 
 }
