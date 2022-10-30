@@ -25,8 +25,8 @@ public class MessChargesUtil implements MessChargesService{
     }
     
     @Override
-    public void edit2(Mess_charges mess_charges) {
-        messchargesdao.edit2(mess_charges);
+    public void edit(Mess_charges mess_charges) {
+        messchargesdao.edit(mess_charges);
         return;
     }
 }

@@ -40,7 +40,7 @@ public class MessChargesDaoImpl implements MessChargesDao{
 	}
 	
 	@Override
-	public void edit2(Mess_charges mess_charges) {
+	public void edit(Mess_charges mess_charges) {
 	    String sql = "UPDATE mess_charges SET cost=? where meal_type=?";
 	    template.update(sql, mess_charges.getCost(), mess_charges.getMeal_type());
 	    return;

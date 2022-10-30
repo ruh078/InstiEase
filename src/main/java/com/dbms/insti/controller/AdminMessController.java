@@ -101,7 +101,7 @@ public class AdminMessController {
     @PostMapping({"/admin/messin/edit2/{meal_type}"})
     public String editmesscharge(@PathVariable("meal_type") String meal_type, @ModelAttribute("newmesscharge") Mess_charges mess_charges, Model model) {
         mess_charges.setMeal_type(meal_type);
-        messchargesService.edit2(mess_charges);
+        messchargesService.edit(mess_charges);
         return "redirect:/admin/messin";
     }  
 }
