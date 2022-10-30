@@ -6,6 +6,7 @@ import com.dbms.insti.models.Student;
 public interface StudentDao {
     public List<Student> listAllStudents();
     public void save(Student student);
+    public void edit(Student student);
     public void editrefund(int roll_number, int refund);
     public void editduewash(int roll_number, int duewash);
     public void editeligibility(int roll_number, int iseligible);

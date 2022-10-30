@@ -50,6 +50,12 @@ public class StudentDaoImpl implements StudentDao{
         template.update(sql, student.getRoll_number() , student.getRoom_number(), student.getBank_account_no(),student.getHostel_id(), student.getUser_id());
  
     }
+    
+    @Override
+    public void edit(Student student) {
+    	String sql = "UPDATE student SET room_number=?,bank_account_no=? WHERE user_id=?";
+    	template.update(sql,student.getRoom_number(),student.getBank_account_no(),student.getUser_id());
+    }
 
 	@Override
 	public Student getStudentbyId(int student_roll_no) {
