@@ -134,12 +134,11 @@
           													<form th:action="@{/admin/student/edit/{sid} (sid=${student.roll_number})}" method="POST">
           														<!-- <input type="number" th:name="verify" th:value="${student.is_verified}"  style="width:50px;"/> -->
                                                                                                 
-                                                                    <input type="checkbox" class="form-check-input" th:if="${student.is_verified}==0" name="studverify" th:name="verify" th:value="${student.is_verified}"  checked>
+                                                                    <input type="checkbox" class="form-check-input" th:name="verify" value="1"  th:checked="${student.is_verified}==1">
                                                                         <i class="input-helper"></i>
-                                                                
+                                                                <input type="hidden" th:name="verify" value="0">
                                                                    
-                                                                    <input type="checkbox" class="form-check-input" th:if="${student.is_verified}==1"name="studverify" th:name="verify" th:value="${student.is_verified}" >
-                                                                    <i class="input-helper"></i>
+                                                                  
                                                                   
                                                                
           														<!-- <button type="submit" id="submit" style="padding:0px;border: none;background: none;"><i class="bi bi-check2" style="padding: 5px 0px 0px 0px; font-size: 20px; color:green; font-weight: 1000;"></i></button> -->

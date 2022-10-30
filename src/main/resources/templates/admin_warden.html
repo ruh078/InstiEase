@@ -96,12 +96,12 @@
                                                     <tr>
                                                         <th style="position:sticky;top:0;z-index:100;">HostelId</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Warden Name</th>
+                                                
+                                                        <th style="position:sticky;top:0;z-index:100;">Warden Info</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Add/Edit</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
 
                                                     <tr th:each="hostel:${hostels}">
                                                         <td th:text="${hostel.hostel_id}"/> 
@@ -111,7 +111,39 @@
                                                         	<td><button class="btn btn-primary btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}|">Add</button></td>
                                         		      </span>
                                                         <span th:if="${hostelwarden.get(hostel)!=NULL}" th:with="key= ${hostelwarden.get(hostel)}">
-                                                        	<td th:text="${wardenuser.get(hostelwarden.get(hostel)).name}"/>
+                                                        	<td><span th:text="${wardenuser.get(hostelwarden.get(hostel)).name}"></span> 
+
+
+                                                            <div class="modal fade" th:id="|del-confirm-${wardenuser.get(hostelwarden.get(hostel)).user_id}|" tabindex="-1" role="dialog"
+                                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog " role="document">
+                                                                    <div class="modal-content card-light-danger">
+                                                                        <div class="modal-header ">
+                                                                            <h4 class="modal-title" id="exampleModalLabel" th:text="${wardenuser.get(hostelwarden.get(hostel)).name}"></h4>
+                                                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div style="white-space:normal;line-height: 160%;">
+                                                            
+                                                            
+                                                            
+                                                                               
+                                                                                <p><strong>Name : </strong> <span th:text="${wardenuser.get(hostelwarden.get(hostel)).name}"></span></p>
+                                                                                <p><strong>Date of Birth : </strong><span th:text="${wardenuser.get(hostelwarden.get(hostel)).dob}"></span></p>
+                                                                                <p><strong>Email ID : </strong> <span th:text="${wardenuser.get(hostelwarden.get(hostel)).email_id}"></span></p>
+                                                                                <p><strong>Contact : </strong><span th:text="${wardenuser.get(hostelwarden.get(hostel)).contact}"></span></p>
+                                                                                <p><strong>Gender : </strong><span th:text="${wardenuser.get(hostelwarden.get(hostel)).gender}"></span></p>
+                                                                               
+                                                            
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-primary btn-sm"data-bs-toggle="modal" th:data-bs-target="|#del-confirm-${wardenuser.get(hostelwarden.get(hostel)).user_id}|" data-whatever="@getbootstrap"
+                                                                style="border:none;background-color:none ;"><i class="bi bi-box-arrow-right"></i></button></td>
                                                             <td><button class="btn btn-warning btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}2|">Edit</button></td>
                                                         </span>                                                       
                                                     </tr>                                                

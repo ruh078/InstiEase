@@ -11,4 +11,5 @@ public interface StudentDao {
     public Student getStudentbyId(int student_roll_no);
     public Student getStudentbyUserId(int user_id);
     public List<Student>listAllStudentsofHostel(int hostel_id);
+    public void update_verify(int roll_number, int is_verified);
 }

@@ -94,19 +94,65 @@
                                                 <thead
                                                     style="position:sticky;top:0;z-index:100;background-color: white;">
                                                     <tr>
-                                                        <th style="position:sticky;top:0;z-index:100;">WashermanId</th>
-                                                        <th style="position:sticky;top:0;z-index:100;">Washerman Name</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Washerman Id</th>
+                                                        
                                                         <th style="position:sticky;top:0;z-index:100;">Hostel Name</th>
+                                                        <th style="position:sticky;top:0;z-index:100;">Washerman Info</th>
                                                         <th style="position:sticky;top:0;z-index:100;">Edit/Delete</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr th:each="washerman:${washers}">
-                                                        <td th:text="${washerman.washer_id}"/>                                                         
-                                                        <td th:text="${washermanuser.get(washerman).name}"></td>
+                                                        <td th:text="${washerman.washer_id}"></td>         
                                                         <td th:text="${washermanhostel.get(washerman).hostel_name}"></td>
-                                                        
+                                                        <td ><span th:text="${washermanuser.get(washerman).name}"></span>
+                                                            <div class="modal fade" th:id="|del-confirm-${washermanuser.get(washerman).user_id}|" tabindex="-1"
+                                                                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                <div class="modal-dialog " role="document">
+                                                                    <div class="modal-content card-light-danger">
+                                                                        <div class="modal-header ">
+                                                                            <h4 class="modal-title" id="exampleModalLabel"
+                                                                                th:text="${washermanuser.get(washerman).name}"></h4>
+                                                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div style="white-space:normal;line-height: 160%;">
+                                                            
+                                                            
+                                                            
+                                                            
+                                                                                <p><strong>Name : </strong> <span th:text="${washermanuser.get(washerman).name}"></span>
+                                                                                </p>
+                                                                                <p><strong>Date of Birth : </strong><span
+                                                                                        th:text="${washermanuser.get(washerman).dob}"></span></p>
+                                                                                <p><strong>Email ID : </strong> <span
+                                                                                        th:text="${washermanuser.get(washerman).email_id}"></span></p>
+                                                                                <p><strong>Contact : </strong><span
+                                                                                        th:text="${washermanuser.get(washerman).contact}"></span></p>
+                                                                                <p><strong>Gender : </strong><span
+                                                                                        th:text="${washermanuser.get(washerman).gender}"></span></p>
+                                                                                <p><strong>Bank Account Number : </strong><span th:text="${washerman.account_no}"></span></p>
+                                                                                <p><strong>Upi ID : </strong><span th:text="${washerman.upi_id}"></span></p>
+                                                                                <p><strong>Cost of sheet (wash) : </strong>₹ <span th:text="${washerman.cost_sheet_wash}"></span></p>
+                                                                                <p><strong>Cost of sheet (iron) : </strong>₹ <span th:text="${washerman.cost_sheet_iron}"></span></p>
+                                                                                <p><strong>Cost of lower (wash) : </strong>₹ <span th:text="${washerman.cost_lower_wash}"></span></p>
+                                                                                <p><strong>Cost of lower (iron) : </strong>₹ <span th:text="${washerman.cost_lower_iron}"></span></p>
+                                                                                <p><strong>Cost of upper (wash) : </strong>₹ <span th:text="${washerman.cost_upper_wash}"></span></p>
+                                                                                <p><strong>Cost of upper (iron) : </strong>₹ <span th:text="${washerman.cost_upper_iron}"></span></p>
+                                                                                <p><strong>Total Money Earned : </strong>₹ <span th:text="${washerman.total_money_earned}"></span></p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                                            th:data-bs-target="|#del-confirm-${washermanuser.get(washerman).user_id}|" data-whatever="@getbootstrap"
+                                                            style="border:none;background-color:none ;"><i class="bi bi-box-arrow-right"></i></button></td>
+                                                        </td>
+                                                
                                                         <td>
                                                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" th:data-bs-target="|#update_modal_${washerman.washer_id}|">Edit</button>
                                                             <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#del-confirm" data-whatever="@getbootstrap">Delete</button>
@@ -129,7 +175,7 @@
                                                                             <form th:action="@{/admin/wash/edit/{washer_id}(washer_id=${washerman.washer_id})}" method="POST" th:object=${newwasher}>
                                                                             	<div class="form-group">
                                                                 					<label for="name">Washerman Name</label>
-                                                                					<input type="text" id="name" th:name="name" class="form-control form-control-lg" placeholder="Warden Name" th:value="${washermanuser.get(washerman).name}" required>
+                                                                					<input type="text" id="name" th:name="name" class="form-control form-control-lg" placeholder="Washerman Name" th:value="${washermanuser.get(washerman).name}" required>
                                                             					</div>
                                                             					<div class="form-group">
                                                                 					<label for="name">Date of birth</label>
@@ -244,7 +290,7 @@
                                                     <div class="modal-header ">
                                                         <h4 class="modal-title" id="exampleModalLabel"><i
                                                                 class="ti-info-alt"></i>
-                                                            Add Warden</h4>
+                                                            Add Washerman</h4>
                                                         <button type="button" class="close" data-bs-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">×</span>
