@@ -2,6 +2,7 @@ package com.dbms.insti.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.dbms.insti.models.Mess_charges;
+import com.dbms.insti.models.Mess_incharge;
 @Repository
 public class MessChargesDaoImpl implements MessChargesDao{
 	@Autowired
@@ -28,6 +30,20 @@ public class MessChargesDaoImpl implements MessChargesDao{
 	public Mess_charges getcharge(String s) {
 		String sql = "select * from mess_charges where meal_type=?";
 		return template.queryForObject(sql, messchargeRowMapper, s);
+	}
+	
+	@Override
+	public List<Mess_charges> listAllMesscharges(){
+	    String sql = "select * from mess_charges";
+        List<Mess_charges> messes = template.query(sql, messchargeRowMapper);
+        return messes;
+	}
+	
+	@Override
+	public void edit2(Mess_charges mess_charges) {
+	    String sql = "UPDATE mess_charges SET cost=? where meal_type=?";
+	    template.update(sql, mess_charges.getCost(), mess_charges.getMeal_type());
+	    return;
 	}
 
 }

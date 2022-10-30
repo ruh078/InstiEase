@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dbms.insti.models.Hostel;
+import com.dbms.insti.models.Mess_charges;
 import com.dbms.insti.models.Mess_incharge;
 
 import com.dbms.insti.models.Users;
 import com.dbms.insti.service.HostelService;
+import com.dbms.insti.service.MessChargesService;
 import com.dbms.insti.service.MessService;
 import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.UserService;
@@ -32,14 +34,18 @@ public class AdminMessController {
     private HostelService hostelService;
     @Autowired
     private MessService messService;
+    @Autowired
+    private MessChargesService messchargesService;
     @GetMapping("/admin/messin")
     public String adminmess(Model model) {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
             	List<Mess_incharge>messes = messService.listAllMesses();
             	List<Hostel>hostels = hostelService.listAllHostels();
+            	List<Mess_charges>mess_charges = messchargesService.listAllMesscharges();
                 Map<Object, Integer>hostelmess = new HashMap<Object, Integer>();
             	Map<Integer, Object>messuser = new HashMap<Integer, Object>();
+            	Map<String,Object>messchargefetch = new HashMap<String, Object>();
 
                 for(Hostel hostel: hostels) {
                 	if(messService.findbyhostelid(hostel.getHostel_id())!=null) {
@@ -50,14 +56,15 @@ public class AdminMessController {
                 for(Mess_incharge mess: messes) {
                     messuser.put(mess.getMess_id(), userService.findByUserId(mess.getUser_id()));
                 }
-                
+               
                 
                 model.addAttribute("hostels", hostels);
                 model.addAttribute("hostelmess", hostelmess);
                 model.addAttribute("messuser", messuser);
                 model.addAttribute("newUser", new Users());
                 model.addAttribute("newMess", new Mess_incharge());
-               
+                model.addAttribute("mess_charges", mess_charges);
+                model.addAttribute("newmesscharge", new Mess_charges());
                 return "admin_mess";
             }
             return "redirect:/";
@@ -88,6 +95,13 @@ public class AdminMessController {
         user.setEmail_id(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getEmail_id());
         user.setPsw(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getPsw());
         userService.edit(user);
+        return "redirect:/admin/messin";
+    }  
+    
+    @PostMapping({"/admin/messin/edit2/{meal_type}"})
+    public String editmesscharge(@PathVariable("meal_type") String meal_type, @ModelAttribute("newmesscharge") Mess_charges mess_charges, Model model) {
+        mess_charges.setMeal_type(meal_type);
+        messchargesService.edit2(mess_charges);
         return "redirect:/admin/messin";
     }  
 }
