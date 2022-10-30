@@ -139,4 +139,13 @@ public class LaundaryServiceImpl implements LaundaryService{
 		return laundarydao.totalduecharges(washer_id);
 	}
 
+	@Override
+	public void cleardues(int roll_number, int washer_id) {
+		List<Laundary_orders> l = laundarydao.listOrdersofStudent(roll_number, washer_id, 0);
+		for(Laundary_orders li: l) {
+			li.setStatus_of_orders("Washed and Paid");
+			editstatus(li);
+		}
+	}
+
 }

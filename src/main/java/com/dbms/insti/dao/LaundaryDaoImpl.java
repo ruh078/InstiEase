@@ -149,5 +149,6 @@ public class LaundaryDaoImpl implements LaundaryDao {
 			return 0;
 		}
 	}
+
 	
 }

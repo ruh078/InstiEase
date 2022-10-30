@@ -16,5 +16,5 @@ public interface LaundaryService {
     public Laundary_orders getByOrderId(int order_id);
     public List<List<Integer>> duechargesall(int washer_id);
     public int totalduecharges(int washer_id);
-
+    public void cleardues(int roll_number, int washer_id);
 }
