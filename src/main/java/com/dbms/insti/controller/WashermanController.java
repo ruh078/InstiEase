@@ -89,6 +89,21 @@ public class WashermanController {
            return "redirect:/login";
     }
 	
+	@PostMapping("/washerman/due/{id}")
+    public String cleardue(@PathVariable int id){
+           if(securityService.isLoggedIn()) {
+               if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
+                   Users user = userService.findByEmail(securityService.findLoggedInUsername());
+                   Washerman washerman = washermanService.findByUserId(user.getUser_id());
+                   laundaryservice.cleardues(id, washerman.getWasher_id());
+                   return "redirect:/washerman/due";
+               }
+               return "redirect:/";
+           }
+           
+           return "redirect:/login";
+    }
+	
 	@GetMapping("/washerman/due")
     public String duepage(Model model){
            if(securityService.isLoggedIn()) {
