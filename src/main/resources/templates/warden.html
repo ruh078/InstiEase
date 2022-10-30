@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Profile</title>
    
 </head>
 
@@ -14,7 +14,7 @@
                 <div class="sidebar-header" style="padding-top:10px; padding-bottom:0px;">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a th:href="@{/}"><img th:src="@{images/color_logo.png}" style="height:8rem;"
+                            <a th:href="@{/}"><img th:src="@{/images/color_logo.png}" style="height:8rem;"
                                     alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
@@ -76,23 +76,121 @@
                         <div class="row match-height">
                             <div class="col-12">
                                 <div class="card-group">
-                                    <div class="card">
-                                       
-                                 </div>
-                                     
-                                  
+                                    <div class="card">  
+                                    	<table class="table table-hover table-lg">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Name</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class="mb-0" th:text="${user.name}">Name</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Hostel Name</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${hostel.hostel_name}">Hostel Name</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Email ID</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${user.email_id}">Email ID</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Gender</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${user.gender}">Gender</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Contact</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${user.contact}">Contact</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-3">
+                                                            <div class="d-flex align-items-center">
+                                                                <p class="font-bold ms-3 mb-0">Date of Birth</p>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-auto">
+                                                            <p class=" mb-0" th:text="${user.dob}">DOB</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>	
+                                        		<div class="modal fade" th:id="|update_modal_${user.user_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            		<div class="modal-dialog " role="document">
+                                                		<div class="modal-content card-light-danger">
+                                                    		<div class="modal-header ">
+                                                        		<h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i> Edit Warden Details</h4>
+                                                        			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            			<span aria-hidden="true">×</span>
+                                                        			</button>                                                                                
+                                                    		</div>
+                                                    	<div class="modal-body">
+                                                        	<form th:action="@{/warden/edit/{id}(id=${user.user_id})}" method="POST" th:object="${newuser}">                                                                                                 
+                                                            <div class="form-group">
+                                                                <label for="name">Name</label>
+                                                                <input type="text" id="name" class="form-control form-control-lg" placeholder="Warden Name" th:name="name" th:value=${user.name} required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Date of Birth</label>
+                                                                <input type="date" id="name" class="form-control form-control-lg" placeholder="dob" th:name="dob" th:value=${user.dob} required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="name">Contact</label>
+                                                                <input type="number" id="name" class="form-control form-control-lg" placeholder="contact" th:name="contact" th:value="${user.contact}" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                            	<select class="form-control-xl dropdown" placeholder="Gender" id="gender" th:name="gender" th:value="${user.gender}" required>
+                               										 <option value="Male">Male</option>
+                                									 <option value="Female">Female</option>
+                         										</select>
+                          									</div>                          									
+                                                            <div class="mt-3">
+                                                                <input type="submit" value="Edit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"/>
+                                                            </div>
+                                                        	</form>
+                                                    	</div>                                     
+                                                	</div>
+                                            	</div>
+                                        	</div>                                     
+                                 </div>                                                                      
                                 </div>
                             </div>
                         </div>
-                    </section>
-
-             
+                    </section>             
                 </div>
+            </div><br>
+            <div class="row justify-content-center">
+   				<div class="col-3">
+        			<button class="btn btn-block btn-warning btn font-weight-medium auth-form-btn col-3" data-bs-toggle="modal" th:data-bs-target="|#update_modal_${user.user_id}|">Edit</button>	
+   				</div>
             </div>
         </div>
         </div>
-        </div>
-       
-
-    
+        </div>         
 </html>
