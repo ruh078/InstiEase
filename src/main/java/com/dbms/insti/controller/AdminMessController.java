@@ -73,6 +73,8 @@ public class AdminMessController {
        	int x = userService.save(user);
        	if(x==0)
        		return "redirect:/admin/messin";
+       	System.out.println("abcdefg");
+       	System.out.println(mess.getHostel_id());
        	mess.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
        	System.out.println(mess.getHostel_id());
 		messService.save(mess);

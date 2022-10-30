@@ -134,20 +134,17 @@
                                                 </tbody>
                                             </table>	
                                     		<div th:if="${med_incharge!=NULL}">
-                                        <div class="modal fade" th:id="|update_modal_${med_incharge.user_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog " role="document">
-                                                <div class="modal-content card-light-danger">
-                                                    <div class="modal-header ">
-                                                        <h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i>
-                                                            Edit Medical Incharge</h4>
-                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                        
-                                        
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form th:action="@{/admin/medin/edit/{id}(id=${med_incharge.user_id})}" method="POST" th:object="${newUser}">                                                                                                 
+                                        		<div class="modal fade" th:id="|update_modal_${med_incharge.user_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            		<div class="modal-dialog " role="document">
+                                                		<div class="modal-content card-light-danger">
+                                                    		<div class="modal-header ">
+                                                        		<h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i> Edit Medical Incharge</h4>
+                                                        			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                            			<span aria-hidden="true">×</span>
+                                                        			</button>                                                                                
+                                                    		</div>
+                                                    	<div class="modal-body">
+                                                        	<form th:action="@{/admin/medin/edit/{id}(id=${med_incharge.user_id})}" method="POST" th:object="${newUser}">                                                                                                 
                                                             <div class="form-group">
                                                                 <label for="name">Name</label>
                                                                 <input type="text" id="name" class="form-control form-control-lg" placeholder="Medical Incharge Name" th:name="name" th:value=${med_incharge.name} required>
@@ -169,11 +166,11 @@
                                                             <div class="mt-3">
                                                                 <input type="submit" value="Edit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"/>
                                                             </div>
-                                                        </form>
-                                                    </div>                                     
-                                                </div>
-                                            </div>
-                                        </div>
+                                                        	</form>
+                                                    	</div>                                     
+                                                	</div>
+                                            	</div>
+                                        	</div>
                                         </div>
                                     </div>                                                                       
                                 </div>

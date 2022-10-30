@@ -53,6 +53,12 @@ public class MessInchargeController {
 			
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
+	               Users user = userService.findByEmail(securityService.findLoggedInUsername());
+                   Mess_incharge mess_in = messService.findbyuserid(user.getUser_id());
+                   Hostel hostel = hostelService.getHostelbyId(mess_in.getHostel_id());
+                   model.addAttribute("user", user);
+                   model.addAttribute("mess_in", mess_in);
+                   model.addAttribute("hostel", hostel);
 	               return "mess_profile";
 	           }
 	           return "redirect:/";
@@ -211,5 +217,15 @@ public class MessInchargeController {
 		       
 		       return "redirect:/login";
 		       
+		}
+		
+		@PostMapping("/mess/edit/{id}")
+		public String editmessin(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
+		    user.setUser_id(id);
+	        user.setRole(5);
+	        user.setEmail_id(userService.findByUserId(id).getEmail_id());
+	        user.setPsw(userService.findByUserId(id).getPsw());
+	        userService.edit(user);
+		    return "redirect:/mess";
 		}
 }
