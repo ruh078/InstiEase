@@ -37,4 +37,11 @@ public class StudentServiceUtil implements StudentService{
 	public Student getStudentbyUserId(int user_id) {
 		return studentdao.getStudentbyUserId(user_id);
 	}
+
+    @Override
+    public void update_verify(int roll_number, int is_verified) {
+        // TODO Auto-generated method stub
+        studentdao.update_verify(roll_number,is_verified);
+        
+    }
 }

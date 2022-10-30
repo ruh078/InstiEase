@@ -92,6 +92,13 @@ public class StudentDaoImpl implements StudentDao{
 		String sql = "update student set due_wash_charges=? where roll_number=?";
 		template.update(sql, duewash, roll_number);
 	}
+
+    @Override
+    public void update_verify(int roll_number, int is) {
+        // TODO Auto-generated method stub
+        String sql ="update student set is_verified=? where roll_number=?";
+        template.update(sql,is,roll_number);
+    }
     
 
 }
