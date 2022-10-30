@@ -81,7 +81,7 @@
                                         <h4 class="card-title">Appointments List</h4>
                                         <p class="card-description">List of Appointments
                                         </p>
-										 <div style="text-align:left; padding:20px;" class="col-lg-3">
+										 <div th:if="${iseligible==1}" style="text-align:left; padding:20px;" class="col-lg-3">
                                         <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Take an appointment</button>
                                         </div>
                                           <div th:each="appointment:${currentappointments}">
@@ -274,8 +274,8 @@
                                                                         <td><a th:href="@{/student/medical/prescription/{id} (id=${appointment.appointment_id})}"
                                                                                 class="btn btn-primary">Prescription</a>
                                                                         </td>
-                                                                        <td><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${appointment.appointment_id}|">Edit</button> 
-                                                						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${appointment.appointment_id}|" data-whatever="@getbootstrap">Delete</button></td>
+                                                                        <td><button th:if="${iseligible==1}" class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${appointment.appointment_id}|">Edit</button> 
+                                                						<button th:if="${iseligible==1}" class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${appointment.appointment_id}|" data-whatever="@getbootstrap">Delete</button></td>
                                                                     </tr>
 
                                                                 </tbody>

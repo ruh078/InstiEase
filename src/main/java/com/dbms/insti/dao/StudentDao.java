@@ -8,6 +8,7 @@ public interface StudentDao {
     public void save(Student student);
     public void editrefund(int roll_number, int refund);
     public void editduewash(int roll_number, int duewash);
+    public void editeligibility(int roll_number, int iseligible);
     public Student getStudentbyId(int student_roll_no);
     public Student getStudentbyUserId(int user_id);
     public List<Student>listAllStudentsofHostel(int hostel_id);

@@ -43,7 +43,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers( "/register").permitAll();
+        http.authorizeRequests().antMatchers( "/register").permitAll()
+        						.antMatchers("/admin", "/admin/*").access("hasAuthority('1')")
+        						.antMatchers("/medical", "/medical/*").access("hasAuthority('2')")
+        						.antMatchers("/student", "/student/*").access("hasAuthority('3')")
+        						.antMatchers("/warden", "/warden/*").access("hasAuthority('4')")
+        						.antMatchers("/mess", "/mess/*").access("hasAuthority('5')")
+        						.antMatchers("/washerman", "/washerman/*").access("hasAuthority('6')");
+        						
         http.authorizeRequests()
                 .and()
                 .formLogin()

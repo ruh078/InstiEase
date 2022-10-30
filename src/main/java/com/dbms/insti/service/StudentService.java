@@ -11,4 +11,6 @@ public interface StudentService {
     public Student getStudentbyUserId(int user_id);
     public List<Student>listAllStudentsofHostel(int hostel_id);
     public void update_verify(int roll_number, int is_verified);
+    public void editeligibility(int roll_number, int iseligible);
+
 }

@@ -44,4 +44,9 @@ public class StudentServiceUtil implements StudentService{
         studentdao.update_verify(roll_number,is_verified);
         
     }
+
+	@Override
+	public void editeligibility(int roll_number, int iseligible) {
+		studentdao.editduewash(roll_number, iseligible);
+	}
 }

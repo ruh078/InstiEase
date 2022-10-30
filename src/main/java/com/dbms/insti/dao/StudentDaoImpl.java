@@ -99,6 +99,12 @@ public class StudentDaoImpl implements StudentDao{
         String sql ="update student set is_verified=? where roll_number=?";
         template.update(sql,is,roll_number);
     }
+
+	@Override
+	public void editeligibility(int roll_number, int iseligible) {
+		String sql ="update student set is_eligible_laundary=? where roll_number=?";
+        template.update(sql,iseligible,roll_number);
+	}
     
 
 }

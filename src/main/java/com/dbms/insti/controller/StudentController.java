@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -75,6 +76,7 @@ public class StudentController {
 	   public String studentpage(Model model){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
+	        	   
 	               return "student_profile";
 	           }
 	           return "redirect:/";
@@ -99,7 +101,7 @@ public class StudentController {
 	        	   model.addAttribute("newappointment", new Appointment());
 	        	   model.addAttribute("date", date);
 	        	   model.addAttribute("enddate", newdate);
-	        	  
+	        	   model.addAttribute("iseligible", student.getIs_verified());
 	               return "student_appointments";
 	           }
 	           return "redirect:/";
@@ -223,6 +225,7 @@ public class StudentController {
 	        	   model.addAttribute("lcount", cancelmessService.count(2, student.getRoll_number()));
 	        	   model.addAttribute("dcount", cancelmessService.count(3, student.getRoll_number()));
 	        	   model.addAttribute("refund", student.getMess_refund());
+	        	   model.addAttribute("iseligible", student.getIs_verified());
 	        	   return "student_mess";
 	           }
 	           return "redirect:/";
@@ -298,6 +301,10 @@ public class StudentController {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
+	        	  
+	        	   if(student.getDue_wash_charges()==0)
+	        		   studentservice.editeligibility(student.getRoll_number(), 1);
+	        	   student = studentservice.getStudentbyUserId(user.getUser_id());
 	       		   model.addAttribute("allwasherman", washermanservice.listAllWashermanofHostel(student.getHostel_id()));
 	       		   model.addAttribute("userservice", userService);
 	       		   model.addAttribute("allorders", laundaryservice.listAllOrdersofStudent(student.getRoll_number(), 0));
@@ -306,6 +313,7 @@ public class StudentController {
 	       		   model.addAttribute("orders_paid", laundaryservice.listAllOrdersofStudent(student.getRoll_number(), 3));
 	       		   model.addAttribute("washerservice", washermanservice);
 	       		   model.addAttribute("due_charges", student.getDue_wash_charges());
+	       		   model.addAttribute("iseligible", student.getIs_verified() & student.getIs_eligible_laundary());
 	               return "student_washerman";
 	           }
 	           return "redirect:/";
@@ -329,7 +337,8 @@ public class StudentController {
 	       		   model.addAttribute("orders_paid", laundaryservice.listOrdersofStudent(student.getRoll_number(), id, 3));
 	       		   model.addAttribute("neworder", new Laundary_orders());
 	       		   model.addAttribute("due_charges", laundaryservice.duecharges(student.getRoll_number(), id));
-	               return "student_washerman_order";
+	       		   model.addAttribute("iseligible", student.getIs_verified() & student.getIs_eligible_laundary());
+	       		   return "student_washerman_order";
 	           }
 	           return "redirect:/";
 	       }

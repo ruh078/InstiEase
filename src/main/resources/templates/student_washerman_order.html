@@ -81,7 +81,7 @@
                                         <p style="font-size:20px" class="card-description">Orders given to <span th:text="${userservice.findByUserId(washer.user_id).name}"/> Washer
                                         </p>
                                         <p style="font-size:17px">Due charges to this washerman: Rs <span th:text="${due_charges}"></span></p>
-                                        <div style="text-align:left; padding:15px;" class="col-lg-3">
+                                        <div th:if="${iseligible==1}" style="text-align:left; padding:15px;" class="col-lg-3">
                                         <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Give an Order</button>
                                         </div>
 										<div th:each="order:${allorders}">
@@ -315,7 +315,7 @@
 																		</td>
 																		<td th:text="${order.cost}"/>
 																		<td th:text="${order.status_of_orders}"/>
-																		<td><span th:if="${order.status_of_orders}=='Unwashed'"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${order.order_id}|">Edit</button> 
+																		<td th:if="${iseligible==1}"><span th:if="${order.status_of_orders}=='Unwashed'"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${order.order_id}|">Edit</button> 
                                                 						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${order.order_id}|" data-whatever="@getbootstrap">Delete</button></span></td>
 																	</tr>
 
@@ -366,7 +366,7 @@
 																		</td>
 																		<td th:text="${order.cost}"/>
 																		<td th:text="${order.status_of_orders}"/>
-																		<td><span th:if="${order.status_of_orders}=='Unwashed'"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${order.order_id}|">Edit</button> 
+																		<td th:if="${iseligible==1}"><span th:if="${order.status_of_orders}=='Unwashed'"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${order.order_id}|">Edit</button> 
                                                 						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${order.order_id}|" data-whatever="@getbootstrap">Delete</button></span></td>
 																	</tr>
 
