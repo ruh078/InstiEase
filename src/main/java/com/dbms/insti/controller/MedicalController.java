@@ -52,11 +52,15 @@ public class MedicalController {
    public String medicalpage(Model model){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
+               List<Users>med = userService.FindByRole(2);
+               if(med.isEmpty())
+                   model.addAttribute("med_incharge", null);
+               else
+                   model.addAttribute("med_incharge", med.get(0));
                return "medical_profile";
            }
            return "redirect:/";
-       }
-       
+       }       
        return "redirect:/login";
        
    }
