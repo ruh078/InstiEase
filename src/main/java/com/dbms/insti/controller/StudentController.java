@@ -37,6 +37,7 @@ import com.dbms.insti.models.Users;
 import com.dbms.insti.service.AppointmentService;
 import com.dbms.insti.service.CancelMessService;
 import com.dbms.insti.service.DayMenuService;
+import com.dbms.insti.service.HostelService;
 import com.dbms.insti.service.LaundaryService;
 import com.dbms.insti.service.MedicineService;
 import com.dbms.insti.service.MessService;
@@ -64,6 +65,8 @@ public class StudentController {
     @Autowired
     private MessService messService;
     @Autowired
+    private HostelService hostelService;
+    @Autowired
     private CancelMessService cancelmessService;
     @Autowired
     private MessChargesDao messchargesdao;
@@ -76,7 +79,14 @@ public class StudentController {
 	   public String studentpage(Model model){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
-	        	   
+	        	   Users user=userService.findByEmail(securityService.findLoggedInUsername());
+	        	   Student student=studentservice.getStudentbyUserId(user.getUser_id());
+	        	   Hostel hostel = hostelService.getHostelbyId(student.getHostel_id());
+	        	   model.addAttribute("user",user);
+	        	   model.addAttribute("student",student);
+	        	   model.addAttribute("newuser", new Users());
+	        	   model.addAttribute("newstudent",new Student());
+	        	   model.addAttribute("hostel", hostel);
 	               return "student_profile";
 	           }
 	           return "redirect:/";
@@ -404,5 +414,13 @@ public class StudentController {
 	       
 	 }
 	
+	@PostMapping("student/edit/{id}")
+	public String editstudent(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, @ModelAttribute("newstudent") Student student, Model model) {
+		user.setUser_id(id);
+		student.setUser_id(id);
+		userService.edit(user);
+		studentservice.edit(student);
+		return "redirect:/student";
+	}
 	
 }

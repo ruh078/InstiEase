@@ -22,6 +22,11 @@ public class StudentServiceUtil implements StudentService{
     public void save(Student student) {
         studentdao.save(student);
     }
+    
+    @Override
+    public void edit(Student student) {
+        studentdao.edit(student);
+    }
 
 	@Override
 	public Student getStudentbyId(int student_roll_no) {
