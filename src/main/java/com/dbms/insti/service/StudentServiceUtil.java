@@ -52,6 +52,6 @@ public class StudentServiceUtil implements StudentService{
 
 	@Override
 	public void editeligibility(int roll_number, int iseligible) {
-		studentdao.editduewash(roll_number, iseligible);
+		studentdao.editeligibility(roll_number, iseligible);
 	}
 }
