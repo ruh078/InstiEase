@@ -41,7 +41,13 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <body   onload="Swal.mixin({
+  <body>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			var msg = /*[[${msg}]]*/
+		/*]]>*/
+		
+			window.onload = function(){ if(msg!=null){Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
@@ -51,8 +57,8 @@
             toast.addEventListener('mouseenter', Swal.stopTimer)
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
-        }).fire({icon:'info', title:'{${msgs}}'})" >
-
+        }).fire({icon:'info', title:msg})}};
+		</script>
         <!-- <div class="card-body">
           <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">

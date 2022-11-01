@@ -148,6 +148,9 @@
                                                                             <br>
                                                                         	Room No.->
                                                                         	<span th:text="${service.getStudentbyId(order.student_roll_no).room_number}";/>
+                                                                        	<br>
+                                                                        	Contact No.->
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(order.student_roll_no).user_id).contact}";/>
                                                                         </td>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
@@ -241,6 +244,9 @@
                                                                             <br>
                                                                         	Room No.->
                                                                         	<span th:text="${service.getStudentbyId(order.student_roll_no).room_number}";/>
+                                                                        	<br>
+                                                                        	Contact No.->
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(order.student_roll_no).user_id).contact}";/>
                                                                         </td>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
@@ -336,6 +342,9 @@
                                                                             <br>
                                                                         	Room No.->
                                                                         	<span th:text="${service.getStudentbyId(order.student_roll_no).room_number}";/>
+                                                                        	<br>
+                                                                        	Contact No.->
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(order.student_roll_no).user_id).contact}";/>
                                                                         </td>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
@@ -430,6 +439,9 @@
                                                                             <br>
                                                                         	Room No.->
                                                                         	<span th:text="${service.getStudentbyId(order.student_roll_no).room_number}";/>
+                                                                        	<br>
+                                                                        	Contact No.->
+                                                                        	<span th:text="${userservice.findByUserId(service.getStudentbyId(order.student_roll_no).user_id).contact}";/>
                                                                         </td>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
