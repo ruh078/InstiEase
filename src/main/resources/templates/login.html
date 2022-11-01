@@ -17,7 +17,7 @@
                 <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
                          
     <form class="pt-3" th:action="@{/login}" method="post">
-        <p class="alert alert-danger" th:if="${param.error}">Invalid email or password.</p>
+        
         <div class="form-group position-relative has-icon-left mb-4">
         <input class="form-control form-control-xl" type="email" placeholder="Email Address" name="email_id"  id="email_id"  required autofocus><br>
         <div class="form-control-icon">
