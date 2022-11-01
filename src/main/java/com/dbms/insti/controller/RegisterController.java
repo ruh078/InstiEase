@@ -49,8 +49,10 @@ public class RegisterController {
           user.setRole(3);
           if(studentservice.getStudentbyId(student.getRoll_number())==null) {
         	  int x = userService.save(user);
-        	  if(x==0)
+        	  if(x==0) {
+        	      attributes.addFlashAttribute("msg", "Could not Register");
         		  return "redirect:/register";
+        	  }
         	  student.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
         	  studentservice.save(student);
           }
