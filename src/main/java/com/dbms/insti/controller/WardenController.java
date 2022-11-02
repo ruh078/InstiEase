@@ -41,7 +41,7 @@ public class WardenController {
     private ComplaintService complaintservice;
     
     @GetMapping("/warden")
-    public String profilepage(Model model){
+    public String profilepage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -55,12 +55,13 @@ public class WardenController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 
     @GetMapping("/warden/complaints")
-    public String complainspage(Model model){
+    public String complainspage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -80,12 +81,13 @@ public class WardenController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
     
     @PostMapping("/warden/complaint/edit/{com_id}")
-    public String submitstatuspage(@ModelAttribute("newcomplaint") Complaints complaint, @PathVariable int com_id){
+    public String submitstatuspage(@ModelAttribute("newcomplaint") Complaints complaint, @PathVariable int com_id, RedirectAttributes attributes){
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
                  complaint.setComplaint_id(com_id);
@@ -94,11 +96,12 @@ public class WardenController {
             }
             return "redirect:/";
         }
+        attributes.addFlashAttribute("msg", "Not Logged In!");
         
         return "redirect:/login";
  }
     @GetMapping("/warden/all")
-    public String allstudentspage(Model model){
+    public String allstudentspage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==4) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -114,17 +117,21 @@ public class WardenController {
                }
                return "redirect:/";
            }
+           attributes.addFlashAttribute("msg", "Not Logged In!");
            
            return "redirect:/login";
     }
     
     @PostMapping("/warden/edit/{id}")
-    public String editwarden(@PathVariable("id") int id, @ModelAttribute ("newuser") Users user, Model model) {
+    public String editwarden(@PathVariable("id") int id, @ModelAttribute ("newuser") Users user, Model model,
+            RedirectAttributes attributes) {
     	user.setUser_id(id);
     	user.setRole(4);
         user.setEmail_id(userService.findByUserId(id).getEmail_id());
         user.setPsw(userService.findByUserId(id).getPsw());
     	userService.edit(user);
+        attributes.addFlashAttribute("msg", "Updated Details!");
+
     	return "redirect:/warden";
     }
     
