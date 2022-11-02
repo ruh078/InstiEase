@@ -144,7 +144,7 @@
                                                         			</button>                                                                                
                                                     		</div>
                                                     	<div class="modal-body">
-                                                        	<form th:action="@{/admin/medin/edit/{id}(id=${med_incharge.user_id})}" method="POST" th:object="${newUser}">                                                                                                 
+                                                        	<form th:action="@{/medical/edit/{id}(id=${med_incharge.user_id})}" method="POST" th:object="${newUser}">                                                                                                 
                                                             <div class="form-group">
                                                                 <label for="name">Name</label>
                                                                 <input type="text" id="name" class="form-control form-control-lg" placeholder="Medical Incharge Name" th:name="name" th:value=${med_incharge.name} required>

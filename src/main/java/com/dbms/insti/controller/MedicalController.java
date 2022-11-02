@@ -260,4 +260,15 @@ public class MedicalController {
        return "redirect:/login";
        
    }
+   
+   @PostMapping("/medical/edit/{id}")
+   public String editmedical(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model, RedirectAttributes attributes) {
+       user.setUser_id(id);
+       user.setRole(2);
+       user.setEmail_id(userService.findByUserId(id).getEmail_id());
+       user.setPsw(userService.findByUserId(id).getPsw());
+       userService.edit(user);
+       attributes.addFlashAttribute("msg", "Updated details!");
+       return "redirect:/medical";
+   }
 }
