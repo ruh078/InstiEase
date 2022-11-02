@@ -1,6 +1,7 @@
 package com.dbms.insti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,21 @@ public class AdminController {
        user.setPsw(userService.findByUserId(id).getPsw());
        userService.edit(user);
        attributes.addFlashAttribute("msg", "Details Updated!");
+       return "redirect:/admin";
+   }
+   
+   @PostMapping("/admin/changepsw/{id}")
+   public String changepsw(@PathVariable("id") int id, @ModelAttribute("oldpsw") String oldpsw, @ModelAttribute("newpsw") String newpsw, Model model, RedirectAttributes attributes) {
+       Users user = userService.findByUserId(id);
+       BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+       if(bcrypt.matches(oldpsw, user.getPsw())) {
+    	   userService.changepassword(id, newpsw);
+    	   attributes.addFlashAttribute("msg", "Changed password!");
+       }
+       else {
+    	   attributes.addFlashAttribute("msg", "Enter correct old password!");
+       }
+      
        return "redirect:/admin";
    }
    

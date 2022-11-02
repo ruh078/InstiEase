@@ -1,12 +1,14 @@
 package com.dbms.insti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dbms.insti.models.Complaints;
 import com.dbms.insti.models.Hostel;
@@ -125,4 +127,19 @@ public class WardenController {
     	userService.edit(user);
     	return "redirect:/warden";
     }
+    
+    @PostMapping("/warden/changepsw/{id}")
+	   public String changepsw(@PathVariable("id") int id, @ModelAttribute("oldpsw") String oldpsw, @ModelAttribute("newpsw") String newpsw, Model model, RedirectAttributes attributes) {
+	       Users user = userService.findByUserId(id);
+	       BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+	       if(bcrypt.matches(oldpsw, user.getPsw())) {
+	    	   userService.changepassword(id, newpsw);
+	    	   attributes.addFlashAttribute("msg", "Changed password!");
+	       }
+	       else {
+	    	   attributes.addFlashAttribute("msg", "Enter correct old password!");
+	       }
+	      
+	       return "redirect:/warden";
+	   }
 }
