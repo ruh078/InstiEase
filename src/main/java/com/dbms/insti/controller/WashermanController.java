@@ -91,6 +91,8 @@ public class WashermanController {
                    Washerman washerman = washermanService.findByUserId(user.getUser_id());
                    order.setOrder_id(id);
                    laundaryservice.editstatus(order);
+                   attributes.addFlashAttribute("msg", "Status updated!");
+
                    return "redirect:/washerman/order";
                }
                return "redirect:/";
