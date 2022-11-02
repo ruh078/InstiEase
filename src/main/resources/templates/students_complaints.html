@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-
+    <title>Login</title>
+   
 </head>
 
    <div class="container-scroller">
@@ -25,13 +26,13 @@
                 <div class="sidebar-menu">
                     <ul class="menu" style="margin:0px;">
 
-                        <li class="sidebar-item ">
+                        <li class="sidebar-item active">
                             <a th:href="@{/student}" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
                                 <span>Account</span>
                             </a>
                         </li>
-                        <li class="sidebar-item has-sub  active">
+                        <li class="sidebar-item has-sub  ">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-stack"></i>
                                 <span>Activities</span>
@@ -46,7 +47,7 @@
                                 <li class="submenu-item">
                                     <a th:href="@{/student/washerman}">Washerman Facility</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item">
                                     <a th:href="@{/student/complain}">Complaints</a>
                                 </li>
                                
@@ -81,7 +82,7 @@
                                         <h4 class="card-title">Complaints List</h4>
                                         <p class="card-description">List of Complaints
                                         </p>
-										 <div style="text-align:left; padding:20px;" class="col-lg-3">
+										 <div  th:if= "${iseligible==1}" style="text-align:left; padding:20px;" class="col-lg-3">
                                         <button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">File a complaint</button>
                                         </div>
                                          <div th:each="complaint:${all_complaints}">
@@ -287,8 +288,10 @@
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
                                                                         <td th:text="${complaint.status}" />
+                                                                        <span th:if= "${iseligible==1}">
                                                                          <td th:if="${complaint.status}=='Yet to Approve'" width="15%"><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${complaint.complaint_id}|">Edit</button> 
                                                 						<button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${complaint.complaint_id}|" data-whatever="@getbootstrap">Delete</button></td>
+                                                                        </span>
                                                                          <td th:if="${complaint.status}!='Yet to Approve'" width="15%"></td>
                                                                     </tr>
 

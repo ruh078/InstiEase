@@ -42,6 +42,7 @@ public class ComplainController {
                    model.addAttribute("service", studentservice);
                    model.addAttribute("userservice", userService);
                    model.addAttribute("newcomplaint", new Complaints());
+                   model.addAttribute("iseligible", student.getIs_verified());
                    return "students_complaints";
                }
                return "redirect:/";

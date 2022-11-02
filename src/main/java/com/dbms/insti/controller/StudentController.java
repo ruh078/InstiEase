@@ -151,8 +151,11 @@ public class StudentController {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
 	        	   appointment.setStudent_roll_no(student.getRoll_number());
-	        	   appointmentService.edit(appointment);
+	        	   int x = appointmentService.edit(appointment);
+	        	   if(x==1)
 				   	attributes.addFlashAttribute("msg", "Details Updated!");
+	        	   else
+	        		   attributes.addFlashAttribute("msg", "Can't be edited");
 
 	               return "redirect:/student/medical";
 	           }
@@ -168,8 +171,11 @@ public class StudentController {
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	
-	        	   appointmentService.delete(appointment_id);
+	        	   int x = appointmentService.delete(appointment_id);
+	        	   if(x==1)
 				   	attributes.addFlashAttribute("msg", "Appointment Deleted!");
+	        	   else
+	        		   attributes.addFlashAttribute("msg", "Can't be Deleted!");
 
 	               return "redirect:/student/medical";
 	           }

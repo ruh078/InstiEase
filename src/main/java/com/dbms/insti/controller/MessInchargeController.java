@@ -95,9 +95,9 @@ public class MessInchargeController {
 		        		   Date d = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		        		   java.sql.Date sqlDate = new java.sql.Date(d.getTime());
 		        		   List<Integer>l = new ArrayList<>();
-		        		   l.add(no_students - cancelmessService.count_total(1, sqlDate));
-		        		   l.add(no_students - cancelmessService.count_total(2, sqlDate));
-		        		   l.add(no_students - cancelmessService.count_total(3, sqlDate));
+		        		   l.add(no_students - cancelmessService.count_total(1, hostel.getHostel_id(), sqlDate));
+		        		   l.add(no_students - cancelmessService.count_total(2, hostel.getHostel_id(), sqlDate));
+		        		   l.add(no_students - cancelmessService.count_total(3, hostel.getHostel_id(), sqlDate));
 		        		   dates.add(date);
 		        		   m.put(date, l);
 		        	   }

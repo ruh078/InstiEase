@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-
+    <title>Login</title>
+   
 </head>
 
    <div class="container-scroller">
@@ -24,13 +25,13 @@
                 <div class="sidebar-menu">
                     <ul class="menu" style="margin:0px;">
 
-                        <li class="sidebar-item ">
+                        <li class="sidebar-item active">
                             <a th:href="@{/student}" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
                                 <span>Account</span>
                             </a>
                         </li>
-                        <li class="sidebar-item has-sub  active">
+                        <li class="sidebar-item has-sub  ">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-stack"></i>
                                 <span>Activities</span>
@@ -42,7 +43,7 @@
                                 <li class="submenu-item">
                                     <a th:href="@{/student/mess}">Mess Facility</a>
                                 </li>
-                                <li class="submenu-item active">
+                                <li class="submenu-item">
                                     <a th:href="@{/student/washerman}">Washerman Facility</a>
                                 </li>
                                 <li class="submenu-item">
@@ -214,7 +215,13 @@
 																	<tr th:each="order:${allorders}">
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
+																		<span th:if=${order.washer_id}>
+																		<td>Not good</td>
 																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		</span>
+																		<span th:unless="${order.washer_id}">
+																		<td>Washerman Details not available</td>
+																		</span>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
 																			Lowers: <span th:text="${order.number_lowers}"/><br>
@@ -268,7 +275,14 @@
 																	<tr th:each="order:${orders_unwashed}">
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
+																		
+																		<span th:if=${order.washer_id}>
+																		<td>Not good</td>
 																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		</span>
+																		<span th:unless="${order.washer_id}">
+																		<td>Washerman Details not available</td>
+																		</span>																
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
 																			Lowers: <span th:text="${order.number_lowers}"/><br>
@@ -321,7 +335,13 @@
 																	<tr th:each="order:${orders_unpaid}">
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
+																		<span th:if=${order.washer_id}>
+																		<td>Not good</td>
 																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		</span>
+																		<span th:unless="${order.washer_id}">
+																		<td>Washerman Details not available</td>
+																		</span>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
 																			Lowers: <span th:text="${order.number_lowers}"/><br>
@@ -374,7 +394,13 @@
 																	<tr th:each="order:${orders_paid}">
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
+																		<span th:if=${order.washer_id}>
+																		<td>Not good</td>
 																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		</span>
+																		<span th:unless="${order.washer_id}">
+																		<td>Washerman Details not available</td>
+																		</span>
 																		<td>
 																			Uppers: <span th:text="${order.number_uppers}"/><br>
 																			Lowers: <span th:text="${order.number_lowers}"/><br>

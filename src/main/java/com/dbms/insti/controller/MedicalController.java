@@ -98,7 +98,9 @@ public class MedicalController {
    @PostMapping({"/medical/medicine/delete/{medicine_id}"})
    public String deletemedicine(@PathVariable int medicine_id, RedirectAttributes attributes) {
 	   
-	   	  medicineService.delete(medicine_id);
+	   	  int x = medicineService.delete(medicine_id);
+	   	  if(x==0)
+	   		  attributes.addFlashAttribute("msg", "Can't be deleted");
           return "redirect:/medical/medicine";
    }
 
