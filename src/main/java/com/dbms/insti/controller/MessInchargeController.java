@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dbms.insti.models.Day_menu;
 import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Mess_incharge;
@@ -49,7 +49,7 @@ public class MessInchargeController {
 		@Autowired
 	    private ComplaintService complaintservice;
 		@GetMapping("/mess")
-	   public String messpage(Model model){
+	   public String messpage(Model model, RedirectAttributes attributes){
 			
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -63,13 +63,14 @@ public class MessInchargeController {
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 	       return "redirect:/login";
 	       
 	   }
 		
 		@GetMapping("/mess/menu")
-		public String menupage(Model model){
+		public String menupage(Model model, RedirectAttributes attributes){
 				
 		       if(securityService.isLoggedIn()) {
 		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -115,13 +116,14 @@ public class MessInchargeController {
 		           }
 		           return "redirect:/";
 		       }
-		       
+		       attributes.addFlashAttribute("msg", "Not Logged In!");
+
 		       return "redirect:/login";
 		       
 		   }
 		
 		@PostMapping("/mess/menu")
-		public String addmenu(@ModelAttribute("newmenu") Day_menu menu){
+		public String addmenu(@ModelAttribute("newmenu") Day_menu menu, RedirectAttributes attributes){
 				
 		       if(securityService.isLoggedIn()) {
 		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -129,17 +131,21 @@ public class MessInchargeController {
 		        	   Mess_incharge mess = messService.findbyuserid(user.getUser_id());
 		        	   menu.setMess_id(mess.getMess_id());
 		        	   daymenuService.save(menu);
+					   	attributes.addFlashAttribute("msg", "Added menu item!");
+
 		        	   return "redirect:/mess/menu";
 		           }
 		           return "redirect:/";
 		       }
-		       
+		       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 		       return "redirect:/login";
 		       
 		   }
 		
 		@PostMapping("/mess/menu/edit/{day_id}")
-		public String addmenu(@PathVariable int day_id, @ModelAttribute("newmenu") Day_menu menu){
+		public String addmenu(@PathVariable int day_id, @ModelAttribute("newmenu") Day_menu menu,
+				RedirectAttributes attributes){
 				
 		       if(securityService.isLoggedIn()) {
 		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -148,17 +154,20 @@ public class MessInchargeController {
 		        	   menu.setMess_id(mess.getMess_id());
 		        	   menu.setDay_id(day_id);
 		        	   daymenuService.edit(menu);
+					   	attributes.addFlashAttribute("msg", "Updated menu item!");
+
 		        	   return "redirect:/mess/menu";
 		           }
 		           return "redirect:/";
 		       }
-		       
+		       attributes.addFlashAttribute("msg", "Not Logged In!");
+
 		       return "redirect:/login";
 		       
 		   }
 		
 		@GetMapping("/mess/cancel")
-		public String cancelpage(Model model){
+		public String cancelpage(Model model, RedirectAttributes attributes){
 				
 		       if(securityService.isLoggedIn()) {
 		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -175,13 +184,14 @@ public class MessInchargeController {
 		           }
 		           return "redirect:/";
 		       }
-		       
+		       attributes.addFlashAttribute("msg", "Not Logged In!");
+
 		       return "redirect:/login";
 		       
 		   }
 		
 		@GetMapping("/mess/refund")
-		public String detailspage(Model model){
+		public String detailspage(Model model, RedirectAttributes attributes){
 				
 		       if(securityService.isLoggedIn()) {
 		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -194,13 +204,14 @@ public class MessInchargeController {
 		           }
 		           return "redirect:/";
 		       }
-		       
+		       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 		       return "redirect:/login";
 		       
 		}
 		
 		@GetMapping("/mess/complains")
-		public String complaintspage(Model model){
+		public String complaintspage(Model model, RedirectAttributes attributes){
 				
 		       if(securityService.isLoggedIn()) {
 		           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==5) {
@@ -214,18 +225,22 @@ public class MessInchargeController {
 		           }
 		           return "redirect:/";
 		       }
-		       
+		       	attributes.addFlashAttribute("msg", "Not Logged In!");
+				
 		       return "redirect:/login";
 		       
 		}
 		
 		@PostMapping("/mess/edit/{id}")
-		public String editmessin(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
+		public String editmessin(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model,
+				RedirectAttributes attributes) {
 		    user.setUser_id(id);
 	        user.setRole(5);
 	        user.setEmail_id(userService.findByUserId(id).getEmail_id());
 	        user.setPsw(userService.findByUserId(id).getPsw());
 	        userService.edit(user);
+			attributes.addFlashAttribute("msg", "Updated details!");
+				
 		    return "redirect:/mess";
 		}
 }
