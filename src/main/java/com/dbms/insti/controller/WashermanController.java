@@ -42,7 +42,7 @@ public class WashermanController {
     private ComplaintService complaintservice;
 	
 	@GetMapping("/washerman")
-    public String profilepage(Model model){
+    public String profilepage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -57,11 +57,12 @@ public class WashermanController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 	@GetMapping("/washerman/order")
-    public String orderpage(Model model){
+    public String orderpage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -77,12 +78,13 @@ public class WashermanController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 	
 	@PostMapping("/washerman/order/edit/{id}")
-    public String editstatus(@PathVariable int id, @ModelAttribute("neworder") Laundary_orders order){
+    public String editstatus(@PathVariable int id, @ModelAttribute("neworder") Laundary_orders order, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -93,27 +95,31 @@ public class WashermanController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 	
 	@PostMapping("/washerman/due/{id}")
-    public String cleardue(@PathVariable int id){
+    public String cleardue(@PathVariable int id, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
                    Washerman washerman = washermanService.findByUserId(user.getUser_id());
                    laundaryservice.cleardues(id, washerman.getWasher_id());
+                   attributes.addFlashAttribute("msg", "Cleared Dues!");
+
                    return "redirect:/washerman/due";
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 	
 	@GetMapping("/washerman/due")
-    public String duepage(Model model){
+    public String duepage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -128,12 +134,13 @@ public class WashermanController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 	
 	@GetMapping("/washerman/complaint")
-    public String complaintpage(Model model){
+    public String complaintpage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==6) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -146,12 +153,14 @@ public class WashermanController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
     }
 	
 	@PostMapping("/washerman/edit/{id}")
-	public String editwasherman(@PathVariable("id") int id, @ModelAttribute ("newuser") Users user, @ModelAttribute ("newwasherman") Washerman washerman, Model model) {
+	public String editwasherman(@PathVariable("id") int id, @ModelAttribute ("newuser") Users user, @ModelAttribute ("newwasherman") Washerman washerman, Model model,
+            RedirectAttributes attributes) {
 		user.setUser_id(id);
     	user.setRole(6);
         user.setEmail_id(userService.findByUserId(id).getEmail_id());
@@ -159,6 +168,8 @@ public class WashermanController {
         washerman.setWasher_id(washermanService.findByUserId((userService.findByUserId(id)).getUser_id()).getWasher_id());
     	userService.edit(user);
     	washermanService.edit(washerman);
+        attributes.addFlashAttribute("msg", "Details Updated!");
+
 		return "redirect:/washerman";
 	}
 	
