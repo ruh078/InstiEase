@@ -50,7 +50,7 @@ public class MedicalController {
     private ComplaintService complaintservice;
     
    @GetMapping("/medical")
-   public String medicalpage(Model model){
+   public String medicalpage(Model model, RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
                List<Users>med = userService.FindByRole(2);
@@ -60,14 +60,17 @@ public class MedicalController {
                    model.addAttribute("med_incharge", med.get(0));
                return "medical_profile";
            }
+
            return "redirect:/";
        }       
+       attributes.addFlashAttribute("msg", "Not Logged In!");
+
        return "redirect:/login";
        
    }
    
    @GetMapping("/medical/medicine")
-   public String medicinepage(Model model){
+   public String medicinepage(Model model, RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   model.addAttribute("medicines", medicineService.listAllMedicine());
@@ -78,7 +81,8 @@ public class MedicalController {
            }
            return "redirect:/";
        }
-       
+       attributes.addFlashAttribute("msg", "Not Logged In!");
+
        return "redirect:/login";
        
    }
@@ -86,6 +90,7 @@ public class MedicalController {
    @PostMapping({"/medical/medicine"})
    public String addmedicine(@ModelAttribute("newmedicine") Medicine medicine, Model model, RedirectAttributes attributes) {
           medicineService.save(medicine);
+          attributes.addFlashAttribute("msg", "New medicine added!");
           return "redirect:/medical/medicine";
    }
    
@@ -93,6 +98,8 @@ public class MedicalController {
    public String changestock(@PathVariable int medicine_id, @ModelAttribute("stock") int stock,  RedirectAttributes attributes) {
 	   
 	   	  medicineService.updateStock(medicine_id, stock);
+           attributes.addFlashAttribute("msg", "Stock Updated!");
+
           return "redirect:/medical/medicine";
    }
    
@@ -102,12 +109,15 @@ public class MedicalController {
 	   	  int x = medicineService.delete(medicine_id);
 	   	  if(x==0)
 	   		  attributes.addFlashAttribute("msg", "Can't be deleted");
+	   	  else{
+          attributes.addFlashAttribute("msg", "Medicine deleted!");
+          }
           return "redirect:/medical/medicine";
    }
 
    
    @GetMapping("/medical/appointments")
-   public String appointmentpage(Model model){
+   public String appointmentpage(Model model, RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
                Map<Integer, Object>studentuser = new HashMap<Integer, Object>();
@@ -123,13 +133,15 @@ public class MedicalController {
            }
            return "redirect:/";
        }
-       
+       attributes.addFlashAttribute("msg", "Not Logged In!");
+
        return "redirect:/login";
        
    }
    
    @GetMapping("/medical/appointments/list/{roll_number}")
-   public String appointmentofstudent(@PathVariable int roll_number, Model model){
+   public String appointmentofstudent(@PathVariable int roll_number, Model model,
+           RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
                Map<Integer, Object>studentuser = new HashMap<Integer, Object>();
@@ -139,18 +151,19 @@ public class MedicalController {
                }
         	   model.addAttribute("appointments", appointmentService.listAppointmentsStudent(roll_number));
         	   model.addAttribute("studentuser", studentuser);
-        	   
                return "appointments_incharge_student";
            }
            return "redirect:/";
        }
+       attributes.addFlashAttribute("msg", "Not Logged In!");
        
        return "redirect:/login";
        
    }
    
    @GetMapping("/medical/appointments/{appointment_id}")
-   public String prescriptionpage(@PathVariable int appointment_id, Model model){
+   public String prescriptionpage(@PathVariable int appointment_id, Model model,
+           RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -180,13 +193,15 @@ public class MedicalController {
            }
            return "redirect:/";
        }
+       attributes.addFlashAttribute("msg", "Not Logged In!");
        
        return "redirect:/login";
        
    }
    
    @PostMapping("/medical/appointments/{appointment_id}")
-   public String prescriptionnew(@PathVariable int appointment_id, @ModelAttribute("newprescription") Prescription prescription){
+   public String prescriptionnew(@PathVariable int appointment_id, @ModelAttribute("newprescription") Prescription prescription,
+           RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   prescriptionservice.save(prescription);
@@ -195,6 +210,7 @@ public class MedicalController {
            }
            return "redirect:/";
        }
+       attributes.addFlashAttribute("msg", "Not Logged In!");
        
        return "redirect:/login";
        
@@ -202,52 +218,63 @@ public class MedicalController {
 
    
    @PostMapping("/medical/appointments/editdesc/{appointment_id}")
-   public String changedesc(@PathVariable int appointment_id, @ModelAttribute("desc") String desc){
+   public String changedesc(@PathVariable int appointment_id, @ModelAttribute("desc") String desc,
+           RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   appointmentService.updateAppointmentDesc(appointment_id, desc);
         	   String url= "redirect:/medical/appointments/" + appointment_id;
+               attributes.addFlashAttribute("msg", "updated description!");
+
                return url;
            }
            return "redirect:/";
        }
+       attributes.addFlashAttribute("msg", "Not Logged In!");
        
        return "redirect:/login";
        
    }
    
    @PostMapping("/medical/appointments/edit/{appointment_id}/{med_id}")
-   public String edit_prescription(@PathVariable int appointment_id, @PathVariable int med_id, @ModelAttribute("newprescription") Prescription prescription) {
+   public String edit_prescription(@PathVariable int appointment_id, @PathVariable int med_id, @ModelAttribute("newprescription") Prescription prescription,RedirectAttributes attributes) {
 	   if(securityService.isLoggedIn()) {
        if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   prescriptionservice.update(prescription);
         	   String url= "redirect:/medical/appointments/" + appointment_id;
+               attributes.addFlashAttribute("msg", "updated prescription!");
+
                return url;
            }
            return "redirect:/";
        }
-       
+       attributes.addFlashAttribute("msg", "Not Logged In!");
+
        return "redirect:/login";
        
    }
    
    @PostMapping("/medical/appointments/delete/{appointment_id}/{med_id}")
-   public String delete_prescription(@PathVariable int appointment_id, @PathVariable int med_id) {
+   public String delete_prescription(@PathVariable int appointment_id, @PathVariable int med_id,
+           RedirectAttributes attributes) {
 	   if(securityService.isLoggedIn()) {
        if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   prescriptionservice.delete(appointment_id, med_id);
         	   String url= "redirect:/medical/appointments/" + appointment_id;
+               attributes.addFlashAttribute("msg", "deleted prescription!");
+
                return url;
            }
            return "redirect:/";
        }
+       attributes.addFlashAttribute("msg", "Not Logged In!");
        
        return "redirect:/login";
        
    }
    
    @GetMapping("/medical/complaints")
-   public String complaintspage(Model model){
+   public String complaintspage(Model model, RedirectAttributes attributes){
        if(securityService.isLoggedIn()) {
            if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==2) {
         	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -259,7 +286,8 @@ public class MedicalController {
            }
            return "redirect:/";
        }
-       
+       attributes.addFlashAttribute("msg", "Not Logged In!");
+
        return "redirect:/login";
        
    }
