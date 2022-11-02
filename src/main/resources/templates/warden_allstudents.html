@@ -107,6 +107,7 @@
                                                                             Student Roll No.</th>
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Student Room No.</th>    
+                                                                        <th style="position:sticky;top:0;">More</th>    
                                                                               
 
 
@@ -127,7 +128,49 @@
                                                                         
                                                                         <td th:text="${student.room_number}" />
                                                                         
-
+                                                        
+                                                         <td>
+                                                          <div class="modal fade" th:id="|del-confirm-${student.roll_number}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div class="modal-dialog " role="document">
+                                                                    <div class="modal-content card-light-danger">
+                                                                        <div class="modal-header ">
+                                                                            <h4 class="modal-title" id="exampleModalLabel" th:text="${userservice.findByUserId(service.getStudentbyId(student.roll_number).user_id).name}"></h4>
+                                                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                                <span aria-hidden="true">×</span>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div style="white-space:normal;line-height: 160%;">
+                                                                              
+                                                                               
+                                                                                    
+                                                                                    <p><strong>Roll Number : </strong><span th:text="${student.roll_number}"></span></p>
+                                                                                     <p><strong>Name : </strong> <span th:text="${userservice.findByUserId(service.getStudentbyId(student.roll_number).user_id).name}"></span></p>
+                                                                                    <p><strong>Date of Birth : </strong><span th:text="${userservice.findByUserId(service.getStudentbyId(student.roll_number).user_id).dob}"></span></p>
+                                                                                    <p><strong>Email ID : </strong> <span th:text="${userservice.findByUserId(service.getStudentbyId(student.roll_number).user_id).email_id}"></span></p>
+                                                                                    <p><strong>Contact : </strong><span th:text="${userservice.findByUserId(service.getStudentbyId(student.roll_number).user_id).contact}"></span></p>
+                                                                                    <p><strong>Gender : </strong><span th:text="${userservice.findByUserId(service.getStudentbyId(student.roll_number).user_id).gender}"></span></p>
+                                                                                    <p><strong>Mess Refund : </strong> <span th:text="${student.mess_refund}"></span></p>
+                                                                                    <p><strong>Bank Account Number : </strong><span th:text="${student.bank_account_no}"></span></p>
+                                                                                    <p><strong>Due Wash Charges : </strong><span th:text="${student.due_wash_charges}"></span></p>
+                                                                                    <p><strong>Eligible for Laundary : </strong><span th:if="${student.is_eligible_laundary}==0">No</span>
+                                                                                    <span th:if="${student.is_eligible_laundary}==1">Yes</span>
+                                                                                    </p>
+                                                                                    <p><strong>Room Number : </strong><span th:text="${student.room_number}"></span></p>
+                                                                                
+                                                                                   
+                                                                                   
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button data-bs-toggle="modal" th:data-bs-target="|#del-confirm-${student.roll_number}|"
+                                                             
+                                                                data-whatever="@getbootstrap" style="border:none;">
+                                                            <i class="bi bi-box-arrow-right"></i></button>
+                                                           
                                                                     </tr>
 
                                                                 </tbody>
