@@ -197,7 +197,7 @@
                                										 <option value="1">Laundary</option>
                                										 <option value="2">Mess</option>	
                                										 <option value="3">Warden</option>	
-                               										 <option value="4">HealthCare</option>
+                               										 <option value="4">Healthcare</option>
                                										 <option value="5">Other</option>		
                          										</select>
                                                             </div>
@@ -283,7 +283,7 @@
                                                                         <td th:if="${complaint.type==1}">Laundary</td>
                                                                         <td th:if="${complaint.type==2}">Mess</td>
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
-                                                                        <td th:if="${complaint.type==4}">Medical</td>
+                                                                        <td th:if="${complaint.type==4}">Healthcare</td>
                                                                         <td th:if="${complaint.type==5}">Other</td>
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
@@ -338,8 +338,8 @@
                                                                         <td th:if="${complaint.type==1}">Laundary</td>
                                                                         <td th:if="${complaint.type==2}">Mess</td>
                                                                         <td th:if="${complaint.type==3}">Hostel</td>
-                                                                         <td th:if="${complaint.type==4}">Medical</td>
-                                                                         <td th:if="${complaint.type==5}">Other</td>
+                                                                        <td th:if="${complaint.type==4}">Healthcare</td>
+                                                                        <td th:if="${complaint.type==5}">Other</td>
                                                                         <td th:text="${complaint.status}" />
 
                                                                     </tr>

@@ -90,8 +90,7 @@
                                                                             Student</th>    
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Description</th>
-                                                                        <th style="position:sticky;top:0;z-index:100;">
-                                                                            Complain to</th>    
+                                                                           
                                                                         
                                                                         <th style="position:sticky;top:0;z-index:100;">
                                                                             Complain Type</th>    
@@ -120,10 +119,7 @@
                                                                         	<span th:text="${service.getStudentbyId(complaint.student_roll_no).room_number}";/>
                                                                         </td>
                                                                         <td th:text="${complaint.description}" />
-                                                                        <td th:if="${complaint.type==1}">Laundary</td>
-                                                                        <td th:if="${complaint.type==2}">Mess</td>
-                                                                        <td th:if="${complaint.type==3}">Hostel</td>
-                                                                        <td th:if="${complaint.type==4}">Medical</td>
+                                                                        
                                                                         <td th:if="${complaint.isPrivate==0}">Public</td>
                                                                         <td th:if="${complaint.isPrivate==1}">Private</td>
                                                                         <td th:text="${complaint.status}"/>
