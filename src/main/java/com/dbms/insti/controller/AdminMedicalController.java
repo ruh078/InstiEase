@@ -23,7 +23,7 @@ public class AdminMedicalController {
     @Autowired
     private UserService userService;
     @GetMapping("/admin/medin")
-    public String adminmedical(Model model) {
+    public String adminmedical(Model model, RedirectAttributes attributes) {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
             	   List<Users>med = userService.FindByRole(2);
@@ -37,27 +37,32 @@ public class AdminMedicalController {
             }
             return "redirect:/";
         }
+        attributes.addFlashAttribute("msg", "Not Logged In!");
         return "redirect:/login";
     }
     @PostMapping({"/admin/medin"})
     public String addmedical( @ModelAttribute("newhostel") Users user, Model model, RedirectAttributes attributes) {
            user.setRole(2);
            userService.save(user);
+           attributes.addFlashAttribute("msg", "Successfully added medical incharge!");
            return "redirect:/admin/medin";
     }
     @GetMapping("/admin/medin/delete")
-    public String deletemedical(Model model) {
-        
+    public String deletemedical(Model model, RedirectAttributes attributes) {
+         attributes.addFlashAttribute("msg", "Successfully deleted medical incharge!");
         return "redirect:/admin/medin";
     }
     
     @PostMapping({"/admin/medin/edit/{id}"})
-    public String editmedical(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
+    public String editmedical(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model,
+            RedirectAttributes attributes) {
         user.setUser_id(id);
         user.setRole(2);
         user.setEmail_id(userService.findByUserId(id).getEmail_id());
         user.setPsw(userService.findByUserId(id).getPsw());
         userService.edit(user);
+        attributes.addFlashAttribute("msg", "Updated details Successfully!");
+
         return "redirect:/admin/medin";
     }
     

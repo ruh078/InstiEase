@@ -12,15 +12,14 @@ import com.dbms.insti.service.UserService;
 
 @Controller
 public class LoginController {
-	 @Autowired
+	@Autowired
 	 private SecurityService securityService;
 	@GetMapping("/login")
     public String login(Model model){
-		if (securityService.isLoggedIn()) 
+		if (securityService.isLoggedIn())
 			return "redirect:/";
         model.addAttribute("user", new Users());
         return "login";
-        
     }
 		
 }

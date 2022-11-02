@@ -23,7 +23,7 @@ public class AdminHostelController {
     @Autowired
     private HostelService hostelService;
     @GetMapping("/admin/hostel")
-    public String adminhostel(Model model) {
+    public String adminhostel(Model model, RedirectAttributes attributes) {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
                 model.addAttribute("hostels", hostelService.listAllHostels());
@@ -32,16 +32,18 @@ public class AdminHostelController {
             }
             return "redirect:/";
         }
+        attributes.addFlashAttribute("msg", "Not Logged In!");
         return "redirect:/login";
     }
     @PostMapping({"/admin/hostel"})
     public String addhostel(@ModelAttribute("newhostel") Hostel hostel, Model model, RedirectAttributes attributes) {
            hostelService.save(hostel);
+           attributes.addFlashAttribute("msg", "Succesfully added new hostel!");
            return "redirect:/admin/hostel";
     }
     @GetMapping("/admin/hostel/delete")
-    public String deletehostel(Model model) {
-        
+    public String deletehostel(Model model, RedirectAttributes attributes) {
+        attributes.addFlashAttribute("msg", "Succesfully Deleted!");
         return "redirect:/admin/hostel";
     }
 }

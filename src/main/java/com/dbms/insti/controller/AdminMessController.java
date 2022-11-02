@@ -37,7 +37,7 @@ public class AdminMessController {
     @Autowired
     private MessChargesService messchargesService;
     @GetMapping("/admin/messin")
-    public String adminmess(Model model) {
+    public String adminmess(Model model, RedirectAttributes attributes) {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
             	List<Mess_incharge>messes = messService.listAllMesses();
@@ -69,6 +69,7 @@ public class AdminMessController {
             }
             return "redirect:/";
         }
+        attributes.addFlashAttribute("msg", "Not Logged In!");
         return "redirect:/login";
     }
     
@@ -78,30 +79,37 @@ public class AdminMessController {
     public String addmess(@ModelAttribute("newUser") Users user, @ModelAttribute("newMess") Mess_incharge mess, Model model, RedirectAttributes attributes) {
     	user.setRole(5);
        	int x = userService.save(user);
-       	if(x==0)
+       	if(x==0){
+            attributes.addFlashAttribute("msg", "Invalid Details!");
        		return "redirect:/admin/messin";
+        }
        	System.out.println("abcdefg");
        	System.out.println(mess.getHostel_id());
        	mess.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
        	System.out.println(mess.getHostel_id());
 		messService.save(mess);
+        attributes.addFlashAttribute("msg", "Successfully add new mess incharge!");
         return "redirect:/admin/messin";
     }
     
     @PostMapping({"/admin/messin/edit/{id}"})
-    public String editmess(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model) {
+    public String editmess(@PathVariable("id") int id, @ModelAttribute("newUser") Users user, Model model,
+            RedirectAttributes attributes) {
         user.setUser_id(messService.findbyhostelid(id).getUser_id());
         user.setRole(5);
         user.setEmail_id(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getEmail_id());
         user.setPsw(userService.findByUserId((messService.findbyhostelid(id)).getUser_id()).getPsw());
         userService.edit(user);
+        attributes.addFlashAttribute("msg", "Successfully updated details!");
         return "redirect:/admin/messin";
     }  
     
     @PostMapping({"/admin/messin/edit2/{meal_type}"})
-    public String editmesscharge(@PathVariable("meal_type") String meal_type, @ModelAttribute("newmesscharge") Mess_charges mess_charges, Model model) {
+    public String editmesscharge(@PathVariable("meal_type") String meal_type, @ModelAttribute("newmesscharge") Mess_charges mess_charges, Model model,
+            RedirectAttributes attributes) {
         mess_charges.setMeal_type(meal_type);
         messchargesService.edit(mess_charges);
+        attributes.addFlashAttribute("msg", "Successfullu updated details!");
         return "redirect:/admin/messin";
     }  
 }

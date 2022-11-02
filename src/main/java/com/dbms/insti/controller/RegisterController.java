@@ -43,19 +43,20 @@ public class RegisterController {
 	        return "register";
 	 }
 
-	 @PostMapping({"/register"})
+	@PostMapping({"/register"})
 	 public String addwarden(@ModelAttribute("newstu") Student student, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
          System.out.println(student.getHostel_id());
           user.setRole(3);
           if(studentservice.getStudentbyId(student.getRoll_number())==null) {
         	  int x = userService.save(user);
         	  if(x==0) {
-        	      attributes.addFlashAttribute("msg", "Could not Register");
+        	      attributes.addFlashAttribute("msg", "Invalid details! Could Not Register!");
         		  return "redirect:/register";
         	  }
         	  student.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
         	  studentservice.save(student);
           }
+		 attributes.addFlashAttribute("msg", "Successfully Registerd!");
          return "redirect:/login";
   }
 }

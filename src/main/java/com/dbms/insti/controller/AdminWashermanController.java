@@ -34,7 +34,7 @@ public class AdminWashermanController {
         @Autowired
         private WashermanService washerService;
         @GetMapping("/admin/wash")
-        public String adminwarden(Model model) {
+        public String adminwarden(Model model, RedirectAttributes attributes) {
            
             
             if(securityService.isLoggedIn()) {
@@ -60,6 +60,7 @@ public class AdminWashermanController {
                 }
                 return "redirect:/";
             }
+            attributes.addFlashAttribute("msg", "Not Logged In!");
             return "redirect/login";
         }
         
@@ -67,21 +68,25 @@ public class AdminWashermanController {
         public String addwasher(@ModelAttribute("newwasher") Washerman washer, @ModelAttribute("newuser") Users user, Model model, RedirectAttributes attributes) {
             user.setRole(6);
             int x = userService.save(user);
-            if(x==0)
+            if(x==0){
+                attributes.addFlashAttribute("msg", "Invalid Details!");
                 return "redirect:/admin/messin";
+            }
             washer.setUser_id(userService.findByEmail(user.getEmail_id()).getUser_id());
             System.out.println(washer.getHostel_id());
             washerService.save(washer);
-               return "redirect:/admin/wash";
+            attributes.addFlashAttribute("msg", "Successfully added new washerman!");
+            return "redirect:/admin/wash";
         }
         @GetMapping("/admin/wash/delete")
-        public String deletewasher(Model model) {
-            
+        public String deletewasher(Model model, RedirectAttributes attributes) {
+            attributes.addFlashAttribute("msg", "Successfully Deleted!");
             return "redirect:/admin/wash";
         }
         
         @PostMapping({"/admin/wash/edit/{id}"})
-        public String editwasher(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, @ModelAttribute("newwasher") Washerman washer,  Model model) {
+        public String editwasher(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, @ModelAttribute("newwasher") Washerman washer,  Model model,
+                RedirectAttributes attributes) {
             user.setUser_id(washerService.findByWasherId(id).getUser_id());
             washer.setWasher_id(washerService.findByWasherId(id).getWasher_id());
             //user.setRole(6);
@@ -89,6 +94,7 @@ public class AdminWashermanController {
             //user.setPsw(userService.findByUserId((washerService.findByWasherId(id)).getUser_id()).getPsw());
             userService.edit(user);
             washerService.edit(washer);
+            attributes.addFlashAttribute("msg", "Successfully Updated details!");
             return "redirect:/admin/wash";
         }
 }

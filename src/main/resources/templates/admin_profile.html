@@ -148,7 +148,7 @@
                                             		<div class="modal-dialog " role="document">
                                                 		<div class="modal-content card-light-danger">
                                                     		<div class="modal-header ">
-                                                        		<h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i> Edit Medical Incharge</h4>
+                                                        		<h4 class="modal-title" id="exampleModalLabel"><i class="ti-info-alt"></i> Edit Details</h4>
                                                         			<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                                             			<span aria-hidden="true">×</span>
                                                         			</button>                                                                                
@@ -157,7 +157,7 @@
                                                         	<form th:action="@{/admin/edit/{id}(id=${user.user_id})}" method="POST" th:object="${user}">                                                                                                 
                                                             <div class="form-group">
                                                                 <label for="name">Name</label>
-                                                                <input type="text" id="name" class="form-control form-control-lg" placeholder="Medical Incharge Name" th:name="name" th:value=${user.name} required>
+                                                                <input type="text" id="name" class="form-control form-control-lg" placeholder=" Name" th:name="name" th:value=${user.name} required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Date of Birth</label>

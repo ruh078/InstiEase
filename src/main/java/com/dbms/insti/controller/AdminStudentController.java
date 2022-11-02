@@ -30,7 +30,7 @@ public class AdminStudentController {
     @Autowired
     private HostelService hostelservice;
     @GetMapping("/admin/student")
-    public String adminstudent(Model model) {
+    public String adminstudent(Model model, RedirectAttributes attributes) {
         if(securityService.isLoggedIn()) {
             if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==1) {
                 Map<Object, Object>studentuser = new HashMap<Object, Object>();
@@ -50,12 +50,14 @@ public class AdminStudentController {
             }
             return "redirect:/";
         }
+        attributes.addFlashAttribute("msg", "Not Logged In!");
         return "redirect:/login";
     }
     @PostMapping({"/admin/student/edit/{roll_number}"})
     public String change_verify(@PathVariable int roll_number, @ModelAttribute("verify") int is_verified,  RedirectAttributes attributes) {
             System.out.println(is_verified);
            studentservice.update_verify(roll_number, is_verified);
+           attributes.addFlashAttribute("msg", "verification status updated!");
            return "redirect:/admin/student";
     }
     
