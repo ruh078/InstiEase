@@ -106,5 +106,11 @@ public class UserDaoImpl implements UserDao{
 		template.update(query, user_id);
 		
 	}
+
+	@Override
+	public void changepassword(int user_id, String newpsw) {
+		String query  = "UPDATE users SET psw=? where user_id=?";
+		template.update(query, newpsw, user_id);
+	}
 	
 }

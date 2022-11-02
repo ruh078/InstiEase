@@ -236,7 +236,10 @@ public class StudentController {
 	        		   f=1;
 	       			   enddate = ed;
 	       		   }
-	        	  
+	        	   if(messchargesdao.getcharge("breakfast")==null || messchargesdao.getcharge("lunch")==null || messchargesdao.getcharge("dinner")==null) {
+	        		   attributes.addFlashAttribute("msg", "Mess charges are not added by admin");
+	        		   return "redirect:/student";
+	        	   }
 	        	   model.addAttribute("cancel_requests", cancelmessService.CancellationofStudent(student.getRoll_number()));
 	        	   model.addAttribute("newrequest", new Cancel_mess());
 	        	   model.addAttribute("days", Days);
@@ -459,6 +462,7 @@ public class StudentController {
 			RedirectAttributes attributes) {
 		user.setUser_id(id);
 		student.setUser_id(id);
+		student.setIs_verified(0);
 		userService.edit(user);
 		studentservice.edit(student);
 		attributes.addFlashAttribute("msg", "Sucessfully Updated!");

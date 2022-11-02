@@ -62,5 +62,11 @@ public class UserServiceUtil implements UserService{
 	public void delete(int user_id) {
 		userdao.delete(user_id);
 	}
+
+	@Override
+	public void changepassword(int user_id, String newpsw) {
+		String bcrypt_psw = bCryptPasswordEncoder.encode(newpsw);
+		userdao.changepassword(user_id, bcrypt_psw);
+	}
 	
 }

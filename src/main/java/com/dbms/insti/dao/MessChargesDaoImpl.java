@@ -29,7 +29,12 @@ public class MessChargesDaoImpl implements MessChargesDao{
 	@Override
 	public Mess_charges getcharge(String s) {
 		String sql = "select * from mess_charges where meal_type=?";
-		return template.queryForObject(sql, messchargeRowMapper, s);
+		try {
+			return template.queryForObject(sql, messchargeRowMapper, s);
+		}
+		catch(Exception e) {
+			return null;
+		}
 	}
 	
 	@Override

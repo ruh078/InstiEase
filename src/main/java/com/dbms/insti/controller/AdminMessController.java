@@ -125,12 +125,11 @@ public class AdminMessController {
     }  
     
     @PostMapping("/admin/messin/addcharge")
-    public String addmesscharge(@ModelAttribute("bcost") int breakfast,  @ModelAttribute("lcost") String l, @ModelAttribute("dcost") String d, Model model,
-            RedirectAttributes attributes) {
+    public String addmesscharge(@ModelAttribute("bcost") int b, @ModelAttribute("lcost") int l, @ModelAttribute("dcost") int d,  RedirectAttributes attributes) {
     		Mess_charges mess_charges = new Mess_charges();
-        	//mess_charges.setMeal_type("breakfast");
-    		//mess_charges.setCost(b);
-        	/*if(messchargesdao.getcharge("breakfast")!=null) {
+        	mess_charges.setMeal_type("breakfast");
+    		mess_charges.setCost(b);
+        	if(messchargesdao.getcharge("breakfast")!=null) {
         		messchargesService.edit(mess_charges);
         	}
         	else {
@@ -145,13 +144,13 @@ public class AdminMessController {
         		messchargesService.add(mess_charges);
         	}
         	mess_charges.setMeal_type("dinner");
-    		mess_charges.setCost(b=d);
+    		mess_charges.setCost(d);
         	if(messchargesdao.getcharge("dinner")!=null) {
         		messchargesService.edit(mess_charges);
         	}
         	else {
         		messchargesService.add(mess_charges);
-        	}*/
+        	}
         	attributes.addFlashAttribute("msg", "Successfully updated details!");
         	return "redirect:/admin/messin";
     }  

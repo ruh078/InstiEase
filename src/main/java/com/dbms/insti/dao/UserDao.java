@@ -11,4 +11,5 @@ public interface UserDao {
     public Users findByUserId(int user_id);
     public List<Users>ListAllUsers();
     public List<Users>FindByRole(int role);
+    public void changepassword(int user_id, String newpsw);
 }

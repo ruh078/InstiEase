@@ -12,4 +12,5 @@ public interface UserService {
     public List<Users> listAllUsers();
     public List<Users>FindByRole(int role);
     public void delete(int user_id);
+    public void changepassword(int user_id, String newpsw);
 }
