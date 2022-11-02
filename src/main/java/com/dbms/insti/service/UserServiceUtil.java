@@ -57,5 +57,10 @@ public class UserServiceUtil implements UserService{
 	public List<Users> FindByRole(int role) {
 		return userdao.FindByRole(role);
 	}
+
+	@Override
+	public void delete(int user_id) {
+		userdao.delete(user_id);
+	}
 	
 }

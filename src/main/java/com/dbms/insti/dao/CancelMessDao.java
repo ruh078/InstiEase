@@ -16,7 +16,7 @@ public interface CancelMessDao {
 	public Cancel_mess getRequest(int roll_number, Date cancel_date);
 	public Cancel_mess getById(int request_id);
 	public int count(int meal_type, int roll_number);
-	public int count_total(int meal_type, Date date);
+	public int count_total(int meal_type, int hostel_id, Date date);
 
 	
 }

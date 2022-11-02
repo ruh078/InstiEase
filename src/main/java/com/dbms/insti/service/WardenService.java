@@ -9,4 +9,5 @@ public interface WardenService {
     public void save(Warden warden);
     public Warden findbyHostelId(int hostel_id);
     public Warden findbyUserId(int user_id);
+    public int delete(int warden_id);
 }

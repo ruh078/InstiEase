@@ -5,12 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dbms.insti.dao.DayMenuDao;
 import com.dbms.insti.dao.Mess_inchargeDao;
+import com.dbms.insti.dao.UserDao;
 import com.dbms.insti.models.Mess_incharge;
 @Service
 public class MessServiceUtil implements MessService{
 	@Autowired
 	Mess_inchargeDao mess_inchargedao;
+	@Autowired
+    UserDao userdao;
+	@Autowired
+	DayMenuDao daymenudao;
 
 	@Override
 	public void save(Mess_incharge mess) {
@@ -30,6 +36,21 @@ public class MessServiceUtil implements MessService{
 	@Override
 	public Mess_incharge findbyuserid(int user_id) {
 		return mess_inchargedao.findbyuserid(user_id);
+	}
+
+	@Override
+	public int delete(int mess_id) {
+		// TODO Auto-generated method stub
+		int user_id = mess_inchargedao.findbymessid(mess_id).getUser_id();
+		daymenudao.delete(mess_id);
+		try {
+			mess_inchargedao.delete(mess_id);
+			userdao.delete(user_id);
+			return 1;
+		}
+		catch(Exception e) {
+			return 0;
+		}
 	}
 
 }

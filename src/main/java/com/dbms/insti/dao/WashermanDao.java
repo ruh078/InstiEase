@@ -12,5 +12,5 @@ public interface WashermanDao {
     public Washerman findByWasherId(int washer_id);
     public Washerman findByUserId(int user_id);
     public List<Washerman>listAllWashermanofHostel(int hostel_id);
-    
+    public void delete(int washer_id);
 }

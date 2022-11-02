@@ -98,5 +98,13 @@ public class UserDaoImpl implements UserDao{
         	return null;
         }
 	}
+
+	@Override
+	public void delete(int user_id) {
+		// TODO Auto-generated method stub
+		String query = "delete from users where user_id=?";
+		template.update(query, user_id);
+		
+	}
 	
 }

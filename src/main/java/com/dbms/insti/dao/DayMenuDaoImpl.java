@@ -63,4 +63,10 @@ public class DayMenuDaoImpl implements DayMenuDao {
         }
 	}
 
+	@Override
+	public void delete(int mess_id) {
+		String sql = "delete from day_menu where mess_id=?";
+		template.update(sql, mess_id);
+	}
+
 }

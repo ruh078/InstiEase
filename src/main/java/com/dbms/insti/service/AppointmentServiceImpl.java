@@ -73,8 +73,11 @@ public class AppointmentServiceImpl implements AppointmentService{
  		   } catch (ParseException e) {
  			e.printStackTrace();
  		   }
- 		 if(appointment.getAppointment_date().compareTo(todayWithZeroTime)<0)
+ 		if(appointment.getAppointment_date().compareTo(todayWithZeroTime)<0)
  			 return 0;
+ 		
+ 		if(!prescriptiondao.getPrescriptionsOfAppointment(appointment.getAppointment_id()).isEmpty())
+ 			return 0;
  
 		if(appointment.getAppointment_date().compareTo(todayWithZeroTime)!=0 || appointment.getSlot()==2 || noon.compareTo(time)>0) {
 			appointmentdao.edit(appointment);
@@ -106,10 +109,28 @@ public class AppointmentServiceImpl implements AppointmentService{
 
 	@Override
 	public int delete(int appointment_id) {
-		if(prescriptiondao.getPrescriptionsOfAppointment(appointment_id).isEmpty()) {
+		Appointment appointment = appointmentdao.getAppointmentbyId(appointment_id);
+		LocalTime time = LocalTime.now();
+		LocalTime noon = LocalTime.NOON;
+		LocalDate date = LocalDate.now();
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+  	    Date today = new Date();
+ 		   Date todayWithZeroTime=new Date();
+ 		   try {
+ 			   todayWithZeroTime = formatter.parse(formatter.format(today));
+ 		   } catch (ParseException e) {
+ 			e.printStackTrace();
+ 		   }
+		if(appointment.getAppointment_date().compareTo(todayWithZeroTime)<0)
+			 return 0;
+		if(!prescriptiondao.getPrescriptionsOfAppointment(appointment.getAppointment_id()).isEmpty())
+ 			return 0;
+		
+		if(appointment.getAppointment_date().compareTo(todayWithZeroTime)!=0 || appointment.getSlot()==2 || noon.compareTo(time)>0) {
 			appointmentdao.delete(appointment_id);
 			return 1;
 		}
+		
 		return 0;
 	}
 

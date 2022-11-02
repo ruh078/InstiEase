@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.dbms.insti.dao.MessChargesDao;
 import com.dbms.insti.models.Hostel;
 import com.dbms.insti.models.Mess_charges;
 import com.dbms.insti.models.Mess_incharge;
@@ -36,6 +37,9 @@ public class AdminMessController {
     private MessService messService;
     @Autowired
     private MessChargesService messchargesService;
+    @Autowired
+    private MessChargesDao messchargesdao;
+    
     @GetMapping("/admin/messin")
     public String adminmess(Model model, RedirectAttributes attributes) {
         if(securityService.isLoggedIn()) {
@@ -65,6 +69,13 @@ public class AdminMessController {
                 model.addAttribute("newMess", new Mess_incharge());
                 model.addAttribute("mess_charges", mess_charges);
                 model.addAttribute("newmesscharge", new Mess_charges());
+                if(mess_charges.size()!=3) {
+                	model.addAttribute("add_charge", 1);
+                }
+                
+                model.addAttribute("bcost", 0);
+            	model.addAttribute("lcost", 0);
+            	model.addAttribute("dcost", 0);
                 return "admin_mess";
             }
             return "redirect:/";
@@ -109,7 +120,49 @@ public class AdminMessController {
             RedirectAttributes attributes) {
         mess_charges.setMeal_type(meal_type);
         messchargesService.edit(mess_charges);
-        attributes.addFlashAttribute("msg", "Successfullu updated details!");
+        attributes.addFlashAttribute("msg", "Successfully updated details!");
+        return "redirect:/admin/messin";
+    }  
+    
+    @PostMapping("/admin/messin/addcharge")
+    public String addmesscharge(@ModelAttribute("bcost") int breakfast,  @ModelAttribute("lcost") String l, @ModelAttribute("dcost") String d, Model model,
+            RedirectAttributes attributes) {
+    		Mess_charges mess_charges = new Mess_charges();
+        	//mess_charges.setMeal_type("breakfast");
+    		//mess_charges.setCost(b);
+        	/*if(messchargesdao.getcharge("breakfast")!=null) {
+        		messchargesService.edit(mess_charges);
+        	}
+        	else {
+        		messchargesService.add(mess_charges);
+        	}
+        	mess_charges.setMeal_type("lunch");
+    		mess_charges.setCost(l);
+        	if(messchargesdao.getcharge("lunch")!=null) {
+        		messchargesService.edit(mess_charges);
+        	}
+        	else {
+        		messchargesService.add(mess_charges);
+        	}
+        	mess_charges.setMeal_type("dinner");
+    		mess_charges.setCost(b=d);
+        	if(messchargesdao.getcharge("dinner")!=null) {
+        		messchargesService.edit(mess_charges);
+        	}
+        	else {
+        		messchargesService.add(mess_charges);
+        	}*/
+        	attributes.addFlashAttribute("msg", "Successfully updated details!");
+        	return "redirect:/admin/messin";
+    }  
+    
+    @GetMapping("/admin/messin/delete/{id}")
+    public String deletemess(@PathVariable("id") int id, Model model, RedirectAttributes attributes) {
+        int x = messService.delete(id);
+        if(x==1)
+        attributes.addFlashAttribute("msg", "Successfully deleted details!");
+        else
+        	attributes.addFlashAttribute("msg", "Cannot delete this mess incharge!");
         return "redirect:/admin/messin";
     }  
 }

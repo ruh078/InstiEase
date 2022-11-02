@@ -29,4 +29,10 @@ public class MessChargesUtil implements MessChargesService{
         messchargesdao.edit(mess_charges);
         return;
     }
+
+	@Override
+	public void add(Mess_charges mess_charges) {
+		messchargesdao.add(mess_charges);
+        return;
+	}
 }

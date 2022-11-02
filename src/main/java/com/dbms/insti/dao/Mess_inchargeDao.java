@@ -9,4 +9,6 @@ public interface Mess_inchargeDao {
     public void save(Mess_incharge mess);
     public Mess_incharge findbyhostelid(int hostel_id);
     public Mess_incharge findbyuserid(int user_id);
+    public Mess_incharge findbymessid(int mess_id);
+    public void delete(int mess_id);
 }

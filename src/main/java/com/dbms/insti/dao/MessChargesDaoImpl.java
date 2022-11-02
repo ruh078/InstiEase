@@ -46,4 +46,11 @@ public class MessChargesDaoImpl implements MessChargesDao{
 	    return;
 	}
 
+	@Override
+	public void add(Mess_charges mess_charges) {
+		String sql = "insert into mess_charges(meal_type, cost) values(?,?)";
+		template.update(sql, mess_charges.getMeal_type(), mess_charges.getCost());
+		
+	}
+
 }

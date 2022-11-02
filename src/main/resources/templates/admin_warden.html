@@ -108,11 +108,45 @@
                                                         <td th:text="${hostel.hostel_name}"/>
                                                        <span th:if="${hostelwarden.get(hostel)==NULL}">
                                                         	<td>No Warden</td>
-                                                        	<td><button class="btn btn-primary btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}|">Add</button></td>
+                                                        	<td><button class="btn btn-primary btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}|">Add</button>
+                                                        	</td>
                                         		      </span>
                                                         <span th:if="${hostelwarden.get(hostel)!=NULL}" th:with="key= ${hostelwarden.get(hostel)}">
                                                         	<td><span th:text="${wardenuser.get(hostelwarden.get(hostel)).name}"></span> 
+															 <div class="modal fade" th:id="|del-confirm2-${wardenuser.get(hostelwarden.get(hostel)).user_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Delete Warden</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        					
+                                                                            Are you absolutely sure you want to delete this Warden?
+                                                                            <br>
+                                                                            <span th:text="${wardenuser.get(hostelwarden.get(hostel)).name}"></span> 
+                                                                            <br>
+                                                                            <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                                th:href="@{/admin/warden/delete/{id}(id=${hostelwarden.get(hostel)})}">
+                                                                                Confirm
+                                                                                Delete</a>
 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
 
                                                             <div class="modal fade" th:id="|del-confirm-${wardenuser.get(hostelwarden.get(hostel)).user_id}|" tabindex="-1" role="dialog"
                                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -144,7 +178,9 @@
                                                             </div>
                                                             <button class="btn btn-primary btn-sm"data-bs-toggle="modal" th:data-bs-target="|#del-confirm-${wardenuser.get(hostelwarden.get(hostel)).user_id}|" data-whatever="@getbootstrap"
                                                                 style="border:none;background-color:none ;"><i class="bi bi-box-arrow-right"></i></button></td>
-                                                            <td><button class="btn btn-warning btn-block"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}2|">Edit</button></td>
+                                                            <td><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}2|">Edit</button>
+                                                            <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" th:data-bs-target="|#del-confirm2-${wardenuser.get(hostelwarden.get(hostel)).user_id}|">Delete</button>
+                                                            </td>
                                                         </span>                                                       
                                                     </tr>                                                
                                                 </tbody>

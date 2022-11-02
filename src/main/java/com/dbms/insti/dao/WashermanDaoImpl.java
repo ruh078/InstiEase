@@ -93,6 +93,13 @@ public class WashermanDaoImpl implements WashermanDao {
         template.update(sql, earn, washer_id);
 	}
 
+	@Override
+	public void delete(int washer_id) {
+		String query = "delete from washerman where washer_id=?";
+		template.update(query, washer_id);
+	}
+
+	
 	
 
     

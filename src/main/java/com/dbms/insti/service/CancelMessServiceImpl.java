@@ -126,8 +126,8 @@ public class CancelMessServiceImpl implements CancelMessService{
 	}
 
 	@Override
-	public int count_total(int meal_type, Date date) {
-		return cancelmessdao.count_total(meal_type, date);
+	public int count_total(int meal_type, int hostel_id, Date date) {
+		return cancelmessdao.count_total(meal_type, hostel_id, date);
 	}
 
 	

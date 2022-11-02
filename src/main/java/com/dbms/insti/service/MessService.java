@@ -9,4 +9,5 @@ public interface MessService {
     public void save(Mess_incharge mess);
     public Mess_incharge findbyhostelid(int hostel_id);
     public Mess_incharge findbyuserid(int user_id);
+    public int delete(int mess_id);
 }

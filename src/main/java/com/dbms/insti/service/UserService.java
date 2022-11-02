@@ -11,4 +11,5 @@ public interface UserService {
     public Users findByUserId(int user_id);
     public List<Users> listAllUsers();
     public List<Users>FindByRole(int role);
+    public void delete(int user_id);
 }

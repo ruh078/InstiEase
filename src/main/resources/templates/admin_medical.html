@@ -237,7 +237,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        </div>
+
                                         
                                         <div class="modal fade" id="del-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         	<div class="modal-dialog " role="document">
@@ -259,13 +259,13 @@
                                                             <b>Please note that there is no option to restore the medical incharge or its related data once it is deleted.</b>
                                                             <br>
                                                             <br>
-                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn" th:href="@{/admin/medin/delete}">Confirm Delete</a>
+                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn" th:href="@{/admin/medin/delete/{id}(id=${med_incharge.user_id})}">Confirm Delete</a>
 														</div>
                                                      </div>
                                                </div>
                                             </div>
                                          </div>                                        
-                                        
+                                    </div>
                                          <div style="text-align:center; padding:20px;" class="col-lg-3 mx-auto" th:if=${med_incharge==NULL}>
                                         	<button class="btn btn-primary btn-block font-weight-medium"  data-bs-toggle="modal" data-bs-target="#update_modal">Add Medical Incharge</button>
                                         </div>

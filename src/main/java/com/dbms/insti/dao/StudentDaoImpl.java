@@ -53,7 +53,7 @@ public class StudentDaoImpl implements StudentDao{
     
     @Override
     public void edit(Student student) {
-    	String sql = "UPDATE student SET room_number=?,bank_account_no=? WHERE user_id=?";
+    	String sql = "UPDATE student SET room_number=?,bank_account_no=?, is_verified=0 WHERE user_id=?";
     	template.update(sql,student.getRoom_number(),student.getBank_account_no(),student.getUser_id());
     }
 

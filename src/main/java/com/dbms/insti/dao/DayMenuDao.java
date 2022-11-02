@@ -10,4 +10,5 @@ public interface DayMenuDao {
     public void save(Day_menu menu);
     public void edit(Day_menu menu);
     public Day_menu Menu_day(int mess_id, int day_id);
+    public void delete(int mess_id);
 }

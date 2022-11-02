@@ -69,5 +69,25 @@ public class Mess_inchargeDaoImpl implements  Mess_inchargeDao {
         	return null;
         }
 	}
+
+	@Override
+	public void delete(int mess_id) {
+		String sql = "delete from mess_incharge where mess_id=?";
+		template.update(sql, mess_id);
+	}
+
+	@Override
+	public Mess_incharge findbymessid(int mess_id) {
+		String sql = "select * from mess_incharge where mess_id=?";
+		try {
+			Mess_incharge mess = template.queryForObject(sql, messRowMapper, mess_id);
+			
+			return mess;
+		}
+		catch (EmptyResultDataAccessException e) {
+			//System.out.println("error");
+        	return null;
+        }
+	}
 	
 }

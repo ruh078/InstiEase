@@ -64,4 +64,24 @@ public class WardenDaoImpl implements WardenDao {
         }
     }
 
+	@Override
+	public void delete(int warden_id) {
+		// TODO Auto-generated method stub
+        String query = "delete from warden where warden_id=?";
+        template.update(query, warden_id);
+		
+	}
+
+	@Override
+	public Warden findbyWardenId(int warden_id) {
+		String query = "select * from warden where warden_id=?";
+        try {
+            Warden warden = template.queryForObject(query,wardenRowMapper, warden_id);
+            return warden;
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+	}
+
 }
