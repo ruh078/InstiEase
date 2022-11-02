@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-   
+
 </head>
 
    <div class="container-scroller">
@@ -25,13 +24,13 @@
                 <div class="sidebar-menu">
                     <ul class="menu" style="margin:0px;">
 
-                        <li class="sidebar-item active">
+                        <li class="sidebar-item ">
                             <a th:href="@{/student}" class='sidebar-link'>
                                 <i class="bi bi-person-fill"></i>
                                 <span>Account</span>
                             </a>
                         </li>
-                        <li class="sidebar-item has-sub  ">
+                        <li class="sidebar-item has-sub  active">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-stack"></i>
                                 <span>Activities</span>
@@ -43,7 +42,7 @@
                                 <li class="submenu-item">
                                     <a th:href="@{/student/mess}">Mess Facility</a>
                                 </li>
-                                <li class="submenu-item">
+                                <li class="submenu-item active">
                                     <a th:href="@{/student/washerman}">Washerman Facility</a>
                                 </li>
                                 <li class="submenu-item">

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.dbms.insti.models.Appointment;
 import com.dbms.insti.models.Complaints;
 import com.dbms.insti.models.Student;
@@ -31,7 +31,7 @@ public class ComplainController {
     private ComplaintService complaintservice;
     
     @GetMapping("/student/complain")
-    public String complainspage(Model model){
+    public String complainspage(Model model, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
                    
@@ -46,12 +46,13 @@ public class ComplainController {
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
            
      }
     @PostMapping("/student/complain")
-    public String filecomplaint(@ModelAttribute("newcomplaint") Complaints complaint){
+    public String filecomplaint(@ModelAttribute("newcomplaint") Complaints complaint,RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -62,17 +63,20 @@ public class ComplainController {
 
                    complaint.setComplain_date(sqlDate);
                    complaintservice.save(complaint);
+                   attributes.addFlashAttribute("msg", "Complaint filed!");
+
                    return "redirect:/student/complain";
                }
                return "redirect:/";
            }
-           
+            attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
            
      }
     
     @PostMapping("/student/complain/edit/{com_id}")
-    public String editcomplaint(@PathVariable int com_id, @ModelAttribute("newcomplaint") Complaints complaint){
+    public String editcomplaint(@PathVariable int com_id, @ModelAttribute("newcomplaint") Complaints complaint, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
                    Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -80,26 +84,32 @@ public class ComplainController {
                    
                    complaint.setComplaint_id(com_id);
                    complaintservice.edit(complaint);
+                   attributes.addFlashAttribute("msg", "Complaint edited!");
+
                    return "redirect:/student/complain";
                }
                return "redirect:/";
            }
-           
+            	attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
            
      }
     @PostMapping("/student/complain/delete/{com_id}")
-    public String deletecomplaint(@PathVariable int com_id){
+    public String deletecomplaint(@PathVariable int com_id, RedirectAttributes attributes){
            if(securityService.isLoggedIn()) {
                if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
                    
                    
                    complaintservice.delete(com_id);
+                   attributes.addFlashAttribute("msg", "Complaint deleted!");
+
                    return "redirect:/student/complain";
                }
                return "redirect:/";
            }
-           
+           attributes.addFlashAttribute("msg", "Not Logged In!");
+
            return "redirect:/login";
            
      }

@@ -46,6 +46,7 @@ import com.dbms.insti.service.SecurityService;
 import com.dbms.insti.service.StudentService;
 import com.dbms.insti.service.UserService;
 import com.dbms.insti.service.WashermanService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class StudentController {
 	@Autowired
@@ -76,7 +77,7 @@ public class StudentController {
     private LaundaryService laundaryservice;
     
 	@GetMapping("/student")
-	   public String studentpage(Model model){
+	   public String studentpage(Model model, RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user=userService.findByEmail(securityService.findLoggedInUsername());
@@ -91,13 +92,14 @@ public class StudentController {
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 	       return "redirect:/login";
 	       
 	 }
 	
 	@GetMapping("/student/medical")
-	public String appointmentspage(Model model){
+	public String appointmentspage(Model model, RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   
@@ -116,62 +118,71 @@ public class StudentController {
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/medical")
-	public String takeappointment(@ModelAttribute("newappointment") Appointment appointment){
+	public String takeappointment(@ModelAttribute("newappointment") Appointment appointment,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
 	        	   appointment.setStudent_roll_no(student.getRoll_number());
 	        	   appointmentService.save(appointment);
+				   attributes.addFlashAttribute("msg", "New Appointment registered!");
 	               return "redirect:/student/medical";
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	
+		   	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/medical/edit/{appointment_id}")
-	public String editappointment(@PathVariable int appointment_id, @ModelAttribute("newappointment") Appointment appointment){
+	public String editappointment(@PathVariable int appointment_id, @ModelAttribute("newappointment") Appointment appointment,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
 	        	   Student student = studentservice.getStudentbyUserId(user.getUser_id());
 	        	   appointment.setStudent_roll_no(student.getRoll_number());
 	        	   appointmentService.edit(appointment);
+				   	attributes.addFlashAttribute("msg", "Details Updated!");
+
 	               return "redirect:/student/medical";
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/medical/delete/{appointment_id}")
-	public String deleteappointment(@PathVariable int appointment_id){
+	public String deleteappointment(@PathVariable int appointment_id, RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	
 	        	   appointmentService.delete(appointment_id);
+				   	attributes.addFlashAttribute("msg", "Appointment Deleted!");
+
 	               return "redirect:/student/medical";
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	       return "redirect:/login";
 	       
 	 }
 	
 	@GetMapping("/student/medical/prescription/{appointment_id}")
-	public String appointmentspage(@PathVariable int appointment_id, Model model){
+	public String appointmentspage(@PathVariable int appointment_id, Model model,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Appointment a = appointmentService.getAppointmentbyId(appointment_id);
@@ -185,13 +196,14 @@ public class StudentController {
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 	       return "redirect:/login";
 	       
 	 }
 	
 	@GetMapping("/student/mess")
-	public String messpage(Model model){
+	public String messpage(Model model,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -238,6 +250,8 @@ public class StudentController {
 	        	   model.addAttribute("iseligible", student.getIs_verified());
 	        	   return "student_mess";
 	           }
+			   attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	           return "redirect:/";
 	       }
 	       
@@ -246,7 +260,7 @@ public class StudentController {
 	 }
 	
 	@PostMapping("/student/mess")
-	public String addcancel( @ModelAttribute("cancel_end_date")Dates endingdate, @ModelAttribute("newrequest") Cancel_mess cancel_mess){
+	public String addcancel( @ModelAttribute("cancel_end_date")Dates endingdate, @ModelAttribute("newrequest") Cancel_mess cancel_mess,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -265,48 +279,57 @@ public class StudentController {
 	        	       System.out.println(date);
 	        	       cancelmessService.save(cancel_mess);
 	        	   }
+				   attributes.addFlashAttribute("msg", "cancel request added!");
+	     
 	        	   return "redirect:/student/mess";
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/mess/edit/{id}")
-	public String editcancel( @PathVariable int id, @ModelAttribute("newrequest") Cancel_mess cancel_mess){
+	public String editcancel( @PathVariable int id, @ModelAttribute("newrequest") Cancel_mess cancel_mess,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   cancel_mess.setCancel_date(cancelmessService.getById(id).getCancel_date());
 	        	   cancel_mess.setStudent_roll_no(cancelmessService.getById(id).getStudent_roll_no());
 	        	   cancel_mess.setRequest_id(id);
 	        	   cancelmessService.edit(cancel_mess);
+				   	attributes.addFlashAttribute("msg", "cancel request edited!");
+
 	        	   return "redirect:/student/mess";
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/mess/delete/{id}")
-	public String delete( @PathVariable int id){
-	       if(securityService.isLoggedIn()) {
+	public String delete( @PathVariable int id, RedirectAttributes attributes){
+	       if(securityService.isLoggedIn()){
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   cancelmessService.delete(id);
+				   	attributes.addFlashAttribute("msg", "cancel request deleted!");
+
 	        	   return "redirect:/student/mess";
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	       return "redirect:/login";
 	       
 	 }
 	
 	@GetMapping("/student/washerman")
-	public String laundarypage(Model model){
+	public String laundarypage(Model model,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -328,13 +351,14 @@ public class StudentController {
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
+
 	       return "redirect:/login";
 	       
 	 }
 	
 	@GetMapping("/student/washerman/{id}")
-	public String laundarypage(@PathVariable int id, Model model){
+	public String laundarypage(@PathVariable int id, Model model, RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -352,13 +376,14 @@ public class StudentController {
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/washerman/{id}")
-	public String giveorder(@PathVariable int id, @ModelAttribute("neworder") Laundary_orders neworder){
+	public String giveorder(@PathVariable int id, @ModelAttribute("neworder") Laundary_orders neworder,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -370,32 +395,38 @@ public class StudentController {
 	       		   neworder.setWasher_id(id);
 	       		   laundaryservice.save(neworder);
 	       		   String url = "redirect:/student/washerman/" + id;
+				   	attributes.addFlashAttribute("msg", "Order placed!");
+
 	               return url;
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+        
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/washerman/{wid}/delete/{id}")
-	public String deleteorder(@PathVariable int wid, @PathVariable int id){
+	public String deleteorder(@PathVariable int wid, @PathVariable int id,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   laundaryservice.delete(id);
 	       		   String url = "redirect:/student/washerman/" + wid;
+				   	attributes.addFlashAttribute("msg", "order deleted!");
+					
 	               return url;
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       	attributes.addFlashAttribute("msg", "Not Logged In!");
+			
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("/student/washerman/{wid}/edit/{id}")
-	public String editorder(@PathVariable int wid, @PathVariable int id, @ModelAttribute("neworder") Laundary_orders order){
+	public String editorder(@PathVariable int wid, @PathVariable int id, @ModelAttribute("neworder") Laundary_orders order,RedirectAttributes attributes){
 	       if(securityService.isLoggedIn()) {
 	           if(userService.findByEmail(securityService.findLoggedInUsername()).getRole()==3) {
 	        	   Users user = userService.findByEmail(securityService.findLoggedInUsername());
@@ -405,21 +436,27 @@ public class StudentController {
 	        	   order.setStudent_roll_no(student.getRoll_number());
 	        	   laundaryservice.edit(order);
 	       		   String url = "redirect:/student/washerman/" + wid;
+				   	attributes.addFlashAttribute("msg", "Order Updated!");
+
 	               return url;
 	           }
 	           return "redirect:/";
 	       }
-	       
+	       attributes.addFlashAttribute("msg", "Not Logged In!");
+       
 	       return "redirect:/login";
 	       
 	 }
 	
 	@PostMapping("student/edit/{id}")
-	public String editstudent(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, @ModelAttribute("newstudent") Student student, Model model) {
+	public String editstudent(@PathVariable("id") int id, @ModelAttribute("newuser") Users user, @ModelAttribute("newstudent") Student student, Model model,
+			RedirectAttributes attributes) {
 		user.setUser_id(id);
 		student.setUser_id(id);
 		userService.edit(user);
 		studentservice.edit(student);
+		attributes.addFlashAttribute("msg", "Sucessfully Updated!");
+
 		return "redirect:/student";
 	}
 	
