@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -127,8 +128,12 @@ public class ComplaintsDaoImpl implements ComplaintsDao {
     @Override
     public Complaints getcomplaintbyid(int complaint_id) {
         String sql ="select * from complaints where complaint_id=?";
-        Complaints complaints = template.queryForObject(sql,complaintRowMapper, complaint_id);
-        return complaints;
-        
+        try {
+        	Complaints complaints = template.queryForObject(sql,complaintRowMapper, complaint_id);
+        	return complaints;
+        }
+        catch(EmptyResultDataAccessException e){
+        	return null;
+        }
     }
 }

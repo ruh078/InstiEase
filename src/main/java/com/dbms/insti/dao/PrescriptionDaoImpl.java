@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -49,7 +50,11 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 	@Override
 	public Prescription findPrescription(int appointment_id, int med_id) {
 		String sql = "select * from prescription where appointment_id=? and med_id=?";
-		return template.queryForObject(sql, prescriptionRowMapper, appointment_id, med_id);
+		try {
+			return template.queryForObject(sql, prescriptionRowMapper, appointment_id, med_id);
+		} catch (EmptyResultDataAccessException e) {
+            return null;
+        }
 	}
 
 

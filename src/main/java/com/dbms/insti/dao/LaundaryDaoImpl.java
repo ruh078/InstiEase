@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -83,7 +84,11 @@ public class LaundaryDaoImpl implements LaundaryDao {
 	@Override
 	public Laundary_orders getByOrderId(int order_id) {
 		String sql = "select * from laundary_orders where order_id=?";
+	try {
 		return template.queryForObject(sql, laundaryRowMapper, order_id);
+	} catch (EmptyResultDataAccessException e) {
+        return null;
+    }
 	}
 
 	@Override
