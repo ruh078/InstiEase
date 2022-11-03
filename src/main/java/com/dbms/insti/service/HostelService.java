@@ -8,4 +8,5 @@ public interface HostelService {
     public List<Hostel> listAllHostels();
     public void save(Hostel hostel);
     public Hostel getHostelbyId(int hostel_id);
+    public int delete(int hostel_id);
 }

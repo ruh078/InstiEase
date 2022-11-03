@@ -61,4 +61,11 @@ public class AdminStudentController {
            return "redirect:/admin/student";
     }
     
+    @GetMapping({"/admin/student/change_laundary"})
+    public String change_laundary(RedirectAttributes attributes) {
+           studentservice.update_laundary();
+           attributes.addFlashAttribute("msg", "Eligibility updated!");
+           return "redirect:/admin/student";
+    }
+    
 }

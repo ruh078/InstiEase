@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+><!DOCTYPE html>
 
 <body lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::div})">
 
@@ -106,7 +106,7 @@
                                                         <td th:text ="${hostel.hostel_id}"/>
                                                         <td th:text="${hostel.hostel_name}" />
                                                         <td>
-                                                        <div class="modal fade" id="del-confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                        <div class="modal fade" th:id="|del-confirm_${hostel.hostel_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog " role="document">
                                                                 <div class="modal-content card-light-danger">
@@ -128,10 +128,11 @@
                                                                             <b>Please note that there is no option to restore the Hostel or its related data once it is deleted.</b>
                                                                             <br>
                                                                             <br>
-                                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                th:href="@{/admin/hostel/delete}">
-                                                                                Confirm
-                                                                                Delete</a>
+                                                                            <form th:action="@{/admin/hostel/delete/{id}(id=${hostel.hostel_id})}" method="POST">
+                                                                            <input value="Delete Hostel" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
 
                                                                         </div>
                                                                     </div>
@@ -139,7 +140,7 @@
                                                             </div>
                                                         </div>
                                                         
-                                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#del-confirm"
+                                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="|#del-confirm_${hostel.hostel_id}|"
                                                             data-whatever="@getbootstrap">Delete</button>
                                                         </td>
                                                     </tr>

@@ -241,10 +241,18 @@ public class StudentController {
 	        		   attributes.addFlashAttribute("msg", "Mess charges are not added by admin");
 	        		   return "redirect:/student";
 	        	   }
+	        	   if(messService.findbyhostelid(student.getHostel_id())!=null) {
+	        		   model.addAttribute("menu", daymenuService.Menu(messService.findbyhostelid(student.getHostel_id()).getMess_id()));
+	        		   
+	        	   }
+	        	   else {
+	        		   model.addAttribute("menu", null);
+ 
+	        	   }
 	        	   model.addAttribute("cancel_requests", cancelmessService.CancellationofStudent(student.getRoll_number()));
 	        	   model.addAttribute("newrequest", new Cancel_mess());
 	        	   model.addAttribute("days", Days);
-	        	   model.addAttribute("menu", daymenuService.Menu(messService.findbyhostelid(student.getHostel_id()).getMess_id()));
+	        	   
 	        	   model.addAttribute("date", date);
 	        	   model.addAttribute("enddate", enddate);
 	        	   model.addAttribute("cancel_end_date", new Dates());

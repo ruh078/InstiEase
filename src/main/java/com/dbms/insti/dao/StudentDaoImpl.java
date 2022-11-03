@@ -38,7 +38,7 @@ public class StudentDaoImpl implements StudentDao{
 
     @Override
     public List<Student> listAllStudents() {
-        String sql = "select * from student";
+        String sql = "select * from student order by is_verified";
         List<Student> students = template.query(sql, studentRowMapper);
         return students;
     }
@@ -110,6 +110,19 @@ public class StudentDaoImpl implements StudentDao{
 	public void editeligibility(int roll_number, int iseligible) {
 		String sql ="update student set is_eligible_laundary=? where roll_number=?";
         template.update(sql,iseligible,roll_number);
+	}
+
+	@Override
+	public void update_laundary() {
+		String sql = "update student set is_eligible_laundary=0 where due_wash_charges!=0 ";
+		template.update(sql);
+		
+	}
+
+	@Override
+	public void delete(int roll_number) {
+		String sql = "delete from student where roll_number=?";
+		template.update(sql, roll_number);
 	}
     
 

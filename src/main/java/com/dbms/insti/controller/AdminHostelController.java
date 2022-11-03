@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -41,9 +42,13 @@ public class AdminHostelController {
            attributes.addFlashAttribute("msg", "Succesfully added new hostel!");
            return "redirect:/admin/hostel";
     }
-    @GetMapping("/admin/hostel/delete")
-    public String deletehostel(Model model, RedirectAttributes attributes) {
-        attributes.addFlashAttribute("msg", "Succesfully Deleted!");
+    @PostMapping("/admin/hostel/delete/{id}")
+    public String deletehostel(@PathVariable int id, Model model, RedirectAttributes attributes) {
+    	int x = hostelService.delete(id);
+    	if(x==1)
+    		attributes.addFlashAttribute("msg", "Succesfully Deleted!");
+    	else
+    		attributes.addFlashAttribute("msg", "This hostel can't be deleted since users are associated with this hostel");
         return "redirect:/admin/hostel";
     }
 }

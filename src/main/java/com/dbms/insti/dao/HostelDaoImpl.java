@@ -52,4 +52,10 @@ public class HostelDaoImpl implements HostelDao {
        
     }
 
+	@Override
+	public void delete(int hostel_id) {
+		String sql = "delete from hostel where hostel_id=?";
+		template.update(sql, hostel_id);
+	}
+
 }

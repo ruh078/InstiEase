@@ -54,4 +54,9 @@ public class StudentServiceUtil implements StudentService{
 	public void editeligibility(int roll_number, int iseligible) {
 		studentdao.editeligibility(roll_number, iseligible);
 	}
+
+	@Override
+	public void update_laundary() {
+		studentdao.update_laundary();
+	}
 }
