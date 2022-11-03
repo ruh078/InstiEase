@@ -16,4 +16,6 @@ public interface AppointmentDao {
     public void delete(int appointment_id);
     public Appointment getAppointmentbyId(int appointment_id);
     public void updateAppointmentDesc(int appointment_id, String desc);
+    public void delete_all_orders_student(int roll_number);
+
 }

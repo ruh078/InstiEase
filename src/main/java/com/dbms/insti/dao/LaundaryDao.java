@@ -17,5 +17,6 @@ public interface LaundaryDao {
     public int duecharges(int roll_number, int washer_id);
     public List<List<Integer>> duechargesall(int washer_id);
     public int totalduecharges(int washer_id);
+    public void delete_all_orders_student(int roll_number);
 
 }

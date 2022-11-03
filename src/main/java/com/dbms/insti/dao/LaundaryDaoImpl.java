@@ -155,5 +155,11 @@ public class LaundaryDaoImpl implements LaundaryDao {
 		}
 	}
 
+	@Override
+	public void delete_all_orders_student(int roll_number) {
+		String sql = "delete from laundary_orders where student_roll_no=?";
+		template.update(sql, roll_number);
+	}
+
 	
 }

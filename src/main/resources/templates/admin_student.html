@@ -152,6 +152,43 @@
                                                         </td>
                                                         
                                                         <td>
+                                                        
+                                                        <div class="modal fade" th:id="|del-confirm2-${student.roll_number}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Delete Student</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        					
+                                                                            Are you absolutely sure you want to delete this Student?
+                                                                            <br>
+                                                                            <span th:text="${studentuser.get(student).name}"></span> 
+                                                                            <br>
+                                                                            <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            
+                                                                            <form th:action="@{/admin/student/delete/{id}(id=${student.roll_number})}" method="POST">
+                                                                            <input value="Delete Student" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                             <div class="modal fade" th:id="|del-confirm-${student.roll_number}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                                 aria-hidden="true">
                                                                 <div class="modal-dialog " role="document">
@@ -162,6 +199,7 @@
                                                                                 <span aria-hidden="true">×</span>
                                                                             </button>
                                                                         </div>
+                                                                        
                                                                         <div class="modal-body">
                                                                             <div style="white-space:normal;line-height: 160%;">
                                                                               
@@ -192,7 +230,10 @@
                                                             <button data-bs-toggle="modal" th:data-bs-target="|#del-confirm-${student.roll_number}|"
                                                              
                                                                 data-whatever="@getbootstrap" style="border:none;"><i class="bi bi-box-arrow-right"></i></button>
-                                                           
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" th:data-bs-target="|#del-confirm2-${student.roll_number}|">Delete</button>
+                                                        </td>
                                                     </tr>
 
                                                 </tbody>

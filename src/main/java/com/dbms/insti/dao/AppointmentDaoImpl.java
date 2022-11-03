@@ -148,4 +148,13 @@ public class AppointmentDaoImpl implements AppointmentDao{
 		
 	}
 
+	@Override
+	public void delete_all_orders_student(int roll_number) {
+		String sql = "delete from prescription where appointment_id in (select appointment_id from appointment where student_roll_no=?)";
+		String sql1 = "delete from appointment where student_roll_no=?";
+		template.update(sql, roll_number);
+		template.update(sql1, roll_number);
+		
+	}
+
 }

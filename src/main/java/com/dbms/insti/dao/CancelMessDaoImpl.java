@@ -154,6 +154,12 @@ public class CancelMessDaoImpl implements CancelMessDao {
 		}
 	}
 
+	@Override
+	public void delete_all_requests_student(int roll_number) {
+		String sql = "delete from cancel_mess where student_roll_no=?";
+		template.update(sql, roll_number);
+	}
+
 	
 
 }

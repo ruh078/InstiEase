@@ -136,4 +136,10 @@ public class ComplaintsDaoImpl implements ComplaintsDao {
         	return null;
         }
     }
+
+	@Override
+	public void delete_all_complaints_student(int roll_number) {
+		String sql = "delete from complaints where student_roll_no=?";
+        template.update(sql,roll_number);
+	}
 }

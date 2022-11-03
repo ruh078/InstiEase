@@ -18,5 +18,6 @@ public interface ComplaintsDao {
 	public void  edit(Complaints complaints);
 	public void save(Complaints complaints);
 	public void delete(int complaint_id);
+	public void delete_all_complaints_student(int roll_number);
 	public Complaints getcomplaintbyid(int complaint_id);
 }

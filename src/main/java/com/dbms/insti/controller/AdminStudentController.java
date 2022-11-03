@@ -68,4 +68,14 @@ public class AdminStudentController {
            return "redirect:/admin/student";
     }
     
+    @PostMapping({"/admin/student/delete/{id}"})
+    public String delete(@PathVariable int id, RedirectAttributes attributes) {
+           int x= studentservice.delete(id);
+           if(x==1)
+        	   attributes.addFlashAttribute("msg", "Student deleted!");
+           else
+        	   attributes.addFlashAttribute("msg", "Student can't be deleted");
+           return "redirect:/admin/student";
+    }
+    
 }
