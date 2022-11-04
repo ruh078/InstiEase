@@ -104,4 +104,9 @@ public class StudentServiceUtil implements StudentService{
 
 		
 	}
+
+	@Override
+	public void update_mess_charges() {
+		studentdao.update_mess_charges();
+	}
 }

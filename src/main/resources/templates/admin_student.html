@@ -88,8 +88,82 @@
                                         <h4 class="card-title">Students List</h4>
                                         <p class="card-description">List of All Students
                                         </p>
-                                        <div class="col-3">
-											<a type="button" class="btn btn-block btn-primary btn-md font-weight-medium auth-form-btn" th:href="@{/admin/student/change_laundary}">Change laundary eligibility</a>        								</div>
+                                        <div class="modal fade" id="change_eligibility" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Change Laundary Eligibility</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        					
+                                                                            Are you absolutely sure you want to change eligibility?
+                                                                            <br>
+                                                                            
+                                                                            <br>
+                                                                            <b>Students with due charges not equal to zero would be made ineligible for laundary facility</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            
+                                                                            <form th:action="@{/admin/student/change_laundary}" method="POST">
+                                                                            <input value="Confirm" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal fade" id="refund_mess" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog " role="document">
+                                                                <div class="modal-content card-light-danger">
+                                                                    <div class="modal-header ">
+                                                                        <h4 class="modal-title" id="exampleModalLabel">Refund Mess charges</h4>
+                                                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">×</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div style="white-space:normal;line-height: 160%;">
+                                                                            <div class="row justify-content-center">
+                                                                                <h1>&emsp;&emsp;&emsp;&emsp;&emsp;<i class="text-danger bi bi-exclamation-triangle"></i></h1>
+                                                                                <br>
+                                                                            </div>
+                                                        					
+                                                                            Are you absolutely sure you want to refund mess charges of all students?
+                                                                            <br>
+                                                                            
+                                                                            <br>
+                                                                            <b>Please note that there is no option to revert the changes, mess refunds of all students would be set to 0 and mess cancel requests of all students would be deleted</b>
+                                                                            <br>
+                                                                            <br>
+                                                                            
+                                                                            <form th:action="@{/admin/student/mess_refund}" method="POST">
+                                                                            <input value="Confirm" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            <button class="btn btn-sm btn-primary"  data-bs-toggle="modal" data-bs-target="#change_eligibility">Change Laundary Eligibility</button>
+                                                            <button class="btn btn-sm btn-primary"  data-bs-toggle="modal" data-bs-target="#refund_mess">Refund Mess charges of all students</button>
+
+                                                             
         								<br><br>
                                         <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                                             <table class="table table-striped">

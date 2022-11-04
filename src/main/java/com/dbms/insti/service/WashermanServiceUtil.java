@@ -69,4 +69,21 @@ public class WashermanServiceUtil implements WashermanService {
 			return 0;
 	}
 
+	@Override
+	public int edithostel(int washer_id, int hostel_id) {
+		List<Laundary_orders>l1 = laundarydao.listOrdersofWasherman(washer_id, 1);
+		List<Laundary_orders>l2 = laundarydao.listOrdersofWasherman(washer_id, 2);
+		if(l1.isEmpty()&&l2.isEmpty()) {
+			try {
+				washermandao.edithostel(washer_id, hostel_id);
+				return 1;
+			}
+			catch(Exception e) {
+				return 0;
+			}
+		}
+		else
+			return 0;
+	}
+
 }

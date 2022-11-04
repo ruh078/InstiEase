@@ -99,6 +99,13 @@ public class WashermanDaoImpl implements WashermanDao {
 		template.update(query, washer_id);
 	}
 
+	@Override
+	public void edithostel(int washer_id, int hostel_id) {
+		String sql = "UPDATE washerman SET hostel_id=? WHERE washer_id=?";
+        template.update(sql, hostel_id, washer_id);
+		
+	}
+
 	
 	
 

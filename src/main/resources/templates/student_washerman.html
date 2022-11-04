@@ -216,8 +216,13 @@
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
 																		<span th:if=${order.washer_id}>
-																		<td>Not good</td>
-																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<td>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<br>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).contact}"/>
+
+																		
+																		</td>
 																		</span>
 																		<span th:unless="${order.washer_id}">
 																		<td>Washerman Details not available</td>
@@ -277,8 +282,13 @@
 																		<td th:text="${order.order_date}"/>
 																		
 																		<span th:if=${order.washer_id}>
-																		<td>Not good</td>
-																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<td>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<br>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).contact}"/>
+
+																		
+																		</td>
 																		</span>
 																		<span th:unless="${order.washer_id}">
 																		<td>Washerman Details not available</td>
@@ -336,8 +346,13 @@
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
 																		<span th:if=${order.washer_id}>
-																		<td>Not good</td>
-																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<td>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<br>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).contact}"/>
+
+																		
+																		</td>
 																		</span>
 																		<span th:unless="${order.washer_id}">
 																		<td>Washerman Details not available</td>
@@ -395,8 +410,13 @@
 																		<td th:text="${order.order_id}"/>
 																		<td th:text="${order.order_date}"/>
 																		<span th:if=${order.washer_id}>
-																		<td>Not good</td>
-																		<td th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<td>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).name}"/>
+																		<br>
+																		<span th:text="${userservice.findByUserId(washerservice.findByWasherId(order.washer_id).user_id).contact}"/>
+
+																		
+																		</td>
 																		</span>
 																		<span th:unless="${order.washer_id}">
 																		<td>Washerman Details not available</td>

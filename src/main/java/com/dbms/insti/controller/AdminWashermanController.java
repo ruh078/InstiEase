@@ -101,4 +101,18 @@ public class AdminWashermanController {
             attributes.addFlashAttribute("msg", "Successfully Updated details!");
             return "redirect:/admin/wash";
         }
+        
+        @PostMapping({"/admin/wash/edithostel/{id}"})
+        public String edithostelwasher(@PathVariable("id") int id, @ModelAttribute("newwasher") Washerman washer, RedirectAttributes attributes) {
+           
+            //user.setRole(6);
+            //user.setEmail_id(userService.findByUserId((washerService.findByWasherId(id)).getUser_id()).getEmail_id());
+            //user.setPsw(userService.findByUserId((washerService.findByWasherId(id)).getUser_id()).getPsw());
+            int x = washerService.edithostel(id,washer.getHostel_id());
+            if(x==1)
+            	attributes.addFlashAttribute("msg", "Successfully Updated Hostel!");
+            else
+            	attributes.addFlashAttribute("msg", "Cannot change the hostel!");
+            return "redirect:/admin/wash";
+        }
 }

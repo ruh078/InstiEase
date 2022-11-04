@@ -124,6 +124,15 @@ public class StudentDaoImpl implements StudentDao{
 		String sql = "delete from student where roll_number=?";
 		template.update(sql, roll_number);
 	}
+
+	@Override
+	public void update_mess_charges() {
+		String sql = "delete from cancel_mess";
+		String sql1 = "update student set mess_refund=0";
+		template.update(sql);
+		template.update(sql1);
+		
+	}
     
 
 }

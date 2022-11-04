@@ -61,10 +61,17 @@ public class AdminStudentController {
            return "redirect:/admin/student";
     }
     
-    @GetMapping({"/admin/student/change_laundary"})
+    @PostMapping({"/admin/student/change_laundary"})
     public String change_laundary(RedirectAttributes attributes) {
            studentservice.update_laundary();
            attributes.addFlashAttribute("msg", "Eligibility updated!");
+           return "redirect:/admin/student";
+    }
+    
+    @PostMapping({"/admin/student/mess_refund"})
+    public String mess_refund(RedirectAttributes attributes) {
+           studentservice.update_mess_charges();
+           attributes.addFlashAttribute("msg", "Mess charges refunded successfully");
            return "redirect:/admin/student";
     }
     

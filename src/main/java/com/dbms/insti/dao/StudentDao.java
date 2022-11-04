@@ -16,4 +16,5 @@ public interface StudentDao {
     public void update_verify(int roll_number, int is_verified);
     public void update_laundary();
     public void delete(int roll_number);
+    public void update_mess_charges();
 }

@@ -15,5 +15,6 @@ public interface StudentService {
     public void editeligibility(int roll_number, int iseligible);
     public void update_laundary();
     public int delete(int roll_number);
+    public void update_mess_charges();
 
 }

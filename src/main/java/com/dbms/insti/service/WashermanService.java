@@ -12,4 +12,5 @@ public interface WashermanService {
     public Washerman findByUserId(int user_id);
     public List<Washerman>listAllWashermanofHostel(int hostel_id);
     public int delete(int washer_id);
+    public int edithostel(int washer_id, int hostel_id);
 }
