@@ -1,7 +1,7 @@
 create table users (
 	user_id int auto_increment not null,
 	email_id varchar(255) not null,
-	psw varchar(1000) not null,
+	psw varchar(255) not null,
 	role int not null,
 	name varchar(255) not null,
 	contact varchar(12) not null,
@@ -19,11 +19,11 @@ create table hostel (
 create table student (
 	roll_number int not null,
 	room_number int not null,
-	mess_refund int not null,
+	mess_refund int not null default 0,
 	bank_account_no varchar(255) not null,
-	is_eligible_laundary int not null,
-	due_wash_charges int not null,
-	is_verified int not null,
+	is_eligible_laundary int not null default 0,
+	due_wash_charges int not null default 0,
+	is_verified int not null default 0,
 	user_id int not null,
 	hostel_id int not null,
 	primary key (roll_number),
@@ -32,7 +32,7 @@ create table student (
 );
 
 create table warden(
-	warden_id int not null,
+	warden_id int auto_increment not null,
 	hostel_id int not null,
 	user_id int not null,
 	primary key(warden_id),
@@ -41,7 +41,7 @@ create table warden(
 );
 
 create table mess_incharge(
-	mess_id int not null,
+	mess_id int auto_increment not null,
 	hostel_id int not null,
 	user_id int not null,
 	primary key(mess_id),
@@ -50,7 +50,7 @@ create table mess_incharge(
 );
 
 create table washerman(
-	washer_id int not null,
+	washer_id int auto_increment not null,
 	account_no varchar(30) not null,
 	upi_id varchar(255) not null,
 	cost_sheet_wash int not null,
@@ -74,13 +74,13 @@ create table complaints(
 	type int not null,
 	isPrivate int not null,
 	status varchar(50) not null,
+	complain_date date not null,
 	primary key(complaint_id),
 	foreign key (student_roll_no) references student(roll_number)
 );
 
 create table laundary_orders(
 	order_id int auto_increment not null,
-	ispaid int not null,
 	cost int not null,
 	order_date date not null,
 	number_uppers int not null,
@@ -90,10 +90,10 @@ create table laundary_orders(
 	to_iron int not null,
 	status_of_orders varchar(50) not null,
 	student_roll_no int not null,
-	washer_id int not null,
+	washer_id int,
 	primary key(order_id),
 	foreign key (student_roll_no) references student(roll_number),
-	foreign key (washer_id) references washerman(washer_id)
+	foreign key (washer_id) references washerman(washer_id) on delete set null
 );
 
 create table cancel_mess(
@@ -136,7 +136,7 @@ create table appointment(
 create table medicine(
 	medicine_id int auto_increment not null,
 	medicine_name varchar(255) not null,
-	quantity_in_stock varchar(255) not null,
+	quantity_in_stock int not null,
 	primary key(medicine_id)
 );
 
