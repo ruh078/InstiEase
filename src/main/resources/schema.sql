@@ -152,3 +152,6 @@ create table prescription(
 	foreign key(appointment_id) references appointment(appointment_id),
 	foreign key(med_id) references medicine(medicine_id)
 );
+
+
+/*INSERT INTO users (email_id, psw, role, name, contact, dob, gender) VALUES ("admin@xyz.com", "$2a$12$kjcbZCZY9kxwP6MKOirGR.mwMosMualk666Scft3oqgABgcmnwrY6", 1, "Piyush Goel", "8488822211", "1980-01-01", "Male");*/
