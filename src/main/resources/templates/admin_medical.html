@@ -212,11 +212,11 @@
                                                         <form th:action="@{/admin/medin/edit/{id}(id=${med_incharge.user_id})}" method="POST" th:object="${newUser}">                                                                                                 
                                                             <div class="form-group">
                                                                 <label for="name">Name</label>
-                                                                <input type="text" id="name" class="form-control form-control-lg" placeholder="Medical Incharge Name" th:name="name" th:value=${med_incharge.name} required>
+                                                                <input type="text" id="name" class="form-control form-control-lg" placeholder="Medical Incharge Name" th:name="name" th:value="${med_incharge.name}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Date of Birth</label>
-                                                                <input type="date" id="name" class="form-control form-control-lg" placeholder="dob" th:name="dob" th:value=${med_incharge.dob} required>
+                                                                <input type="date" id="name" class="form-control form-control-lg" placeholder="dob" th:name="dob" th:value="${med_incharge.dob}" required>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="name">Contact</label>
