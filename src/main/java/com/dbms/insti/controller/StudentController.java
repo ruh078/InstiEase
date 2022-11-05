@@ -89,6 +89,7 @@ public class StudentController {
 	        	   model.addAttribute("newuser", new Users());
 	        	   model.addAttribute("newstudent",new Student());
 	        	   model.addAttribute("hostel", hostel);
+	        	   model.addAttribute("hostels", hostelService.listAllHostels());
 	               return "student_profile";
 	           }
 	           return "redirect:/";
@@ -491,6 +492,16 @@ public class StudentController {
 	    	   attributes.addFlashAttribute("msg", "Enter correct old password!");
 	       }
 	      
+	       return "redirect:/student";
+	   }
+	
+	@PostMapping("/student/changehostel/{id}")
+	   public String changehostel(@PathVariable("id") int id, @ModelAttribute("newstudent") Student student, RedirectAttributes attributes) {
+	       int x = studentservice.change_hostel(id, student.getHostel_id());
+	       if(x==1)
+	    	   attributes.addFlashAttribute("msg", "Changed hostel successfully!");
+	       else
+	    	   attributes.addFlashAttribute("msg", "Cannot change the hostel!");
 	       return "redirect:/student";
 	   }
 }

@@ -17,4 +17,5 @@ public interface StudentDao {
     public void update_laundary();
     public void delete(int roll_number);
     public void update_mess_charges();
+    public void change_hostel(int roll_number, int hostel_id);
 }

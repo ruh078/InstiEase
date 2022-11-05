@@ -133,6 +133,15 @@ public class StudentDaoImpl implements StudentDao{
 		template.update(sql1);
 		
 	}
+
+	@Override
+	public void change_hostel(int roll_number, int hostel_id) {
+		String sql = "delete from complaints where student_roll_no=? and type!=4";
+		String sql1 = "update student set hostel_id=?, is_verified=0 where roll_number=?";
+		template.update(sql1, hostel_id, roll_number);
+		template.update(sql,roll_number);
+
+	}
     
 
 }

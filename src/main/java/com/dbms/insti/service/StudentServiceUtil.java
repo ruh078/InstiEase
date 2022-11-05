@@ -109,4 +109,20 @@ public class StudentServiceUtil implements StudentService{
 	public void update_mess_charges() {
 		studentdao.update_mess_charges();
 	}
+
+	@Override
+	public int change_hostel(int roll_number, int hostel_id) {
+		Student student = studentdao.getStudentbyId(roll_number);
+		if(student.getMess_refund()!=0)
+			return 0;
+		if(student.getDue_wash_charges()!=0)
+			return 0;
+		if(!laundarydao.listAllOrdersofStudent(roll_number, 1).isEmpty())
+			return 0;
+		if(!laundarydao.listAllOrdersofStudent(roll_number, 2).isEmpty())
+			return 0;
+		cancelmessdao.delete_all_requests_student(roll_number);
+		studentdao.change_hostel(roll_number, hostel_id);
+		return 1;
+	}
 }

@@ -16,5 +16,5 @@ public interface StudentService {
     public void update_laundary();
     public int delete(int roll_number);
     public void update_mess_charges();
-
+    public int change_hostel(int roll_number, int hostel_id);
 }
