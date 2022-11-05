@@ -82,7 +82,7 @@ public class AdminWardenController {
             attributes.addFlashAttribute("msg", "Succesfully added new warden!");
     		return "redirect:/admin/warden";
     }
-    @GetMapping("/admin/warden/delete/{id}")
+    @PostMapping("/admin/warden/delete/{id}")
     public String deletewarden(@PathVariable int id, Model model, RedirectAttributes attributes) {
     	int x = wardenService.delete(id);
     	if(x==1)

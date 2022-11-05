@@ -78,7 +78,7 @@ public class AdminWashermanController {
             attributes.addFlashAttribute("msg", "Successfully added new washerman!");
             return "redirect:/admin/wash";
         }
-        @GetMapping("/admin/wash/delete/{id}")
+        @PostMapping("/admin/wash/delete/{id}")
         public String deletewasher(@PathVariable("id") int id, Model model, RedirectAttributes attributes) {
         	int x = washerService.delete(id);
         	if(x==1)

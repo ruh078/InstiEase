@@ -155,7 +155,7 @@ public class AdminMessController {
         	return "redirect:/admin/messin";
     }  
     
-    @GetMapping("/admin/messin/delete/{id}")
+    @PostMapping("/admin/messin/delete/{id}")
     public String deletemess(@PathVariable("id") int id, Model model, RedirectAttributes attributes) {
         int x = messService.delete(id);
         if(x==1)

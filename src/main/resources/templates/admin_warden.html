@@ -137,10 +137,12 @@
                                                                             <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
                                                                             <br>
                                                                             <br>
-                                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                th:href="@{/admin/warden/delete/{id}(id=${hostelwarden.get(hostel)})}">
-                                                                                Confirm
-                                                                                Delete</a>
+                                                                            <form th:action="@{/admin/warden/delete/{id}(id=${hostelwarden.get(hostel)})}" method="POST">
+                                                                            <input value="Confirm Delete" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
+                                                                           
 
                                                                         </div>
                                                                     </div>

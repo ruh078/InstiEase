@@ -228,7 +228,7 @@
                                                             </td>
 
                                                             <td><button class="btn btn-sm btn-warning"  data-bs-toggle="modal" th:data-bs-target="|#update_modal_${hostel.hostel_id}2|">Edit</button>
-                                                            <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" th:data-bs-target="|#del-confirm-${hostel.hostel_id}|">Delete</button>
+                                                            <button class="btn btn-sm btn-danger"  data-bs-toggle="modal" th:data-bs-target="|#del-confirm1-${hostel.hostel_id}|">Delete</button>
                                                             </td>
                                                         </span>                                                       
                                                     </tr>                                               
@@ -237,7 +237,7 @@
                                         </div>
                                         <div th:each="hostel:${hostels}">
                                         <div th:if="${hostelmess.get(hostel)!=NULL}">
-                                        <div class="modal fade" th:id="|del-confirm-${hostel.hostel_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        <div class="modal fade" th:id="|del-confirm1-${hostel.hostel_id}|" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                             aria-hidden="true">
                                                             <div class="modal-dialog " role="document">
                                                                 <div class="modal-content card-light-danger">
@@ -261,10 +261,12 @@
                                                                             <b>Please note that there is no option to restore it or its related data once it is deleted.</b>
                                                                             <br>
                                                                             <br>
-                                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                th:href="@{/admin/messin/delete/{id}(id=${hostelmess.get(hostel)})}">
-                                                                                Confirm
-                                                                                Delete</a>
+                                                                             <form th:action="@{/admin/messin/delete/{id}(id=${hostelmess.get(hostel)})}" method="POST">
+                                                                            <input value="Confirm Delete" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
+                                                                            
 
                                                                         </div>
                                                                     </div>

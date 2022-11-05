@@ -47,7 +47,7 @@ public class AdminMedicalController {
            attributes.addFlashAttribute("msg", "Successfully added medical incharge!");
            return "redirect:/admin/medin";
     }
-    @GetMapping("/admin/medin/delete/{id}")
+    @PostMapping("/admin/medin/delete/{id}")
     public String deletemedical(@PathVariable int id, Model model, RedirectAttributes attributes) {
     	userService.delete(id);
         attributes.addFlashAttribute("msg", "Successfully deleted medical incharge!");

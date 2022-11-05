@@ -259,7 +259,11 @@
                                                             <b>Please note that there is no option to restore the medical incharge or its related data once it is deleted.</b>
                                                             <br>
                                                             <br>
-                                                            <a type="button" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn" th:href="@{/admin/medin/delete/{id}(id=${med_incharge.user_id})}">Confirm Delete</a>
+                                                            <form th:action="@{/admin/medin/delete/{id}(id=${med_incharge.user_id})}" method="POST">
+                                                                            <input value="Confirm Delete" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
 														</div>
                                                      </div>
                                                </div>

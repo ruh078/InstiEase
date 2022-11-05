@@ -253,7 +253,7 @@
                                                                             	
                                                             				
                                                             					<div class="form-group">
-                                                        					    	<select class="form-control-xl dropdown" th:name="hostel_id" th:value="${washermanuser.get(washerman).hostel_id}" required>
+                                                        					    	<select class="form-control-xl dropdown" th:name="hostel_id" required>
                                															   <option th:each="hostel : ${hostels}" th:if="${hostel.hostel_id!=washermanhostel.get(washerman).hostel_id}" th:value="${hostel.hostel_id}" th:text="${hostel.hostel_name}"></option>		
 
                          															</select>
@@ -302,11 +302,12 @@
                                                                                     data once it is deleted.</b>
                                                                                 <br>
                                                                                 <br>
-                                                                                <a type="button"
-                                                                                    class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
-                                                                                    th:href="@{/admin/wash/delete/{id}(id=${washerman.washer_id})}">
-                                                                                    Confirm
-                                                                                    Delete</a>
+                                                                                <form th:action="@{/admin/wash/delete/{id}(id=${washerman.washer_id})}" method="POST">
+                                                                            <input value="Confirm Delete" type="submit" class="btn btn-block btn-danger btn-lg font-weight-medium auth-form-btn"
+                                                                               />
+                                                                                
+                                                                            </form>
+                                                                                
 
                                                                             </div>
                                                                         </div>
