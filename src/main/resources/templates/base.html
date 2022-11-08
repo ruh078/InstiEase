@@ -35,7 +35,7 @@
 
 </head>
   <body>
-    <div  id="liveToast" class="toast align-items-center text-white bg-primary border-0  justify-content-center d-flex" role="alert" aria-live="assertive"
+    <div  th:if="${msg}"id="liveToast" class="toast align-items-center text-white bg-primary border-0 d-flex justify-content-center align-items-center w-100" role="alert" aria-live="assertive"
       aria-atomic="true">
       <div class="d-flex">
         <div class="toast-body">
