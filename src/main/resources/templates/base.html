@@ -35,22 +35,40 @@
 
 </head>
   <body>
+    <div  id="liveToast" class="toast align-items-center text-white bg-primary border-0  justify-content-center d-flex" role="alert" aria-live="assertive"
+      aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+         <p th:text="${msg}"></p>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+          aria-label="Close"></button>
+      </div>
+    </div>
 		<script th:inline="javascript">
 		/*<![CDATA[*/
 			var msg = /*[[${msg}]]*/
 		/*]]>*/
-		
-			window.onload = function(){ if(msg!=null){Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          }
-        }).fire({icon:'info', title:msg})}};
+			// window.onload = function(){ if(msg!=null){
+
+      //   Swal.mixin({ 
+      //     toastify:true,
+      //     position: 'top-end',
+      //     showConfirmButton: false,
+      //     timer: 3000,
+      //     timerProgressBar: true,
+      //     didOpen: (toast) => {
+      //       toast.addEventListener('mouseenter', Swal.stopTimer)
+      //       toast.addEventListener('mouseleave', Swal.resumeTimer)
+      //     }
+      //   }).fire({icon:'info', title:msg})
+        
+      // }};
+      window.onload = (event) => {
+          var toastLiveExample = document.getElementById('liveToast')
+          var toast = new bootstrap.Toast(toastLiveExample)
+          toast.show()
+        }
 		</script>
        
   <script th:src="@{/vendors/sweetalert/sweetalert.min.js}"></script>
@@ -85,14 +103,15 @@
       
       
       </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <script th:src="@{/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
   <script th:src="@{/assets/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/jsd2.js}"></script>
   <script th:src="@{/assets/vendors/apexcharts/apexcharts.js}"></script>
   <script th:src="@{/assets/js/pages/dashboard.js}"></script>
   <script th:src="@{/assets/js/mazer.js}"></script>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+  <script th:src="@{/assets/js/mazer.js}"></script>
+  <script th:src="@{/assets/jsdeliver.js}"></script>
+  
 </body>
 
 </html>
